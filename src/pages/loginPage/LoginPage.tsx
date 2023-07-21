@@ -1,12 +1,12 @@
-import React, { useState } from "react";
+import React, {useState} from "react";
 import classes from "./loginPage.module.css";
-import { useDispatch, useSelector } from "react-redux";
-import { APP_ROUTES } from "utils/routes";
-import { getAuthTokenFx } from "store/modules/auth/async-actions";
-import { AppDispatch } from "store";
-import { useForm } from "react-hook-form";
-import { selectAuthData } from "store/modules/auth/selectors";
-import { appFetch } from "api/api";
+import {useDispatch, useSelector} from "react-redux";
+import {APP_ROUTES} from "utils/routes";
+import {getAuthTokenFx} from "store/modules/auth/async-actions";
+import {AppDispatch} from "store";
+import {useForm} from "react-hook-form";
+import {selectAuthData} from "store/modules/auth/selectors";
+import {appFetch} from "api/api";
 import axios from "axios";
 interface LoginFormData {
   email: string;
@@ -16,12 +16,11 @@ const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
 
   const authRequest = useSelector(selectAuthData);
-  const { handleSubmit, register, formState, setValue } =
-    useForm<LoginFormData>({
-      mode: "onSubmit",
-      reValidateMode: "onSubmit",
-      shouldFocusError: false,
-    });
+  const {handleSubmit, register, formState, setValue} = useForm<LoginFormData>({
+    mode: "onSubmit",
+    reValidateMode: "onSubmit",
+    shouldFocusError: false,
+  });
 
   const getAuth = async (data: LoginFormData) => {
     const email = data.email;
@@ -31,7 +30,7 @@ const LoginPage = () => {
       {
         email,
         pass,
-      }
+      },
       // params: {
       //   lang: "ru",
       // data: { email: data.email, pass: data.pass },
@@ -54,7 +53,6 @@ const LoginPage = () => {
     <form
       // action={APP_ROUTES.login}
       action=""
-      aria-disabled
       // method="post"
       className={classes.formBlock}
       onSubmit={handleSubmit(getAuth)}

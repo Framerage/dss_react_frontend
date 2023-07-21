@@ -3,22 +3,21 @@
   height: 150px;
   display: flex;
   justify-content: space-between;
+  padding: 32px
 }
 .headerLogo {
   display: flex;
   flex-direction: column;
   justify-content: center;
   font-weight: 700;
-  margin-top: 32px;
   cursor: pointer;
   transition: 0.5s;
   text-decoration: none;
   color: black;
-  margin-left: 32px;
   height: min-content;
 }
 .headerLogo:hover {
-  text-shadow: 0 0 10px red;
+  text-shadow: 0 0 10px teal,0 0 15px white, 0 0 20px teal;
 }
 .firstLogo {
   font-size: 30px;
@@ -29,18 +28,18 @@
   margin-left: 60px;
 }
 .headerNav {
+  width: 150px;
   display: flex;
-  margin-top: 32px;
+  justify-content: space-around;
 }
 .navItem {
   text-decoration: none;
   color: black;
   font-size: 14px;
   cursor: pointer;
-  margin-right: 32px;
   padding: 5px;
   transition: 0.2s;
 }
 .navItem:hover {
-  text-shadow: 0 0 5px white, 0 0 10px blue, 0 0 15px white, 0 0 20px blue;
+  text-shadow: 0 0 5px white, 0 0 10px teal, 0 0 15px white, 0 0 20px teal;
 }

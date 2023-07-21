@@ -1,8 +1,16 @@
 import React from "react";
 import FlowerMenu from "../../components/flowerMenu/FlowerMenu";
-
+import AppMenu from "components/appMenu/AppMenu";
+import classes from "./mainPage.module.css";
+import {APP_ROUTES} from "utils/routes";
 const MainPage = () => {
-  //TODO: сделать ромашку
+  const appNavigation = [
+    {title: "Home", link: APP_ROUTES.main},
+    {title: "Catalog", link: "/cards"},
+    {title: "About", link: "/about"},
+    {title: "Contacts", link: "/contacts"},
+    {title: "Contacts", link: "/contacts"},
+  ];
   return (
     <div
       style={{
@@ -15,8 +23,10 @@ const MainPage = () => {
         fontSize: "20px",
       }}
     >
-      <h1>Main Page</h1>
-      <FlowerMenu />
+      <div className={classes.mainContent}>
+        <FlowerMenu />
+        <AppMenu menuItems={appNavigation} />
+      </div>
     </div>
   );
 };

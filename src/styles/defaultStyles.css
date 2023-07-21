@@ -6,5 +6,5 @@
 body {
   min-width: 100vw;
   min-height: 100vh;
-  background: linear-gradient(-30deg, lightgreen, #04f0f8, #f5cc81);
+  background: linear-gradient(30deg,#00a2ff,black,aqua,#b4b3b3,aqua,black,#00a2ff);
 }

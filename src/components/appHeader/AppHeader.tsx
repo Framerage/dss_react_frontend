@@ -1,8 +1,9 @@
 import React from "react";
 import classes from "./appHeader.module.css";
-import { Link } from "react-router-dom";
-import { APP_ROUTES } from "../../utils/routes";
+import {Link} from "react-router-dom";
+import {APP_ROUTES} from "../../utils/routes";
 const AppHeader = () => {
+  const isAuth = false;
   return (
     <header className={classes.headerContainer}>
       <Link to={APP_ROUTES.main} className={classes.headerLogo}>
