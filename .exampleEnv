@@ -1,0 +1,2 @@
+SERVER_URL='http://localhost:3333'
+SERVER_URL='http://http://127.0.0.1:3333'

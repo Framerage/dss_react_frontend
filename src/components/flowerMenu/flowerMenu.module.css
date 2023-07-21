@@ -1,0 +1,50 @@
+.flowerContainer {
+  width: 500px;
+  height: 500px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+.flowerCenter {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background-color: yellow;
+  filter: blur(5px);
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 50px;
+  font-weight: 800;
+  cursor: pointer;
+  transition: 1s;
+  z-index: 100;
+}
+.flowerCenter:hover {
+  transform: scale(1.05);
+}
+.flowerCenter:active {
+  transform: scale(0.95);
+}
+.flowerPetal {
+  width: 100px;
+  height: 150px;
+  border: 25px solid transparent;
+  border-top: 150px solid white;
+  border-radius: 50% 50% 0 0;
+  position: absolute;
+  z-index: -1;
+  transition: 1s;
+  opacity: 1;
+  filter: drop-shadow(0 3px 3px black);
+}
+.activeMenu {
+  z-index: 1;
+
+  width: 15px;
+  height: 15px;
+  opacity: 0;
+  border-top: 1px solid white;
+}

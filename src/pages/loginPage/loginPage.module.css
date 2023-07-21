@@ -1,0 +1,52 @@
+.formBlock {
+  width: 500px;
+  height: 250px;
+  border: 6px double #00fffa;
+  border-radius: 15px;
+  background-color: teal;
+  display: flex;
+  flex-direction: column;
+  animation: scaled 1s ease-in-out;
+  margin: 0 auto;
+
+  margin-top: 100px;
+}
+@keyframes scaled {
+  0% {
+    transform: scale(0);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+.formHead {
+  color: white;
+  text-shadow: 0 5px 5px black;
+  text-align: center;
+  width: 100%;
+  margin-top: 15px;
+}
+.inputItem {
+  max-width: 100%;
+  margin: 20px;
+  padding: 5px;
+  color: black;
+  border: 3px solid black;
+  border-radius: 5px;
+}
+.submitBtn {
+  width: 100px;
+  height: 25px;
+  border: 3px solid black;
+  border-radius: 5px;
+  background-color: white;
+  margin: 0 auto;
+  font-size: 16px;
+  text-align: center;
+  transition: 0.2s;
+  cursor: pointer;
+}
+.submitBtn:hover {
+  background-color: grey;
+  transform: scale(0.98);
+}
