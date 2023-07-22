@@ -1,3 +1,7 @@
 .appWrapper {
-  color: white;
+  display: flex;
+  flex-direction: column;
+}
+.mainContainer{
+  display: flex;
 }

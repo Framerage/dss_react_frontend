@@ -1,5 +1,9 @@
 export const APP_ROUTES = {
-  main: "/",
   login: "/auth/login",
   registration: "/auth/registration",
+};
+export const APP_AUTH_ROUTES = {
+  main: "/",
+  catalog: "/cards",
+  contacts: "/contacts",
 };

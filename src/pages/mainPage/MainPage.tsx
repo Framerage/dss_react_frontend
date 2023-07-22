@@ -1,16 +1,8 @@
 import React from "react";
-import FlowerMenu from "../../components/flowerMenu/FlowerMenu";
-import AppMenu from "components/appMenu/AppMenu";
+
 import classes from "./mainPage.module.css";
-import {APP_ROUTES} from "utils/routes";
+
 const MainPage = () => {
-  const appNavigation = [
-    {title: "Home", link: APP_ROUTES.main},
-    {title: "Catalog", link: "/cards"},
-    {title: "About", link: "/about"},
-    {title: "Contacts", link: "/contacts"},
-    {title: "Contacts", link: "/contacts"},
-  ];
   return (
     <div
       style={{
@@ -21,12 +13,10 @@ const MainPage = () => {
         width: "100%",
         color: "black",
         fontSize: "20px",
+        border: "1px solid red",
       }}
     >
-      <div className={classes.mainContent}>
-        <FlowerMenu />
-        <AppMenu menuItems={appNavigation} />
-      </div>
+      <div className={classes.mainContent}>content</div>
     </div>
   );
 };

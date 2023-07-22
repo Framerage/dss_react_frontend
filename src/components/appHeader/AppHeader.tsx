@@ -1,23 +1,46 @@
 import React from "react";
 import classes from "./appHeader.module.css";
 import {Link} from "react-router-dom";
-import {APP_ROUTES} from "../../utils/routes";
+import {APP_AUTH_ROUTES, APP_ROUTES} from "../../utils/routes";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch} from "store";
+import {getUserAuth} from "store/modules/auth/actions";
+import {isUserAuth} from "store/modules/auth/selectors";
 const AppHeader = () => {
-  const isAuth = false;
+  const dispatch = useDispatch<AppDispatch>();
+  const isAuth = useSelector(isUserAuth);
+  const userBonuses = 10101;
+  const currentUser = "Arti";
+  const onLogOut = () => dispatch(getUserAuth(false));
   return (
     <header className={classes.headerContainer}>
-      <Link to={APP_ROUTES.main} className={classes.headerLogo}>
+      <Link to={APP_AUTH_ROUTES.main} className={classes.headerLogo}>
         <div className={classes.firstLogo}>Decor</div>
         <div className={classes.secondLogo}>spirit</div>
       </Link>
-      <nav className={classes.headerNav}>
-        <Link to={APP_ROUTES.login} className={classes.navItem}>
-          Sign in
-        </Link>
-        <Link to={APP_ROUTES.registration} className={classes.navItem}>
-          Sign up
-        </Link>
-      </nav>
+      {isAuth ? (
+        <div className={classes.authedBlock}>
+          <div className={classes.userBonuses}>
+            Bonuses:&nbsp;
+            <i className={classes.bonusesValue}>{userBonuses}</i>
+          </div>
+          <span className={classes.currentUser}>&nbsp;{currentUser}</span>
+          <button
+            type="button"
+            className={classes.exitBtn}
+            onClick={onLogOut}
+          />
+        </div>
+      ) : (
+        <nav className={classes.headerNav}>
+          <Link to={APP_ROUTES.login} className={classes.headerNavItem}>
+            Sign in
+          </Link>
+          <Link to={APP_ROUTES.registration} className={classes.headerNavItem}>
+            Sign up
+          </Link>
+        </nav>
+      )}
     </header>
   );
 };
