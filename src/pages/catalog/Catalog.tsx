@@ -35,7 +35,7 @@ const cards = [
 const Catalog = () => {
   const navigation = useNavigate();
   const onGetCardDescrip = useCallback((id: string) => {
-    navigation(APP_AUTH_ROUTES.catalog + "/" + id);
+    navigation(APP_AUTH_ROUTES.catalog.link + "/" + id);
   }, []);
   return (
     <div className={classes.catalogContainer}>

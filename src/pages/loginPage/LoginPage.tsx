@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import classes from "./loginPage.module.css";
 import {useDispatch, useSelector} from "react-redux";
-import {APP_AUTH_ROUTES, APP_ROUTES} from "utils/routes";
+import {APP_AUTH_ROUTES} from "utils/routes";
 import {getAuthTokenFx} from "store/modules/auth/async-actions";
 import {AppDispatch} from "store";
 import {useForm} from "react-hook-form";
@@ -26,7 +26,7 @@ const LoginPage = () => {
 
   const testAuth = () => {
     dispatch(getUserAuth(true));
-    navigation(APP_AUTH_ROUTES.main);
+    navigation(APP_AUTH_ROUTES.main.link);
   };
   const getAuth = async (data: LoginFormData) => {
     const email = data.email;

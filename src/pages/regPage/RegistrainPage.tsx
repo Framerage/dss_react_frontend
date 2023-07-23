@@ -1,10 +1,10 @@
 import React from "react";
 import classes from "./regPage.module.css";
-import { APP_ROUTES } from "../../utils/routes";
+import {APP_GENERAL_ROUTES} from "utils/routes";
 const RegistrationPage = () => {
   return (
     <form
-      action={APP_ROUTES.registration}
+      action={APP_GENERAL_ROUTES.registration.link}
       method="post"
       className={classes.formBlock}
     >
