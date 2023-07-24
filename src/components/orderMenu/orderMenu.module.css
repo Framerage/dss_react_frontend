@@ -1,0 +1,71 @@
+.navContainer {
+    position: relative;
+    width: 400px;
+    height: 400px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 100px;
+  }
+  .menuToggle {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 200px;
+    height: 200px;
+    position: absolute;
+    left: 200px;
+    z-index: 10000;
+    cursor: pointer;
+    transition: 0.5s;
+    transition: transform 1.5s;
+    border-radius: 50%;
+  }
+  .menuToggleText{
+    width: 70px;
+    position: absolute;
+    font-size: 24px;
+    color: black;
+    text-align: center;
+    transition: 0.5s;
+  }
+  .menuToggle:hover {
+    filter: drop-shadow(0 5px 10px #024d4d);
+  }
+  .toggleImage {
+    animation: pulse 2s alternate-reverse infinite;
+  }
+  @keyframes pulse {
+    0% {
+      transform: scale(1.2);
+    }
+    100% {
+      transform: scale(1);
+    }
+  }
+  .activeToggle {
+    transform: rotate(315deg);
+  }
+  .menuItem {
+    position: absolute;
+    left: 0;
+    width: 75px;
+    height: 75px;
+    border-radius: 50%;
+    background-color: rgba(173, 216, 230, 0.226);
+    justify-content: center;
+    align-items: center;
+    z-index: -1;
+    transform-origin: 300px;
+    transition: 1s;
+    display: flex;
+    opacity: 0;
+  }
+  .menuItem:hover {
+    background-color: rgba(173, 216, 230, 0.726);
+  }
+  .activeMenu {
+    z-index: 1;
+    opacity: 1;
+  }
+  

@@ -16,6 +16,8 @@
     margin-top: 100px;
     padding: 50px 0;
     filter: drop-shadow(20px 10px 10px black) ;
+    display: flex;
+    flex-direction: column;
   }
   .menuBlock::-webkit-scrollbar {
     width: 10px;
@@ -31,7 +33,8 @@
   
   .menuItem {
     position: relative;
-    list-style: none;
+    text-decoration: none;
+    color: black;
     width: 160px;
     height: 50px;
     background: linear-gradient(30deg, black, white, black);
@@ -88,9 +91,7 @@
     width: 100%;
     height: 100%;
     font-family: "Times New Roman", Times, serif;
-    text-decoration: none;
     text-shadow: 0 0 5px white;
-    color: black;
     display: block;
     text-transform: uppercase;
     letter-spacing: 0.05em;
