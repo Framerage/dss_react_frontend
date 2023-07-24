@@ -12,7 +12,7 @@ export const FOR_GH_PAGES = "";
 // export const FOR_GH_PAGES = "/dss_react_frontend";
 
 export const APP_GENERAL_ROUTES: RoutesType = {
-  main: {link: FOR_GH_PAGES + "/", component: MainPage, index: true},
+  main: {link: "/", component: MainPage, index: true},
   catalog: {link: FOR_GH_PAGES + "/cards", component: Catalog},
   catalogCard: {link: FOR_GH_PAGES + "/cards/:id", component: CatalogCard},
   contacts: {link: FOR_GH_PAGES + "/contacts", component: null},
@@ -24,7 +24,7 @@ export const APP_GENERAL_ROUTES: RoutesType = {
   error: {link: "*", component: LoginPage},
 };
 export const APP_AUTH_ROUTES: RoutesType = {
-  main: {link: FOR_GH_PAGES + "/", component: MainPage, index: true},
+  main: {link: "/", component: MainPage, index: true},
   catalog: {link: FOR_GH_PAGES + "/cards", component: Catalog},
   catalogCard: {link: FOR_GH_PAGES + "/cards/:id", component: CatalogCard},
   contacts: {link: FOR_GH_PAGES + "/contacts", component: null},
@@ -32,3 +32,4 @@ export const APP_AUTH_ROUTES: RoutesType = {
   personalPage: {link: FOR_GH_PAGES + "/personal-page", component: null},
   error: {link: "*", component: MainPage},
 };
+// "homepage": "https://framerage.github.io/dss_react_frontend",
