@@ -20,7 +20,7 @@ const AppHeader = () => {
   return (
     <header className={classes.headerContainer}>
       <Link
-        to={FOR_GH_PAGES + APP_AUTH_ROUTES.main.link}
+        to={APP_AUTH_ROUTES.main.link}
         className={classes.headerLogo}
       >
         <div className={classes.firstLogo}>Decor</div>
