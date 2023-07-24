@@ -1,0 +1,14 @@
+{
+  "files": {
+    "main.css": "/static/css/main.09d63f25.css",
+    "main.js": "/static/js/main.f3a5c0f7.js",
+    "static/media/door-open-solid.svg": "/static/media/door-open-solid.08adb0c0360a7a177501.svg",
+    "index.html": "/index.html",
+    "main.09d63f25.css.map": "/static/css/main.09d63f25.css.map",
+    "main.f3a5c0f7.js.map": "/static/js/main.f3a5c0f7.js.map"
+  },
+  "entrypoints": [
+    "static/css/main.09d63f25.css",
+    "static/js/main.f3a5c0f7.js"
+  ]
+}
