@@ -14,7 +14,7 @@ const AppLayout = () => {
       {title: "Catalog", link: FOR_GH_PAGES + "/cards"},
       {
         title: "Order",
-        link: FOR_GH_PAGES + APP_AUTH_ROUTES.order.link,
+        link: APP_AUTH_ROUTES.order.link,
       },
       {title: "About", link: FOR_GH_PAGES + "/about"},
       {title: "Contacts", link: FOR_GH_PAGES + "/contacts"},
