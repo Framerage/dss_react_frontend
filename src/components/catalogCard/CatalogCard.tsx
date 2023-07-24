@@ -13,8 +13,8 @@ interface CardProps {
   onClickCard?: (id: string) => void;
 }
 const CatalogCard: React.FC<CardProps> = ({card, onClickCard}) => {
-  const reqParams = useParams();
-  console.log(reqParams.id, "req");
+  const pathParams = useParams();
+
   return (
     <div
       className={classes.cardContainer}

@@ -1,6 +1,6 @@
 import {PayloadAction, createReducer} from "@reduxjs/toolkit";
 import {getAuthTokenFx} from "./async-actions";
-import {getUserAuth} from "./actions";
+import {getUserAuth, resetAuthRequest} from "./actions";
 export interface AuthInitialState {
   authRequest: {
     data: any;
@@ -18,6 +18,9 @@ const authInitialState = {
   },
 };
 export const authReducer = createReducer<AuthInitialState>(authInitialState, {
+  [resetAuthRequest.type]: state => {
+    state.authRequest.data = null;
+  },
   [getUserAuth.type]: (state, action) => {
     state.isUserAuth = action.payload;
   },

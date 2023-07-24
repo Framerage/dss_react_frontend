@@ -1,20 +1,28 @@
 import React from "react";
 import classes from "./appHeader.module.css";
 import {Link} from "react-router-dom";
-import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES} from "utils/routes";
+import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES, FOR_GH_PAGES} from "utils/routes";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "store";
-import {getUserAuth} from "store/modules/auth/actions";
-import {isUserAuth} from "store/modules/auth/selectors";
+import {getUserAuth, resetAuthRequest} from "store/modules/auth/actions";
+import {isUserAuth, selectAuthData} from "store/modules/auth/selectors";
 const AppHeader = () => {
   const dispatch = useDispatch<AppDispatch>();
   const isAuth = useSelector(isUserAuth);
+  const authRequest = useSelector(selectAuthData);
+
   const userBonuses = 10101;
-  const currentUser = "Arti";
-  const onLogOut = () => dispatch(getUserAuth(false));
+  const currentUser = authRequest?.name || "-";
+  const onLogOut = () => {
+    dispatch(resetAuthRequest());
+    dispatch(getUserAuth(false));
+  };
   return (
     <header className={classes.headerContainer}>
-      <Link to={APP_AUTH_ROUTES.main.link} className={classes.headerLogo}>
+      <Link
+        to={FOR_GH_PAGES + APP_AUTH_ROUTES.main.link}
+        className={classes.headerLogo}
+      >
         <div className={classes.firstLogo}>Decor</div>
         <div className={classes.secondLogo}>spirit</div>
         <div className={classes.botBorder}></div>
@@ -35,13 +43,13 @@ const AppHeader = () => {
       ) : (
         <nav className={classes.headerNav}>
           <Link
-            to={APP_GENERAL_ROUTES.login.link}
+            to={FOR_GH_PAGES + APP_GENERAL_ROUTES.login.link}
             className={classes.headerNavItem}
           >
             Sign in
           </Link>
           <Link
-            to={APP_GENERAL_ROUTES.registration.link}
+            to={FOR_GH_PAGES + APP_GENERAL_ROUTES.registration.link}
             className={classes.headerNavItem}
           >
             Sign up

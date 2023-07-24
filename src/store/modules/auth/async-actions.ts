@@ -1,8 +1,8 @@
-import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getAuthToken } from "../../../api/api";
-import { AuthInitialState } from "./reducer";
+import {createAsyncThunk} from "@reduxjs/toolkit";
+import {AuthInitialState} from "./reducer";
+import {getAuthToken} from "api/auths";
 
 export const getAuthTokenFx = createAsyncThunk<
   AuthInitialState,
-  { email: string; pass: string }
+  {email: string; pass: string}
 >("getToken", getAuthToken);
