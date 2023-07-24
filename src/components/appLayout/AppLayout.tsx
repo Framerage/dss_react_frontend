@@ -32,11 +32,11 @@ const AppLayout = () => {
       {title: "Contacts", link: "/contacts"},
     ];
   }, [isAuth]);
-  useLayoutEffect(() => {
-    if (!isAuth) {
-      navigation(APP_GENERAL_ROUTES.login.link);
-    }
-  }, [isAuth]);
+  // useLayoutEffect(() => {
+  //   if (!isAuth) {
+  //     navigation(APP_GENERAL_ROUTES.login.link);
+  //   }
+  // }, [isAuth]);
   //TODO: переделать роуты на общие без логина и добавить те, которые будут требовать логирования
   //TODO: создать ордер и добавить в него меню вертушку для выбора вида заказа
   //TODO: страница для карточки
@@ -50,9 +50,6 @@ const AppLayout = () => {
   //TODO: about заменить на акции ???
   //TODO: подумать об использовании промокода при регистрации для акций и бонусов(проверку делать на бэке и возвращать текущее/расчитанное кол-во бонусов)
   //TODO: адаптив для всех страниц
-  Object.values(APP_GENERAL_ROUTES).map(appRoute =>
-    console.log(appRoute, "appRoute"),
-  );
   return (
     <div className={classes.appWrapper}>
       <AppHeader />
