@@ -1,7 +1,23 @@
 .appWrapper {
+  width:100%;
   display: flex;
   flex-direction: column;
+  align-items: center;
+  min-height: 100vh;
 }
 .mainContainer{
+  min-width: 100%;
+  max-width: 100%;
   display: flex;
+  justify-content: center;
+  flex: 1 1 auto;
+}
+.footerContainer{
+  width: 100%;
+  height: 100px;
+  color: white;
+  font-size: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }

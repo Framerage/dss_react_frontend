@@ -1,5 +1,5 @@
 .headerContainer {
-  max-width: 100%;
+  width: 100%;
   height: 150px;
   display: flex;
   justify-content: space-between;
@@ -16,9 +16,7 @@
   color: black;
   height: min-content;
 }
-.headerLogo:hover {
-  text-shadow: 0 0 10px teal,0 0 15px white, 0 0 20px teal;
-}
+
 .firstLogo {
   font-size: 40px;
   text-transform: uppercase;
@@ -26,6 +24,15 @@
 .secondLogo {
   font-size: 28px;
   margin-left: 60px;
+}
+.botBorder{
+  width: 0;
+  height: 2px;
+  background-color: teal;
+  transition: 0.5s;
+}
+.headerLogo:hover>.botBorder {
+  width:100%
 }
 .authedBlock{
   width: 300px;

@@ -1,42 +1,25 @@
-import React, {useLayoutEffect, useMemo} from "react";
+import React, {useMemo} from "react";
 import classes from "./appLayout.module.css";
 import AppHeader from "../appHeader/AppHeader";
-// import {createBrowserHistory} from "history";
-import {Route, Routes, useNavigate} from "react-router-dom";
-import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES, GH_PAGES_URL} from "utils/routes";
-import MainPage from "pages/mainPage/MainPage";
-import LoginPage from "pages/loginPage/LoginPage";
-import RegistrationPage from "pages/regPage/RegistrainPage";
-import Catalog from "pages/catalog/Catalog";
+import {Route, Routes} from "react-router-dom";
+import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES} from "utils/routes";
 import AppMenu from "components/appMenu";
 import {useSelector} from "react-redux";
 import {isUserAuth} from "store/modules/auth/selectors";
-import CatalogCard from "components/catalogCard/CatalogCard";
 
 const AppLayout = () => {
-  const navigation = useNavigate();
-  //TODO: подумать о надобности history
-  // const history = createBrowserHistory();
-
   const isAuth = useSelector(isUserAuth);
   const appNavigation = useMemo(() => {
     return [
-      {title: "Catalog", link: GH_PAGES_URL + "/cards"},
+      {title: "Catalog", link: "/cards"},
       {
         title: "Order",
-        link: isAuth
-          ? GH_PAGES_URL + APP_AUTH_ROUTES.order.link
-          : GH_PAGES_URL + APP_GENERAL_ROUTES.login.link,
+        link: APP_AUTH_ROUTES.order.link,
       },
-      {title: "About", link: GH_PAGES_URL + "/about"},
-      {title: "Contacts", link: GH_PAGES_URL + "/contacts"},
+      {title: "About", link: "/about"},
+      {title: "Contacts", link: "/contacts"},
     ];
   }, [isAuth]);
-  // useLayoutEffect(() => {
-  //   if (!isAuth) {
-  //     navigation(APP_GENERAL_ROUTES.login.link);
-  //   }
-  // }, [isAuth]);
   //TODO: создать ордер и добавить в него меню вертушку для выбора вида заказа
   //TODO: страница для карточки
   //TODO: главная страница
@@ -58,8 +41,9 @@ const AppLayout = () => {
             <Routes>
               {Object.values(APP_AUTH_ROUTES).map(appRoute => (
                 <Route
+                  key={appRoute.link}
                   index={appRoute.index}
-                  path={GH_PAGES_URL + appRoute.link}
+                  path={appRoute.link}
                   Component={appRoute.component}
                 />
               ))}
@@ -71,8 +55,9 @@ const AppLayout = () => {
             <Routes>
               {Object.values(APP_GENERAL_ROUTES).map(appRoute => (
                 <Route
+                  key={appRoute.link}
                   index={appRoute.index}
-                  path={GH_PAGES_URL + appRoute.link}
+                  path={appRoute.link}
                   Component={appRoute.component}
                 />
               ))}
@@ -81,6 +66,7 @@ const AppLayout = () => {
           </>
         )}
       </main>
+      <footer className={classes.footerContainer}>footer</footer>
     </div>
   );
 };

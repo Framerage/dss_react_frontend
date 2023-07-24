@@ -9,14 +9,12 @@ import {selectAuthData} from "store/modules/auth/selectors";
 import {appFetch} from "api/api";
 import axios from "axios";
 import {getUserAuth} from "store/modules/auth/actions";
-import {useNavigate} from "react-router-dom";
 interface LoginFormData {
   email: string;
   pass: string;
 }
 const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const navigation = useNavigate();
   const authRequest = useSelector(selectAuthData);
   const {handleSubmit, register, formState, setValue} = useForm<LoginFormData>({
     mode: "onSubmit",
@@ -26,7 +24,6 @@ const LoginPage = () => {
 
   const testAuth = () => {
     dispatch(getUserAuth(true));
-    navigation(APP_AUTH_ROUTES.main.link);
   };
   const getAuth = async (data: LoginFormData) => {
     const email = data.email;

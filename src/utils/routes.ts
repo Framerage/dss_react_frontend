@@ -15,6 +15,7 @@ export const APP_GENERAL_ROUTES: RoutesType = {
   contacts: {link: "/contacts", component: null},
   login: {link: "/auth/login", component: LoginPage},
   registration: {link: "/auth/registration", component: RegistrationPage},
+  error: {link: "*", component: LoginPage},
 };
 export const APP_AUTH_ROUTES: RoutesType = {
   main: {link: "/", component: MainPage, index: true},
@@ -23,5 +24,5 @@ export const APP_AUTH_ROUTES: RoutesType = {
   contacts: {link: "/contacts", component: null},
   order: {link: "/create-order", component: CreateOrder},
   personalPage: {link: "/personal-page", component: null},
+  error: {link: "*", component: MainPage},
 };
-export const GH_PAGES_URL = "/dss_react_frontend";

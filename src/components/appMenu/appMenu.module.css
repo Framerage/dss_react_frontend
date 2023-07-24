@@ -5,18 +5,17 @@
     align-items: center;
     justify-content: center;
     filter: drop-shadow(0 5px 25px #00a2ff);
-    margin-right: 50px;
+    padding-right: 50px;
   }
   .menuBlock {
     overflow: auto;
     height: 400px;
-    width: 350px;
+    width: 300px;
     position: relative;
     transform: skewY(15deg);
     margin-top: 100px;
     padding: 50px 0;
     filter: drop-shadow(20px 10px 10px black) ;
-
   }
   .menuBlock::-webkit-scrollbar {
     width: 10px;
@@ -38,7 +37,7 @@
     background: linear-gradient(30deg, black, white, black);
     transition: 0.5s;
     margin-bottom: 10px;
-    margin-left: 100px;
+    margin-left: 55px;
     cursor: pointer;
     border: 1px solid grey;
 

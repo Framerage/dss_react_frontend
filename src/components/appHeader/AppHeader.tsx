@@ -17,6 +17,7 @@ const AppHeader = () => {
       <Link to={APP_AUTH_ROUTES.main.link} className={classes.headerLogo}>
         <div className={classes.firstLogo}>Decor</div>
         <div className={classes.secondLogo}>spirit</div>
+        <div className={classes.botBorder}></div>
       </Link>
       {isAuth ? (
         <div className={classes.authedBlock}>

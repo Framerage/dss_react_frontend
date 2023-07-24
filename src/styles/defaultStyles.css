@@ -3,8 +3,20 @@
   padding: 0;
   box-sizing: border-box;
 }
-body {
-  min-width: 100vw;
+body,html {
+  min-width: 100%;
   min-height: 100vh;
   background: linear-gradient(30deg,#00a2ff,black,aqua,#b4b3b3,aqua,black,#00a2ff);
+  background-repeat: no-repeat;
+}
+body::-webkit-scrollbar {
+  width: 15px;
+
+}
+body::-webkit-scrollbar-track {
+  background: linear-gradient(#00a2ff,aqua);
+}
+body::-webkit-scrollbar-thumb {
+  background-color: teal;
+  border-radius: 5px;
 }
