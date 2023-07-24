@@ -61,7 +61,7 @@ const LoginPage = () => {
       action=""
       // method="post"
       className={classes.formBlock}
-      onSubmit={handleSubmit(testAuth)}
+      onSubmit={handleSubmit(getAuth)}
     >
       <h2 className={classes.formHead}>Login</h2>
       <input
