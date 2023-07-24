@@ -1,14 +1,14 @@
 {
   "files": {
     "main.css": "/static/css/main.e30a90de.css",
-    "main.js": "/static/js/main.e58bc41f.js",
+    "main.js": "/static/js/main.a79fb4e5.js",
     "static/media/door-open-solid.svg": "/static/media/door-open-solid.08adb0c0360a7a177501.svg",
     "index.html": "/index.html",
     "main.e30a90de.css.map": "/static/css/main.e30a90de.css.map",
-    "main.e58bc41f.js.map": "/static/js/main.e58bc41f.js.map"
+    "main.a79fb4e5.js.map": "/static/js/main.a79fb4e5.js.map"
   },
   "entrypoints": [
     "static/css/main.e30a90de.css",
-    "static/js/main.e58bc41f.js"
+    "static/js/main.a79fb4e5.js"
   ]
 }
