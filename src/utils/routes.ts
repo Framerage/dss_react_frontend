@@ -6,10 +6,10 @@ import MainPage from "pages/mainPage";
 import RegistrationPage from "pages/regPage/RegistrainPage";
 
 interface RoutesType {
-  [key: string]: {component: React.FC | null; link: string};
+  [key: string]: {component: React.FC | null; link: string; index?: boolean};
 }
 export const APP_GENERAL_ROUTES: RoutesType = {
-  main: {link: "/", component: MainPage},
+  main: {link: "/", component: MainPage, index: true},
   catalog: {link: "/cards", component: Catalog},
   catalogCard: {link: "/cards/:id", component: CatalogCard},
   contacts: {link: "/contacts", component: null},
@@ -17,10 +17,11 @@ export const APP_GENERAL_ROUTES: RoutesType = {
   registration: {link: "/auth/registration", component: RegistrationPage},
 };
 export const APP_AUTH_ROUTES: RoutesType = {
-  main: {link: "/", component: MainPage},
+  main: {link: "/", component: MainPage, index: true},
   catalog: {link: "/cards", component: Catalog},
   catalogCard: {link: "/cards/:id", component: CatalogCard},
   contacts: {link: "/contacts", component: null},
   order: {link: "/create-order", component: CreateOrder},
   personalPage: {link: "/personal-page", component: null},
 };
+export const GH_PAGES_URL = "/dss_react_frontend";
