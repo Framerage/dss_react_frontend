@@ -1,14 +1,14 @@
 {
   "files": {
-    "main.css": "/static/css/main.e30a90de.css",
-    "main.js": "/static/js/main.a79fb4e5.js",
-    "static/media/door-open-solid.svg": "/static/media/door-open-solid.08adb0c0360a7a177501.svg",
-    "index.html": "/index.html",
-    "main.e30a90de.css.map": "/static/css/main.e30a90de.css.map",
-    "main.a79fb4e5.js.map": "/static/js/main.a79fb4e5.js.map"
+    "main.css": "/dss_react_frontend/static/css/main.4c6d587d.css",
+    "main.js": "/dss_react_frontend/static/js/main.a79fb4e5.js",
+    "static/media/door-open-solid.svg": "/dss_react_frontend/static/media/door-open-solid.08adb0c0360a7a177501.svg",
+    "index.html": "/dss_react_frontend/index.html",
+    "main.4c6d587d.css.map": "/dss_react_frontend/static/css/main.4c6d587d.css.map",
+    "main.a79fb4e5.js.map": "/dss_react_frontend/static/js/main.a79fb4e5.js.map"
   },
   "entrypoints": [
-    "static/css/main.e30a90de.css",
+    "static/css/main.4c6d587d.css",
     "static/js/main.a79fb4e5.js"
   ]
 }
