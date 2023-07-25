@@ -33,3 +33,12 @@ export const APP_AUTH_ROUTES: RoutesType = {
   error: {link: "*", component: MainPage},
 };
 // "homepage": "https://framerage.github.io/dss_react_frontend",
+
+export const ORDERS_ROUTES = {
+  printVol: "/3d-printers",
+  laserEngr: "/laser-engraving",
+  furniture: "/furniture",
+  reliefPic: "/bas-relief-picture",
+  plywood: "/plywood-frames",
+  neon: "/neon-decor",
+};

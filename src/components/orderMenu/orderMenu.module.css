@@ -6,6 +6,7 @@
     align-items: center;
     justify-content: center;
     margin-top: 100px;
+    margin-left: 450px;
   }
   .menuToggle {
     display: flex;
@@ -53,19 +54,36 @@
     height: 75px;
     border-radius: 50%;
     background-color: rgba(173, 216, 230, 0.226);
+    display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     z-index: -1;
     transform-origin: 300px;
     transition: 1s;
-    display: flex;
     opacity: 0;
   }
-  .menuItem:hover {
-    background-color: rgba(173, 216, 230, 0.726);
-  }
+
   .activeMenu {
     z-index: 1;
     opacity: 1;
+  }
+  .itemText{
+    width: max-content;
+    text-decoration: none;
+    color: aqua;
+    text-shadow: 0 5px 10px black;
+    font-size: 30px;
+    font-weight: 600;
+    position: absolute;
+    z-index: 10;
+  }
+  .itemImg{
+    border: 6px groove teal;
+    border-radius: 10px;
+    transition: 0.2s;
+  }
+  .menuItem:hover>.itemImg {
+    border-color: aquamarine;
   }
   
