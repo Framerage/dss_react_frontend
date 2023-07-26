@@ -1,12 +1,9 @@
 import React from "react";
 import classes from "./appMenu.module.css";
 import {Link} from "react-router-dom";
+import {VolumMenuProps} from "typings/generalComponents";
 
-const AppMenu = ({
-  menuItems,
-}: {
-  menuItems?: {title: string; link: string; style?: any}[];
-}) => {
+const AppMenu = ({menuItems}: {menuItems?: VolumMenuProps[]}) => {
   const itemsCount = menuItems ? menuItems.length : 0;
 
   const itemZindex = (index: number) => {

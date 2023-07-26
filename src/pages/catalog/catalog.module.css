@@ -1,5 +1,18 @@
 .catalogContainer{
     width: 100%;
     display: flex;
+}
+.catalogContent{
+    width: 100%;
+    display: flex;
     flex-wrap: wrap;
+    justify-content: center;
+}
+.warnText{
+    font-size: 28px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    color:black;
+    text-shadow: 0 5px 10px white;
+    margin: auto;
 }

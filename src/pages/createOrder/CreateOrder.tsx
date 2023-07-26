@@ -1,9 +1,8 @@
 import React from "react";
-
 import OrderMenu from "components/orderMenu/OrderMenu";
 import VolumePrint from "assets/images/3d-printer.jpg";
 import LaserEngr from "assets/images/engr-acrilic.jpg";
-import Furniture from "assets/images/decor-logo.png";
+import Furniture from "assets/images/furniture.jpg";
 import BasRelief from "assets/images/bas-relief.jpg";
 import Plywood from "assets/images/plywood-frame.jpg";
 import NeonDecor from "assets/images/neon-decor.jpeg";

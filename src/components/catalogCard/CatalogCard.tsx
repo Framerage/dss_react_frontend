@@ -1,20 +1,35 @@
-import React from "react";
+import React, {useMemo} from "react";
+import defaultImg from "assets/images/defaultCardImg.png";
+import {CatalogCardNesting, cardThemes} from "typings/catalogCards";
 import classes from "./catalogCard.module.css";
-import {useParams} from "react-router-dom";
 interface CardProps {
-  card?: {
-    _id: string;
-    title: string;
-    text: string;
-    styles: string[];
-    imgUrl: string;
-    viewsCount: number;
-  };
+  card?: CatalogCardNesting;
   onClickCard?: (id: string) => void;
 }
 const CatalogCard: React.FC<CardProps> = ({card, onClickCard}) => {
-  const pathParams = useParams();
-
+  const setTheme = (theme: string) => {
+    return Object.entries(cardThemes).map(key => {
+      if (key[0] === theme) {
+        return key[1];
+      }
+      return "";
+    });
+  };
+  const cardTheme = useMemo(() => {
+    if (!card) {
+      return cardThemes.some;
+    }
+    if (!card.theme) {
+      return cardThemes.some;
+    }
+    const themes = Object.entries(cardThemes).map(key => {
+      if (key[0] === card.theme) {
+        return key[1];
+      }
+      return "";
+    });
+    return themes.filter(el => el && el)[0];
+  }, [card, card?.theme]);
   return (
     <div
       className={classes.cardContainer}
@@ -22,7 +37,37 @@ const CatalogCard: React.FC<CardProps> = ({card, onClickCard}) => {
         onClickCard && card && onClickCard(card._id);
       }}
     >
-      card
+      <div className={classes.cardPreview}>
+        <img
+          src={card && card.imgUrl ? card.imgUrl[0][0] : defaultImg}
+          alt="cardImg"
+          className={classes.cardImg}
+        />
+        <div className={classes.extraCardInfo}>slider</div>
+        <div className={classes.extraCardInfo}>styles</div>
+        <div className={classes.extraCardInfo}>
+          <div className={classes.extraInfoText}>
+            Views:&nbsp;{card && card.viewsCount ? card.viewsCount : 0}
+          </div>
+          <div className={classes.extraInfoText}>
+            Likes:&nbsp;{card && card.likes ? card.viewsCount : 0}
+          </div>
+        </div>
+      </div>
+      <div className={classes.cardInfo}>
+        <div className={classes.infoCardTitle}>{card?.title}</div>
+        <div className={classes.infoCardTheme}>
+          Theme:&nbsp;
+          <br />
+          {cardTheme}
+        </div>
+        <div className={classes.infoCardDescrip}>
+          Description:&nbsp;
+          <br />
+          {card?.descrip || ""}
+        </div>
+        <div>addBtn</div>
+      </div>
     </div>
   );
 };
