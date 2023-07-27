@@ -1,8 +1,10 @@
 {
   "files": {
-    "main.css": "/dss_react_frontend/static/css/main.c8abb0b5.css",
-    "main.js": "/dss_react_frontend/static/js/main.fddff8ad.js",
+    "main.css": "/dss_react_frontend/static/css/main.88f7274b.css",
+    "main.js": "/dss_react_frontend/static/js/main.d34b6e07.js",
     "static/media/bas-relief.jpg": "/dss_react_frontend/static/media/bas-relief.089ae646703c7e55fc8f.jpg",
+    "static/media/defaultCardImg.png": "/dss_react_frontend/static/media/defaultCardImg.79d5df9a9f2d9845564f.png",
+    "static/media/furniture.jpg": "/dss_react_frontend/static/media/furniture.e07cadfb201c7f113947.jpg",
     "static/media/engr-acrilic.jpg": "/dss_react_frontend/static/media/engr-acrilic.8602ebba59161bdba51d.jpg",
     "static/media/plywood-frame.jpg": "/dss_react_frontend/static/media/plywood-frame.e16c78e6bc4b27d440f2.jpg",
     "static/media/neon-decor.jpeg": "/dss_react_frontend/static/media/neon-decor.e7531d78df75f792bd1f.jpeg",
@@ -10,11 +12,11 @@
     "static/media/3d-printer.jpg": "/dss_react_frontend/static/media/3d-printer.2acc2547e42a7ae9540e.jpg",
     "static/media/door-open-solid.svg": "/dss_react_frontend/static/media/door-open-solid.08adb0c0360a7a177501.svg",
     "index.html": "/dss_react_frontend/index.html",
-    "main.c8abb0b5.css.map": "/dss_react_frontend/static/css/main.c8abb0b5.css.map",
-    "main.fddff8ad.js.map": "/dss_react_frontend/static/js/main.fddff8ad.js.map"
+    "main.88f7274b.css.map": "/dss_react_frontend/static/css/main.88f7274b.css.map",
+    "main.d34b6e07.js.map": "/dss_react_frontend/static/js/main.d34b6e07.js.map"
   },
   "entrypoints": [
-    "static/css/main.c8abb0b5.css",
-    "static/js/main.fddff8ad.js"
+    "static/css/main.88f7274b.css",
+    "static/js/main.d34b6e07.js"
   ]
 }
