@@ -17,3 +17,15 @@ export const getAuthToken = async ({
   }
   return response.data;
 };
+export const userRegistration = async (request: {
+  email: string;
+  pass: string;
+  name: string;
+  regPromo: string;
+}) => {
+  const response = await instance.post("/auth/registration", {...request});
+  if (response.status !== 200) {
+    return response.data;
+  }
+  return response.data;
+};

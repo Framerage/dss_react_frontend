@@ -4,7 +4,11 @@ import {Link} from "react-router-dom";
 import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES, FOR_GH_PAGES} from "utils/routes";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "store";
-import {getUserAuth, resetAuthRequest} from "store/modules/auth/actions";
+import {
+  getUserAuth,
+  resetAuthRequest,
+  resetRegRequest,
+} from "store/modules/auth/actions";
 import {isUserAuth, selectAuthData} from "store/modules/auth/selectors";
 const AppHeader = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -15,14 +19,12 @@ const AppHeader = () => {
   const currentUser = authRequest?.name || "-";
   const onLogOut = () => {
     dispatch(resetAuthRequest());
+    dispatch(resetRegRequest());
     dispatch(getUserAuth(false));
   };
   return (
     <header className={classes.headerContainer}>
-      <Link
-        to={APP_AUTH_ROUTES.main.link}
-        className={classes.headerLogo}
-      >
+      <Link to={APP_AUTH_ROUTES.main.link} className={classes.headerLogo}>
         <div className={classes.firstLogo}>Decor</div>
         <div className={classes.secondLogo}>spirit</div>
         <div className={classes.botBorder}></div>

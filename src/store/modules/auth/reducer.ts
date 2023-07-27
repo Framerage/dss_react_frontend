@@ -1,9 +1,15 @@
-import {PayloadAction, createReducer} from "@reduxjs/toolkit";
-import {getAuthTokenFx} from "./async-actions";
-import {getUserAuth, resetAuthRequest} from "./actions";
+import {createReducer} from "@reduxjs/toolkit";
+import {UserRegistrationFx, getAuthTokenFx} from "./async-actions";
+import {getUserAuth, resetAuthRequest, resetRegRequest} from "./actions";
+import {UserAuthorisation, userRegistration} from "typings/auths";
 export interface AuthInitialState {
   authRequest: {
-    data: any;
+    data: UserAuthorisation | null;
+    isLoading: boolean;
+    error: null | string;
+  };
+  registrationReq: {
+    data: userRegistration | null;
     isLoading: boolean;
     error: null | string;
   };
@@ -16,10 +22,18 @@ const authInitialState = {
     isLoading: false,
     error: null,
   },
+  registrationReq: {
+    data: null,
+    isLoading: false,
+    error: null,
+  },
 };
 export const authReducer = createReducer<AuthInitialState>(authInitialState, {
   [resetAuthRequest.type]: state => {
     state.authRequest.data = null;
+  },
+  [resetRegRequest.type]: state => {
+    state.registrationReq.data = null;
   },
   [getUserAuth.type]: (state, action) => {
     state.isUserAuth = action.payload;
@@ -40,5 +54,23 @@ export const authReducer = createReducer<AuthInitialState>(authInitialState, {
   [getAuthTokenFx.rejected.type]: state => {
     state.authRequest.error = "error with auth";
     state.authRequest.isLoading = false;
+  },
+
+  [UserRegistrationFx.fulfilled.type]: (state, action) => {
+    if (action.payload.error) {
+      state.registrationReq.error = action.payload.error;
+      state.registrationReq.isLoading = false;
+      return;
+    }
+    state.registrationReq.data = action.payload;
+    state.registrationReq.isLoading = false;
+  },
+  [UserRegistrationFx.pending.type]: state => {
+    state.registrationReq.isLoading = true;
+    state.registrationReq.error = null;
+  },
+  [UserRegistrationFx.rejected.type]: state => {
+    state.registrationReq.error = "error with registration";
+    state.registrationReq.isLoading = false;
   },
 });

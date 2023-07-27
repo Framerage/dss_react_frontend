@@ -7,14 +7,6 @@ interface CardProps {
   onClickCard?: (id: string) => void;
 }
 const CatalogCard: React.FC<CardProps> = ({card, onClickCard}) => {
-  const setTheme = (theme: string) => {
-    return Object.entries(cardThemes).map(key => {
-      if (key[0] === theme) {
-        return key[1];
-      }
-      return "";
-    });
-  };
   const cardTheme = useMemo(() => {
     if (!card) {
       return cardThemes.some;
