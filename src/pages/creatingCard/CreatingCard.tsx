@@ -1,14 +1,34 @@
 import React, {useEffect, useState} from "react";
 import cn from "classnames";
-import classes from "./creatingCard.module.css";
 import {CatalogCardNesting, cardThemes} from "typings/catalogCards";
 import {useForm} from "react-hook-form";
-import {generateFileData, setBase64Image} from "helperrs/appHelpers";
+import {generateFileData, setBase64Image} from "helpers/appHelpers";
+import {useDispatch, useSelector} from "react-redux";
+import {AppDispatch} from "store";
+import {createNewCatalogCardFx} from "store/modules/catalog/async-actions";
+import {selectAuthData} from "store/modules/auth/selectors";
+import {
+  creatingCardData,
+  creatingCardsIsLoading,
+  creatingCardError,
+} from "store/modules/catalog/selectors";
+
+import classes from "./creatingCard.module.css";
+import {resetCreatingCardResult} from "store/modules/catalog/actions";
 const CreatingCard = () => {
+  const dispatch = useDispatch<AppDispatch>();
+  const authUser = useSelector(selectAuthData);
+  const creatingResult = useSelector(creatingCardData);
+  const creatingResultIsLoading = useSelector(creatingCardsIsLoading);
+  const creatingResultError = useSelector(creatingCardError);
+
+  const creatingStatus =
+    creatingResult && creatingResult.success ? creatingResult.success : false;
   const [fullDescripValue, setFullDescripValue] = useState("");
   const [cardImagesUrls, setCardImagesUrls] = useState<
     {fileBody: string; fileName: string; id: number}[]
   >([]);
+
   const {handleSubmit, register, formState, setValue} =
     useForm<CatalogCardNesting>({
       mode: "onSubmit",
@@ -17,16 +37,23 @@ const CreatingCard = () => {
     });
   const themes = Object.keys(cardThemes);
   const onCreateCard = (data: CatalogCardNesting) => {
-    console.log(
-      {...data, fullDescrip: fullDescripValue, imgUrl: cardImagesUrls},
-      "form data",
-    );
+    if (!authUser) {
+      return;
+    }
+    const card = {
+      ...data,
+      price: Number(data.price),
+      fullDescrip: fullDescripValue,
+      imgUrl: cardImagesUrls.map(file => file.fileBody),
+    };
+    dispatch(createNewCatalogCardFx({card: card, auth: authUser.token || ""}));
   };
   const createImgString = async (fileList: FileList | null) => {
     if (!fileList) {
       return;
     }
     const body = fileList[0];
+    console.log(body, "body");
     const imgResult = await generateFileData({
       fileBody: body,
       fileName: body.name,
@@ -49,20 +76,42 @@ const CreatingCard = () => {
         return {...file, id: index};
       });
     });
-  console.log(cardImagesUrls, "cardImagesUrls");
+
+  useEffect(() => {
+    if (!creatingResult) {
+      return;
+    }
+    if (creatingResult.success) {
+      setValue("title", "");
+      setValue("theme", "");
+      setValue("descrip", "");
+      setValue("price", 0);
+      setValue("imgUrl", []);
+      setCardImagesUrls([]);
+      setFullDescripValue("");
+      return;
+    }
+  }, [creatingResult]);
+
+  useEffect(() => {
+    if (!creatingStatus) {
+      return;
+    }
+    setTimeout(() => dispatch(resetCreatingCardResult()), 3000);
+  }, [creatingStatus]);
   return (
     <div className={classes.cardCreatingContainer}>
       <div className={classes.firstSection}>
         <div className={classes.firstSectPreview}>
-          {cardImagesUrls && cardImagesUrls.length > 0 && (
-            <img
-              src={setBase64Image("", cardImagesUrls[0].fileBody)}
-              alt="cardImg"
-              width={700}
-              height={400}
-              className={classes.previewImg}
-            />
-          )}
+          <div className={classes.imageWindow}>
+            {cardImagesUrls && cardImagesUrls.length > 0 && (
+              <img
+                src={setBase64Image("", cardImagesUrls[0].fileBody)}
+                alt="cardImg"
+                className={classes.previewImg}
+              />
+            )}
+          </div>
 
           <div className={classes.previewAddBlock}>
             <label htmlFor="addImgUrl" className={classes.previewAddFile}>
@@ -79,18 +128,28 @@ const CreatingCard = () => {
             />
             {cardImagesUrls.length > 0 &&
               cardImagesUrls.map((image, index) => (
-                <span key={index}>
-                  {image.fileName ? image.fileName : "-"}{" "}
-                  <span onClick={() => onRemoveFile(index)}>X</span>
-                </span>
+                <div key={index} className={classes.previewFilesList}>
+                  <span className={classes.previewFileName}>
+                    {index + 1}.&nbsp;{image.fileName ? image.fileName : "-"}{" "}
+                  </span>
+                  <span
+                    onClick={() => onRemoveFile(index)}
+                    className={classes.previewRemoveBtn}
+                  >
+                    X
+                  </span>
+                </div>
               ))}
           </div>
         </div>
-        <textarea
-          className={classes.firstSectArea}
-          value={fullDescripValue}
-          onChange={e => setFullDescripValue(e.target.value)}
-        />
+        <div className={classes.firstSectBotmBlock}>
+          Full descrip:&nbsp;
+          <textarea
+            className={classes.firstSectArea}
+            value={fullDescripValue}
+            onChange={e => setFullDescripValue(e.target.value)}
+          />
+        </div>
       </div>
       <form
         className={classes.secondSection}
@@ -144,8 +203,16 @@ const CreatingCard = () => {
           />
         </div>
         <div className={classes.secondSectItem}>
-          <button className={classes.submitBtn}>Create card</button>
+          <button className={classes.submitBtn}>
+            {creatingResultIsLoading ? "Loading..." : "Create card"}
+          </button>
         </div>
+        <div className={classes.errorReqText}>{creatingResultError}</div>
+        {creatingStatus && (
+          <div className={cn(classes.errorReqText, classes.successReqText)}>
+            Success
+          </div>
+        )}
       </form>
     </div>
   );

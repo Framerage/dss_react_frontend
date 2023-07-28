@@ -1,30 +1,42 @@
 .cardCreatingContainer{
     width: 100%;
-    border: 1px solid blue;
     display: flex;
+    justify-content: center;
     padding: 32px;
 }
 .firstSection{
-    width: 130%;
+    width: 100%;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    border: 1px solid red;
+
 }
 .firstSectPreview{
     width: 100%;
     display: flex;
-    justify-content: space-between;
+    justify-content: space-around;
+    padding-top: 10px;
+    margin: 0 auto;
 }
-.previewImg{
+.imageWindow{
     width: 700px;
     height: 400px;
+    padding: 10px;
+    border: 5px groove teal;
+    border-radius: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background:linear-gradient(white,aqua 80%,green 99%);
+}
+.previewImg{
+    max-width: 670px;
+    max-height: 370px;
     border-radius: 10px;
     border: 5px groove teal;
-    margin: 10px;
 }
 .previewAddBlock{
-    width: 500px;
+    width: 350px;
     display: flex;
     flex-direction: column;
     padding: 10px;
@@ -46,25 +58,63 @@
 .previewAddFile:hover{
     background: linear-gradient(grey,grey);
 }
+.previewFilesList{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+.previewFileName{
+    font-size: 18px;
+    color: black;
+    font-weight: 600;
+}
+.previewRemoveBtn{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 1px solid black;
+    background-color: lightgrey;
+    color: black;
+    font-size: 20px;
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: 0.2s;
+    cursor: pointer;
+}
+.previewRemoveBtn:hover{
+    background-color: darkslategrey;
+    color: white;
+}
+.firstSectBotmBlock{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    font-size: 26px;
+    font-weight: 600;
+    color: black;
+    text-align: center;
+}
 .firstSectArea{
-    max-width: 950px;
-    min-width: 600px;
-    min-height: 200px;
-    max-height: 350px;
     margin: 0 auto;
-    margin-top: 32px;
+    max-width: 950px;
+    min-width: 800px;
+    min-height: 300px;
+    max-height: 350px;
+    margin-top: 16px;
     border-radius: 10px;
     border: 6px groove black;
     background: linear-gradient(30deg,black,lightgrey,black);
     color: black;
+    text-shadow: 0 0 5px white;
     font-size: 20px;
     padding: 5px;
 }
 .secondSection{
-    width: 70%;
     display: flex;
     flex-direction: column;
-    border: 1px solid orangered;
 }
 .secondSectItem{
     display: flex;
@@ -114,4 +164,15 @@
 .submitBtn:hover{
     background: linear-gradient(30deg,darkgrey,white,darkgrey);
     border-radius: 15px;
+}
+.errorReqText{
+    width: 100%;
+    font-size: 22px;
+    font-weight: 600;
+    color:red;
+    text-shadow: 0 5px 5px black;
+    text-align: center;
+}
+.successReqText{
+    color:greenyellow
 }

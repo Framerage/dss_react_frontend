@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect, useState} from "react";
-import classes from "./catalog.module.css";
 import CatalogCard from "components/catalogCard/CatalogCard";
 import {Link, useNavigate} from "react-router-dom";
 import {APP_AUTH_ROUTES, FOR_GH_PAGES} from "utils/routes";
@@ -18,48 +17,8 @@ import {carrentCatalogFilter} from "store/modules/catalog/actions";
 import {useFiltredObj} from "hooks/useFilteredObj";
 import {CatalogCardNesting} from "typings/catalogCards";
 import {selectAuthData} from "store/modules/auth/selectors";
-const cardsTest = [
-  {
-    _id: "34534",
-    title: "Relax point",
-    descrip: "Excellent decision for your ad",
-    styles: ["red", "green", "blue"],
-    imgUrl: [
-      [
-        "https://static.tildacdn.com/tild6161-3935-4461-b131-386439663465/reklama-top.jpg",
-      ],
-    ],
-    viewsCount: 0,
-    likes: 0,
-    theme: "neon",
-  },
-  {
-    _id: "356",
-    title: "Relax point",
-    descrip: "Nice decision for your ad",
-    styles: ["red", "green", "blue"],
-    imgUrl: [
-      ["https://acrylic-pro.ru/wp-content/uploads/2009/07/uslugi4-300x300.jpg"],
-    ],
-    viewsCount: 0,
-    likes: 0,
-    theme: "laserEngr",
-  },
-  {
-    _id: "3234",
-    title: "Relax point",
-    descrip: "Notbad decision for your ad",
-    styles: ["red", "green", "blue"],
-    imgUrl: [
-      [
-        "https://static.tildacdn.com/tild6161-3935-4461-b131-386439663465/reklama-top.jpg",
-      ],
-    ],
-    viewsCount: 0,
-    likes: 0,
-    theme: "neon",
-  },
-];
+
+import classes from "./catalog.module.css";
 const Catalog = () => {
   const navigation = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
@@ -111,24 +70,25 @@ const Catalog = () => {
             <Link to={APP_AUTH_ROUTES.creatingCard.link}>Create new card</Link>
           )}
         </div>
-
-        {!cardsIsLoading ? (
-          filtredCards && filtredCards.length ? (
-            filtredCards.map(card => (
-              <CatalogCard
-                key={card._id}
-                card={card}
-                onClickCard={onGetCardDescrip}
-              />
-            ))
+        <div className={classes.catalogCards}>
+          {!cardsIsLoading ? (
+            filtredCards && filtredCards.length ? (
+              filtredCards.map(card => (
+                <CatalogCard
+                  key={card._id}
+                  card={card}
+                  onClickCard={onGetCardDescrip}
+                />
+              ))
+            ) : (
+              <div className={classes.warnText}>
+                {cardsError ? "Error with getting data" : "Empty list"}
+              </div>
+            )
           ) : (
-            <div className={classes.warnText}>
-              {cardsError ? "Error with getting data" : "Empty list"}
-            </div>
-          )
-        ) : (
-          <PointLoader scale={0.4} />
-        )}
+            <PointLoader scale={0.4} />
+          )}
+        </div>
       </div>
     </div>
   );

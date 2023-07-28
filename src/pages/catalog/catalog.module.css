@@ -5,9 +5,14 @@
 .catalogContent{
     width: 100%;
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
+    flex-direction: column;
     border: 1px solid red;
+}
+.catalogCards{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    align-items: flex-start;
 }
 .extraFunctional{
     width: 100%;

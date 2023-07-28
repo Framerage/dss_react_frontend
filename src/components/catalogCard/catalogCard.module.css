@@ -1,11 +1,12 @@
 .cardContainer{
-    width: 500px;
+    width: 520px;
     height: 300px;
     border:6px groove teal;
     border-radius: 15px;
     background-color: #024d4d;
     padding: 8px;
-    margin: 16px 32px;
+    margin-top: 16px;
+    margin-left: 32px;
     display: flex;
     transition: 0.2s;
 }
@@ -46,7 +47,7 @@
     margin: 0 35px;
 }
 .cardInfo{
-    width: 178px;
+    width: 208px;
     height: 100%;
     font-weight: 600;
     letter-spacing: 2px;
@@ -64,6 +65,7 @@
     font-size: 30px;
     cursor: pointer;
     transition: 0.2s;
+    white-space:pre-wrap
 }
 .infoCardTitle:hover{
     text-shadow: 0 5px 5px aquamarine;

@@ -2,6 +2,7 @@ import React, {useMemo} from "react";
 import defaultImg from "assets/images/defaultCardImg.png";
 import {CatalogCardNesting, cardThemes} from "typings/catalogCards";
 import classes from "./catalogCard.module.css";
+import {setBase64Image} from "helpers/appHelpers";
 interface CardProps {
   card?: CatalogCardNesting;
   onClickCard?: (id: string) => void;
@@ -22,6 +23,10 @@ const CatalogCard: React.FC<CardProps> = ({card, onClickCard}) => {
     });
     return themes.filter(el => el && el)[0];
   }, [card, card?.theme]);
+  const cardImage =
+    card && card.imgUrl.length > 0
+      ? setBase64Image("", card.imgUrl[0])
+      : defaultImg;
   return (
     <div
       className={classes.cardContainer}
@@ -30,11 +35,7 @@ const CatalogCard: React.FC<CardProps> = ({card, onClickCard}) => {
       }}
     >
       <div className={classes.cardPreview}>
-        <img
-          src={card && card.imgUrl ? card.imgUrl[0][0] : defaultImg}
-          alt="cardImg"
-          className={classes.cardImg}
-        />
+        <img src={cardImage} alt="cardImg" className={classes.cardImg} />
         <div className={classes.extraCardInfo}>slider</div>
         <div className={classes.extraCardInfo}>styles</div>
         <div className={classes.extraCardInfo}>

@@ -9,6 +9,11 @@ export interface CatalogCardNesting {
   theme: string;
   price: number;
 }
+export interface CreatingCatalogCard extends CatalogCardNesting {
+  success: boolean;
+  message: string;
+  status: number;
+}
 export enum cardThemes {
   neon = "Neon decor",
   plywood = "Wood cutting",

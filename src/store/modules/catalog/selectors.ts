@@ -19,3 +19,16 @@ export const catalogCardsError = createSelector(
   selectAuthState,
   state => state.catalogCards.error,
 );
+
+export const creatingCardData = createSelector(
+  selectAuthState,
+  state => state.cardCreating.data,
+);
+export const creatingCardsIsLoading = createSelector(
+  selectAuthState,
+  state => state.cardCreating.isLoading,
+);
+export const creatingCardError = createSelector(
+  selectAuthState,
+  state => state.cardCreating.error,
+);
