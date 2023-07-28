@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect, useState} from "react";
 import classes from "./catalog.module.css";
 import CatalogCard from "components/catalogCard/CatalogCard";
-import {useNavigate} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {APP_AUTH_ROUTES, FOR_GH_PAGES} from "utils/routes";
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -17,6 +17,7 @@ import CatalogFilter from "components/catalogFilter";
 import {carrentCatalogFilter} from "store/modules/catalog/actions";
 import {useFiltredObj} from "hooks/useFilteredObj";
 import {CatalogCardNesting} from "typings/catalogCards";
+import {selectAuthData} from "store/modules/auth/selectors";
 const cardsTest = [
   {
     _id: "34534",
@@ -63,6 +64,8 @@ const Catalog = () => {
   const navigation = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
+  const authRequest = useSelector(selectAuthData);
+
   const cards = useSelector(catalogCardsData);
   const cardsIsLoading = useSelector(catalogCardsIsLoading);
   const cardsError = useSelector(catalogCardsError);
@@ -70,7 +73,7 @@ const Catalog = () => {
   const choosedFilter = useSelector(choosedCatalogFilter);
 
   const filtredCards = useFiltredObj<CatalogCardNesting>(
-    cardsTest,
+    cards,
     "theme",
     choosedFilter,
   );
@@ -102,6 +105,13 @@ const Catalog = () => {
         onChooseFilter={onGetCurrentFilter}
       />
       <div className={classes.catalogContent}>
+        <div className={classes.extraFunctional}>
+          <input type="text" placeholder="search" />
+          {authRequest && authRequest.role === "admin" && (
+            <Link to={APP_AUTH_ROUTES.creatingCard.link}>Create new card</Link>
+          )}
+        </div>
+
         {!cardsIsLoading ? (
           filtredCards && filtredCards.length ? (
             filtredCards.map(card => (

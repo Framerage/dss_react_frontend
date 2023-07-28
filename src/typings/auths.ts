@@ -5,6 +5,7 @@ export interface UserAuthorisation {
   persPromo: string;
   role: string;
   token: string;
+  bonuses: number;
   updatedAt: string;
   __v: number;
   _id: string;
@@ -18,6 +19,7 @@ export interface userRegistration {
   updatedAt: string;
   __v: number;
   _id: string;
+  bonuses: number;
   message: string;
   sucsess: boolean;
   status: number;

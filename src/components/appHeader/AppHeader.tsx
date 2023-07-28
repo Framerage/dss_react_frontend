@@ -1,5 +1,4 @@
 import React from "react";
-import classes from "./appHeader.module.css";
 import {Link} from "react-router-dom";
 import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES, FOR_GH_PAGES} from "utils/routes";
 import {useDispatch, useSelector} from "react-redux";
@@ -10,12 +9,13 @@ import {
   resetRegRequest,
 } from "store/modules/auth/actions";
 import {isUserAuth, selectAuthData} from "store/modules/auth/selectors";
+import classes from "./appHeader.module.css";
 const AppHeader = () => {
   const dispatch = useDispatch<AppDispatch>();
   const isAuth = useSelector(isUserAuth);
   const authRequest = useSelector(selectAuthData);
 
-  const userBonuses = 10101;
+  const userBonuses = authRequest?.bonuses || 0;
   const currentUser = authRequest?.name || "-";
   const onLogOut = () => {
     dispatch(resetAuthRequest());

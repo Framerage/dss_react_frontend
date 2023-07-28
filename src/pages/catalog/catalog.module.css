@@ -7,6 +7,15 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+    border: 1px solid red;
+}
+.extraFunctional{
+    width: 100%;
+    height: 30px;
+    border: 1px solid white;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
 }
 .warnText{
     font-size: 28px;

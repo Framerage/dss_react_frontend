@@ -6,19 +6,21 @@ import {AppDispatch} from "store";
 import {useForm} from "react-hook-form";
 import {selectAuthData} from "store/modules/auth/selectors";
 import {getUserAuth} from "store/modules/auth/actions";
+import {createBrowserHistory} from "history";
+import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES} from "utils/routes";
 interface LoginFormData {
   email: string;
   pass: string;
 }
 const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const history = createBrowserHistory();
   const authRequest = useSelector(selectAuthData);
   const {handleSubmit, register, formState, setValue} = useForm<LoginFormData>({
     mode: "onSubmit",
     reValidateMode: "onSubmit",
     shouldFocusError: false,
   });
-
   const getAuth = async (data: LoginFormData) => {
     dispatch(getAuthTokenFx({email: data.email, pass: data.pass}));
   };
@@ -28,7 +30,11 @@ const LoginPage = () => {
       return;
     }
     if (authRequest.token) {
+      if (history.location.pathname === APP_GENERAL_ROUTES.login.link) {
+        history.push(APP_AUTH_ROUTES.main.link || "/");
+      }
       dispatch(getUserAuth(true));
+
       return;
     }
     dispatch(getUserAuth(false));

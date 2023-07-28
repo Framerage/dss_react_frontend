@@ -3,11 +3,11 @@ export interface CatalogCardNesting {
   title: string;
   descrip: string;
   fullDescrip?: string;
-  styles: string[];
-  imgUrl: string[][];
+  imgUrl: string[];
   viewsCount: number;
   likes?: number;
   theme: string;
+  price: number;
 }
 export enum cardThemes {
   neon = "Neon decor",
@@ -16,5 +16,5 @@ export enum cardThemes {
   furniture = "Furniture",
   volPrinter = "3D-printer",
   reliefPics = "Relief pictures",
-  some = "-",
+  some = "",
 }
