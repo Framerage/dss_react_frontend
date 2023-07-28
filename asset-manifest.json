@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/dss_react_frontend/static/css/main.88f7274b.css",
-    "main.js": "/dss_react_frontend/static/js/main.d34b6e07.js",
+    "main.css": "/dss_react_frontend/static/css/main.d6a15b93.css",
+    "main.js": "/dss_react_frontend/static/js/main.d0669e8e.js",
     "static/media/bas-relief.jpg": "/dss_react_frontend/static/media/bas-relief.089ae646703c7e55fc8f.jpg",
     "static/media/defaultCardImg.png": "/dss_react_frontend/static/media/defaultCardImg.79d5df9a9f2d9845564f.png",
     "static/media/furniture.jpg": "/dss_react_frontend/static/media/furniture.e07cadfb201c7f113947.jpg",
@@ -12,11 +12,11 @@
     "static/media/3d-printer.jpg": "/dss_react_frontend/static/media/3d-printer.2acc2547e42a7ae9540e.jpg",
     "static/media/door-open-solid.svg": "/dss_react_frontend/static/media/door-open-solid.08adb0c0360a7a177501.svg",
     "index.html": "/dss_react_frontend/index.html",
-    "main.88f7274b.css.map": "/dss_react_frontend/static/css/main.88f7274b.css.map",
-    "main.d34b6e07.js.map": "/dss_react_frontend/static/js/main.d34b6e07.js.map"
+    "main.d6a15b93.css.map": "/dss_react_frontend/static/css/main.d6a15b93.css.map",
+    "main.d0669e8e.js.map": "/dss_react_frontend/static/js/main.d0669e8e.js.map"
   },
   "entrypoints": [
-    "static/css/main.88f7274b.css",
-    "static/js/main.d34b6e07.js"
+    "static/css/main.d6a15b93.css",
+    "static/js/main.d0669e8e.js"
   ]
 }
