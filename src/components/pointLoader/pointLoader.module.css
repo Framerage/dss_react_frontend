@@ -3,7 +3,7 @@
     height: 300px;
     position: relative;
     animation: rotat 15s linear infinite;
-    margin: auto;
+    margin: 150px auto;
   }
   @keyframes rotat {
     0% {

@@ -3,12 +3,11 @@
   padding: 0;
   box-sizing: border-box;
 }
-body {
+body,html {
   min-width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   background: linear-gradient(30deg,#00a2ff,black,aqua,#b4b3b3,aqua,black,#00a2ff);
   background-repeat: no-repeat;
-  background-size: auto;
 }
 body::-webkit-scrollbar {
   width: 15px;

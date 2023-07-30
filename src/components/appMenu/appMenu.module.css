@@ -1,5 +1,5 @@
 .menu3dContainer {
-    width: 350px;
+    width: 300px;
     height: 300px;
     display: flex;
     align-items: center;
@@ -91,6 +91,7 @@
     width: 100%;
     height: 100%;
     font-family: "Times New Roman", Times, serif;
+    font-size: 18px;
     text-shadow: 0 0 5px white;
     display: block;
     text-transform: uppercase;
@@ -107,4 +108,32 @@
   .menuItem:last-child::after {
     box-shadow: 100px 100px 10px black;
   }
-  
+@media screen and (max-width:1536px){
+  .menu3dContainer {
+    padding-right: 20px;
+  }
+  .menuItem {
+    width: 150px;
+    height: 40px;
+    margin-left: 50px;
+  }
+  .menuItem::before {
+    top: -27px;
+    right: -27px;
+    width: 25px;
+  }
+  .menuItem::after {
+    top: -27px;
+    height: 25px;
+
+  }
+  .itemLink {
+    font-size: 14px;
+  }
+  .menuItem .itemLink:hover {
+    font-weight: 800;
+  }
+  .menuItem:last-child::after {
+    box-shadow: 100px 100px 10px black;
+  }
+}
