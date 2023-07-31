@@ -19,6 +19,7 @@ import {CatalogCardNesting} from "typings/catalogCards";
 import {selectAuthData} from "store/modules/auth/selectors";
 
 import classes from "./catalog.module.css";
+import AppSearcher from "components/appSearcher/AppSearcher";
 const Catalog = () => {
   const navigation = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
@@ -65,7 +66,7 @@ const Catalog = () => {
       />
       <div className={classes.catalogContent}>
         <div className={classes.extraFunctional}>
-          <input type="text" placeholder="search" />
+          <AppSearcher />
           {authRequest && authRequest.role === "admin" && (
             <Link to={APP_AUTH_ROUTES.creatingCard.link}>Create new card</Link>
           )}

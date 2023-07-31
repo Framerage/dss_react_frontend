@@ -35,7 +35,6 @@ const CatalogCard: React.FC<CardProps> = ({card, onClickCard}) => {
     >
       <div className={classes.cardPreview}>
         <ImageSlider images={cardImages} />
-        <div className={classes.extraCardInfo}>styles</div>
         <div className={classes.extraCardInfo}>
           <div className={classes.extraInfoText}>
             Views:&nbsp;{card && card.viewsCount ? card.viewsCount : 0}

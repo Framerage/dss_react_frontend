@@ -32,6 +32,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({images = []}) => {
       <div className={classes.sliderPoints}>
         {images.map((_, index) => (
           <div
+            key={index}
             className={cn(classes.pointItem, {
               [classes.activePoint]: choosedImg === index,
             })}
