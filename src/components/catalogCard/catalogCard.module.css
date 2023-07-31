@@ -20,18 +20,6 @@
     flex-direction: column;
     justify-content: space-between;
 }
-.cardImg{
-    width: 100%;
-    height: 60%;
-    border-radius: 10px;
-    border:4px groove transparent;
-    cursor: pointer;
-    transition: 0.2s;
-
-}
-.cardImg:hover{
-    border-color: aquamarine
-}
 .extraCardInfo{
     width: 100%;
     display: flex;
@@ -83,3 +71,4 @@
     margin: 5px 0;
     padding: 0 5px;
 }
+

@@ -56,7 +56,7 @@ const CreatingCard = () => {
       return;
     }
     const body = fileList[0];
-    if (body.size > 1000000) {
+    if (body?.size > 1000000) {
       setFileSizeError(true);
       return;
     }

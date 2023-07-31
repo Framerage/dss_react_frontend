@@ -1,0 +1,43 @@
+.imageSlider{
+    width: 100%;
+    height: 70%;
+    display: flex;
+    flex-direction: column;
+}
+.cardImg{
+    width: 100%;
+    height: 90%;
+    border-radius: 10px;
+    border:4px groove transparent;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.scaledImg{
+    transform: scale(3);
+}
+.imageSlider:hover>.cardImg{
+    border-color: aquamarine
+}
+.sliderPoints{
+    width: 100%;
+    height: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.pointItem{
+    width: 10px;
+    height: 10px;
+    border: 1px solid black;
+    border-radius: 50%;
+    background-color: grey;
+    cursor: pointer;
+    transition: 0.2s;
+    margin: 0 5px;
+}
+.pointItem:hover{
+    border-color: aquamarine;
+}
+.activePoint{
+    background-color: aquamarine;
+}

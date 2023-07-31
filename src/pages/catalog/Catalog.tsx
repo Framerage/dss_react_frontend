@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useState} from "react";
+import React, {useCallback, useEffect} from "react";
 import CatalogCard from "components/catalogCard/CatalogCard";
 import {Link, useNavigate} from "react-router-dom";
 import {APP_AUTH_ROUTES, FOR_GH_PAGES} from "utils/routes";
