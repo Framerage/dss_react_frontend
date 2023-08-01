@@ -9,9 +9,8 @@ export const getAuthToken = async ({
 }) => {
   const resp = await instance
     .post("/auth/login", {email: email, pass: pass})
-    .then(res => res);
-  // .catch(err => err.response.data);
-  console.log(resp, "resp");
+    .then(res => res)
+    .catch(err => err.response.data);
   if (resp.status !== 200) {
     return resp;
   }
