@@ -33,11 +33,15 @@ const Catalog = () => {
 
   const choosedFilter = useSelector(choosedCatalogFilter);
 
+  const [searchValue, setSearchValue] = useState("");
+
   const filtredCards = useFiltredObj<CatalogCardNesting>(
     cards,
     "theme",
     choosedFilter,
   );
+  const filtredCardsBySearch = useFiltredCards(filtredCards, searchValue);
+
   const onGetCardDescrip = useCallback((cardId: string) => {
     navigation(FOR_GH_PAGES + APP_AUTH_ROUTES.catalog.link + "/" + cardId);
   }, []);
@@ -59,14 +63,12 @@ const Catalog = () => {
     {title: "Relief pictures", link: "reliefPics"},
   ];
 
-  const [searchValue, setSearchValue] = useState("");
   const onSetSearchValue = (value: string) => {
-    if (value) {
+    if (value && choosedFilter) {
       dispatch(carrentCatalogFilter(""));
     }
     setSearchValue(value);
   };
-  const filtredCardsBySearch = useFiltredCards(filtredCards, searchValue);
   return (
     <div className={classes.catalogContainer}>
       <CatalogFilter

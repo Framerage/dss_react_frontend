@@ -7,14 +7,10 @@ export const getAuthToken = async ({
   email: string;
   pass: string;
 }) => {
-  const resp = await instance
+  return instance
     .post("/auth/login", {email: email, pass: pass})
-    .then(res => res)
+    .then(res => res.data)
     .catch(err => err.response.data);
-  if (resp.status !== 200) {
-    return resp;
-  }
-  return resp;
 };
 export const userRegistration = async (request: {
   email: string;

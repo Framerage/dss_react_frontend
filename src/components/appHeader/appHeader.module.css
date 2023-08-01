@@ -43,6 +43,7 @@
   justify-content: space-around;
   color: white;
   text-shadow: 0 5px 5px black;
+
 }
 .userBonuses{
   font-size: 16px;
@@ -52,9 +53,12 @@
   width: min-content;
   height: min-content;
   font-size: 30px;
+  filter:drop-shadow(0 0px 10px aqua)
+
 }
 .currentUser{
   font-size: 24px;
+  filter:drop-shadow(0 0px 10px aqua)
 
 }
 .exitBtn{
@@ -67,6 +71,8 @@
   transition: 0.2s;
   border: none;
   border-radius: 2px;
+  filter:drop-shadow(0 0px 10px aqua)
+
 }
 .exitBtn:hover{
   filter:drop-shadow(0 5px 5px white)
@@ -83,6 +89,8 @@
   cursor: pointer;
   padding: 5px;
   transition: 0.2s;
+  filter:drop-shadow(0 0px 2px aqua)
+
 }
 .headerNavItem:hover {
   text-shadow: 0 0 5px white, 0 0 10px teal, 0 0 15px white, 0 0 20px teal;

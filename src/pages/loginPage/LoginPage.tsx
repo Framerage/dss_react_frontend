@@ -1,17 +1,18 @@
 import React, {useEffect} from "react";
-import classes from "./loginPage.module.css";
+import {createBrowserHistory} from "history";
+import {AppDispatch} from "store";
 import {useDispatch, useSelector} from "react-redux";
 import {getAuthTokenFx} from "store/modules/auth/async-actions";
-import {AppDispatch} from "store";
-import {useForm} from "react-hook-form";
 import {
   selectAuthData,
   selectAuthError,
   selectAuthIsLoading,
 } from "store/modules/auth/selectors";
 import {getUserAuth} from "store/modules/auth/actions";
-import {createBrowserHistory} from "history";
+import {useForm} from "react-hook-form";
 import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES} from "utils/routes";
+
+import classes from "./loginPage.module.css";
 interface LoginFormData {
   email: string;
   pass: string;
@@ -22,8 +23,7 @@ const LoginPage = () => {
   const authRequest = useSelector(selectAuthData);
   const authRequestIsLoading = useSelector(selectAuthIsLoading);
   const authRequestError = useSelector(selectAuthError);
-  console.log(authRequest, "authRequest");
-  console.log(authRequestError, "authRequestError");
+
   const {handleSubmit, register} = useForm<LoginFormData>({
     mode: "onSubmit",
     reValidateMode: "onSubmit",
@@ -69,8 +69,12 @@ const LoginPage = () => {
       <button className={classes.submitBtn}>
         {authRequestIsLoading ? "Loading ..." : "Login"}
       </button>
-      {authRequestError && (
-        <span className={classes.errorReqText}>{authRequestError}</span>
+      {(authRequestError || (authRequest && !authRequest.success)) && (
+        <span className={classes.errorReqText}>
+          {authRequest && !authRequest.success
+            ? authRequest.message
+            : authRequestError}
+        </span>
       )}
     </form>
   );

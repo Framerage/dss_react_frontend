@@ -26,10 +26,10 @@
 }
 .searcherIcon{
     position: absolute;
-    width: 42px;
-    height: 42px;
+    width: 39px;
+    height: 39px;
     padding: 5px;
-    top: -1px;
+    top: 0px;
     left: 480px;
     transition: 0.2s;
     transform: translateX();

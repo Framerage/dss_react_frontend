@@ -1,7 +1,4 @@
 import React, {useEffect, useState} from "react";
-import classes from "./regPage.module.css";
-import {APP_GENERAL_ROUTES} from "utils/routes";
-import {useForm} from "react-hook-form";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "store";
 import {
@@ -10,8 +7,12 @@ import {
   selectRegistrIsLoading,
 } from "store/modules/auth/selectors";
 import {UserRegistrationFx} from "store/modules/auth/async-actions";
+import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import {createBrowserHistory} from "history";
+import {APP_GENERAL_ROUTES} from "utils/routes";
+
+import classes from "./regPage.module.css";
 interface RegFormData {
   email: string;
   pass: string;
@@ -49,7 +50,7 @@ const RegistrationPage = () => {
     if (!regResult) {
       return;
     }
-    if (regResult && !regResult.sucsess) {
+    if (regResult && !regResult.success) {
       return;
     }
     navigate(APP_GENERAL_ROUTES.login.link);

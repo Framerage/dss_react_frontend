@@ -12,14 +12,12 @@
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    padding: 0 16px;
-    margin-left: 40px;
 }
 .extraFunctional{
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin: 0 86px;
+    margin: 0 30px;
 }
 .warnText{
     font-size: 28px;

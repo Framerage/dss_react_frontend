@@ -10,6 +10,8 @@ export interface UserAuthorisation {
   __v: number;
   _id: string;
   message: string;
+  success: boolean;
+  status: number;
 }
 export interface userRegistration {
   createdAt: string;
@@ -22,6 +24,6 @@ export interface userRegistration {
   _id: string;
   bonuses: number;
   message: string;
-  sucsess: boolean;
+  success: boolean;
   status: number;
 }
