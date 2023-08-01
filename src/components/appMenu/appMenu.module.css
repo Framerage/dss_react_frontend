@@ -125,15 +125,8 @@
   .menuItem::after {
     top: -27px;
     height: 25px;
-
   }
   .itemLink {
     font-size: 14px;
-  }
-  .menuItem .itemLink:hover {
-    font-weight: 800;
-  }
-  .menuItem:last-child::after {
-    box-shadow: 100px 100px 10px black;
   }
 }

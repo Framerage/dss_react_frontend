@@ -39,7 +39,7 @@ export const authReducer = createReducer<AuthInitialState>(authInitialState, {
     state.isUserAuth = action.payload;
   },
   [getAuthTokenFx.fulfilled.type]: (state, action) => {
-    if (action.payload.error) {
+    if (action.payload?.error) {
       state.authRequest.error = action.payload.error;
       state.authRequest.isLoading = false;
       return;
@@ -52,7 +52,7 @@ export const authReducer = createReducer<AuthInitialState>(authInitialState, {
     state.authRequest.error = null;
   },
   [getAuthTokenFx.rejected.type]: state => {
-    state.authRequest.error = "error with auth";
+    state.authRequest.error = "Error with auth";
     state.authRequest.isLoading = false;
   },
 
@@ -69,8 +69,8 @@ export const authReducer = createReducer<AuthInitialState>(authInitialState, {
     state.registrationReq.isLoading = true;
     state.registrationReq.error = null;
   },
-  [UserRegistrationFx.rejected.type]: state => {
-    state.registrationReq.error = "error with registration";
+  [UserRegistrationFx.rejected.type]: (state, action) => {
+    state.registrationReq.error = action.payload;
     state.registrationReq.isLoading = false;
   },
 });

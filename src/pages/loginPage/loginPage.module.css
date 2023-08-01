@@ -50,3 +50,11 @@
   background-color: grey;
   transform: scale(0.98);
 }
+.errorReqText{
+  font-size: 16px;
+  font-weight: 600;
+  color: red;
+  text-shadow: 0 5px 5px black;
+  width: 100%;
+  text-align: center;
+}

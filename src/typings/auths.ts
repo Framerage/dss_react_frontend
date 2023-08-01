@@ -9,6 +9,7 @@ export interface UserAuthorisation {
   updatedAt: string;
   __v: number;
   _id: string;
+  message: string;
 }
 export interface userRegistration {
   createdAt: string;

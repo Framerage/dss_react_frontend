@@ -1,31 +1,36 @@
 import React, {useState} from "react";
 import SearchIcon from "assets/icons/SearchIcon.png";
 import classes from "./appSearcher.module.css";
+import {useForm} from "react-hook-form";
 
-const AppSearcher = () => {
+interface AppSearcherProps {
+  onCreateSearchValue: (value: string) => void;
+}
+const AppSearcher: React.FC<AppSearcherProps> = ({onCreateSearchValue}) => {
+  const {handleSubmit, register} = useForm<{searchValue: string}>({
+    mode: "onSubmit",
+    reValidateMode: "onSubmit",
+    shouldFocusError: false,
+  });
   const [isSearcherActive, setIsSearcherActive] = useState(false);
-  const onSearchCard = (e: any) => {
-    e.preventDefault();
-    console.log(e.target.firstChild.value, "data");
-  };
+  const onSearchCard = (data: {searchValue: string}) =>
+    onCreateSearchValue(data.searchValue);
   const onActiveSearcher = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.preventDefault();
-    console.log("btn is active");
     setIsSearcherActive(true);
   };
   return (
     <form
-      action=""
-      aria-disabled
       className={classes.searcherContainer}
-      onSubmit={onSearchCard}
+      onSubmit={handleSubmit(onSearchCard)}
     >
       {isSearcherActive ? (
         <>
           <input
+            {...register("searchValue")}
             type="text"
             placeholder="search"
-            name="searcher"
+            name="searchValue"
             className={classes.searcherInput}
           />
           <img

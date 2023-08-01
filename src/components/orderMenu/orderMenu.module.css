@@ -1,13 +1,25 @@
 .navContainer {
     position: relative;
-    width: 400px;
-    height: 400px;
+    width: 100%;
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    margin-top: 100px;
-    margin-left: 450px;
-    /* transform: scale(0.5); */
+    margin-left: 200px;
+  }
+  @media screen and (max-width:1536px){
+    .navContainer {
+      transform: scale(0.9);
+    margin-left: 100px;
+
+    }
+  }
+  @media screen and (max-width:1152px){
+    .navContainer {
+      transform: scale(0.7);
+    margin-left: 10px;
+
+    }
   }
   /*добавить адаптив для разной ширины с учетом масштаба, отступа от верха и отступа слева */
   .menuToggle {

@@ -19,7 +19,6 @@
 .imageWindow{
     width: 700px;
     height: 400px;
-    padding: 10px;
     margin-left: 16px;
     border: 5px groove teal;
     border-radius: 10px;
@@ -29,8 +28,10 @@
     background:linear-gradient(185deg,#ffc974,aqua 80%,green 99%);
 }
 .previewImg{
-    max-width: 670px;
-    max-height: 370px;
+    max-width: 700px;
+    min-width: 500px;
+    min-height: 250px;
+    max-height: 450px;
     border-radius: 10px;
     border: 5px groove teal;
 }
@@ -210,8 +211,10 @@
         padding: 5px;
     }
     .previewImg{
-        max-width: 500px;
+        max-width: 550px;
         max-height: 220px;
+        min-width: 300px;
+        min-height: 150px;
     }
     .previewAddBlock{
         width: 250px;

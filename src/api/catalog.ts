@@ -22,7 +22,7 @@ export const createNewCatalogCard = async ({
   );
   if (response.status !== 200) {
     console.error(response, "resp");
-    return null;
+    return response.data;
   }
   return response.data;
 };

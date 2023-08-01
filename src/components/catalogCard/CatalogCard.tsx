@@ -27,12 +27,7 @@ const CatalogCard: React.FC<CardProps> = ({card, onClickCard}) => {
   const cardImages = card && card.imgUrl.length > 0 ? card.imgUrl : [];
 
   return (
-    <div
-      className={classes.cardContainer}
-      onClick={() => {
-        onClickCard && card && onClickCard(card._id);
-      }}
-    >
+    <div className={classes.cardContainer}>
       <div className={classes.cardPreview}>
         <ImageSlider images={cardImages} />
         <div className={classes.extraCardInfo}>
@@ -45,7 +40,14 @@ const CatalogCard: React.FC<CardProps> = ({card, onClickCard}) => {
         </div>
       </div>
       <div className={classes.cardInfo}>
-        <div className={classes.infoCardTitle}>{card?.title}</div>
+        <div
+          className={classes.infoCardTitle}
+          onClick={() => {
+            onClickCard && card && onClickCard(card._id);
+          }}
+        >
+          {card?.title}
+        </div>
         <div className={classes.infoCardTheme}>
           Theme:&nbsp;
           <br />

@@ -6,21 +6,20 @@
     width: 100%;
     display: flex;
     flex-direction: column;
-    border: 1px solid red;
-    padding: 0 32px;
 }
 .catalogCards{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-    padding: 0 50px;
+    padding: 0 16px;
+    margin-left: 40px;
 }
 .extraFunctional{
-    width: 100%;
     display: flex;
     align-items: center;
     justify-content: space-between;
+    margin: 0 86px;
 }
 .warnText{
     font-size: 28px;
@@ -29,4 +28,31 @@
     color:black;
     text-shadow: 0 5px 10px white;
     margin: auto;
+}
+
+.createBtn{
+    text-decoration: none;
+    width: 150px;
+    height: 40px;
+    border: 2px solid black;
+    border-radius: 20px;
+    background: linear-gradient(30deg,grey,white,grey);
+    font-size: 16px;
+    font-weight: 800;
+    color: black;
+    padding: 5px 10px;
+    margin-left: 16px;
+    cursor: pointer;
+    transition: 0.2s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.createBtn:hover{
+    border-color: white;
+    color: white;
+    text-shadow: 0 0 5px black;
+}
+.createBtn:active{
+    transform: scale(0.9);
 }

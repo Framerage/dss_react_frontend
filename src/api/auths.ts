@@ -7,15 +7,15 @@ export const getAuthToken = async ({
   email: string;
   pass: string;
 }) => {
-  const response = await instance.post("/auth/login", {
-    email: email,
-    pass: pass,
-  });
-  if (response.status !== 200) {
-    console.error(response, "resp");
-    return null;
+  const resp = await instance
+    .post("/auth/login", {email: email, pass: pass})
+    .then(res => res);
+  // .catch(err => err.response.data);
+  console.log(resp, "resp");
+  if (resp.status !== 200) {
+    return resp;
   }
-  return response.data;
+  return resp;
 };
 export const userRegistration = async (request: {
   email: string;
@@ -23,9 +23,8 @@ export const userRegistration = async (request: {
   name: string;
   regPromo: string;
 }) => {
-  const response = await instance.post("/auth/registration", {...request});
-  if (response.status !== 200) {
-    return response.data;
-  }
-  return response.data;
+  return instance
+    .post("/auth/registration", {...request})
+    .then(res => res.data)
+    .catch(({response}) => response);
 };

@@ -4,7 +4,11 @@ import {useDispatch, useSelector} from "react-redux";
 import {getAuthTokenFx} from "store/modules/auth/async-actions";
 import {AppDispatch} from "store";
 import {useForm} from "react-hook-form";
-import {selectAuthData} from "store/modules/auth/selectors";
+import {
+  selectAuthData,
+  selectAuthError,
+  selectAuthIsLoading,
+} from "store/modules/auth/selectors";
 import {getUserAuth} from "store/modules/auth/actions";
 import {createBrowserHistory} from "history";
 import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES} from "utils/routes";
@@ -16,7 +20,11 @@ const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const history = createBrowserHistory();
   const authRequest = useSelector(selectAuthData);
-  const {handleSubmit, register, formState, setValue} = useForm<LoginFormData>({
+  const authRequestIsLoading = useSelector(selectAuthIsLoading);
+  const authRequestError = useSelector(selectAuthError);
+  console.log(authRequest, "authRequest");
+  console.log(authRequestError, "authRequestError");
+  const {handleSubmit, register} = useForm<LoginFormData>({
     mode: "onSubmit",
     reValidateMode: "onSubmit",
     shouldFocusError: false,
@@ -58,7 +66,12 @@ const LoginPage = () => {
         className={classes.inputItem}
         required
       />
-      <button className={classes.submitBtn}>Login</button>
+      <button className={classes.submitBtn}>
+        {authRequestIsLoading ? "Loading ..." : "Login"}
+      </button>
+      {authRequestError && (
+        <span className={classes.errorReqText}>{authRequestError}</span>
+      )}
     </form>
   );
 };

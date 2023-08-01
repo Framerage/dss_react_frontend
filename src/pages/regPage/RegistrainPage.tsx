@@ -25,7 +25,7 @@ const RegistrationPage = () => {
   const regResult = useSelector(selectRegistrData);
   const regIsLoading = useSelector(selectRegistrIsLoading);
   const regError = useSelector(selectRegistrError);
-  const {handleSubmit, register, formState, setValue} = useForm<RegFormData>({
+  const {handleSubmit, register} = useForm<RegFormData>({
     mode: "onSubmit",
     reValidateMode: "onSubmit",
     shouldFocusError: false,
@@ -100,7 +100,11 @@ const RegistrationPage = () => {
         </button>
       </form>
       {regError && (
-        <div className={classes.errorText}>Регистрация не удалась</div>
+        <div className={classes.errorText}>
+          Регистрация не удалась
+          <br />
+          {regError}
+        </div>
       )}
     </div>
   );

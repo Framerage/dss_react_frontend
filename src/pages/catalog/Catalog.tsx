@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import CatalogCard from "components/catalogCard/CatalogCard";
 import {Link, useNavigate} from "react-router-dom";
 import {APP_AUTH_ROUTES, FOR_GH_PAGES} from "utils/routes";
@@ -20,6 +20,7 @@ import {selectAuthData} from "store/modules/auth/selectors";
 
 import classes from "./catalog.module.css";
 import AppSearcher from "components/appSearcher/AppSearcher";
+import {useFiltredCards} from "hooks/catalog/useFiltredCards";
 const Catalog = () => {
   const navigation = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
@@ -58,6 +59,14 @@ const Catalog = () => {
     {title: "Relief pictures", link: "reliefPics"},
   ];
 
+  const [searchValue, setSearchValue] = useState("");
+  const onSetSearchValue = (value: string) => {
+    if (value) {
+      dispatch(carrentCatalogFilter(""));
+    }
+    setSearchValue(value);
+  };
+  const filtredCardsBySearch = useFiltredCards(filtredCards, searchValue);
   return (
     <div className={classes.catalogContainer}>
       <CatalogFilter
@@ -66,15 +75,20 @@ const Catalog = () => {
       />
       <div className={classes.catalogContent}>
         <div className={classes.extraFunctional}>
-          <AppSearcher />
+          <AppSearcher onCreateSearchValue={onSetSearchValue} />
           {authRequest && authRequest.role === "admin" && (
-            <Link to={APP_AUTH_ROUTES.creatingCard.link}>Create new card</Link>
+            <Link
+              to={APP_AUTH_ROUTES.creatingCard.link}
+              className={classes.createBtn}
+            >
+              &#43;&nbsp;Create new card
+            </Link>
           )}
         </div>
         <div className={classes.catalogCards}>
           {!cardsIsLoading ? (
-            filtredCards && filtredCards.length ? (
-              filtredCards.map(card => (
+            filtredCardsBySearch && filtredCardsBySearch.length ? (
+              filtredCardsBySearch.map(card => (
                 <CatalogCard
                   key={card._id}
                   card={card}

@@ -40,7 +40,7 @@
     background: linear-gradient(30deg, black, white, black);
     transition: 0.5s;
     margin-bottom: 10px;
-    margin-left: 55px;
+    margin-left: 42px;
     cursor: pointer;
     border: 1px solid grey;
   }
@@ -69,7 +69,6 @@
     transform: skewX(45deg);
     transition: 0.5s;
     border: 1px solid grey;
-
   }
   .menuItem:hover {
     transform: translateX(50px);
@@ -111,5 +110,43 @@
   }
   .menuItem:last-child::after {
     box-shadow: -100px 100px 10px black;
+  }
+  @media screen and (max-width:1536px){
+
+    .menu3dContainer {
+      width: 300px;
+      height: 300px;
+    }
+    .menuBlock {
+      overflow: auto;
+      height: 400px;
+      width: 300px;
+      position: relative;
+      transform: skewY(-15deg);
+      margin-top: 100px;
+      padding: 50px 0;
+      filter: drop-shadow(20px 10px 10px black) ;
+      display: flex;
+      flex-direction: column;
+    }
+    .menuItem {
+      width: 135px;
+      height: 40px;
+    margin-left: 22px;
+
+    }
+    .menuItem::before {
+      top: 0;
+      left: -22px;
+      width: 20px;
+    }
+    .menuItem::after {
+      top: -22px;
+      right: 0;
+      height: 20px;
+    }
+    .itemLink {
+      font-size: 12px;
+    }
   }
   
