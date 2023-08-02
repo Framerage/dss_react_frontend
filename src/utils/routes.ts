@@ -33,6 +33,7 @@ export const APP_AUTH_ROUTES: RoutesType = {
   contacts: {link: FOR_GH_PAGES + "/contacts", component: null},
   order: {link: FOR_GH_PAGES + "/create-order", component: CreateOrder},
   personalPage: {link: FOR_GH_PAGES + "/personal-page", component: null},
+  login: {link: FOR_GH_PAGES + "/auth/login", component: LoginPage},
   error: {link: "*", component: ErrorPage},
 };
 // "homepage": "https://framerage.github.io/dss_react_frontend",

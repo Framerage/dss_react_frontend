@@ -10,9 +10,10 @@ import {
 } from "store/modules/auth/selectors";
 import {getUserAuth} from "store/modules/auth/actions";
 import {useForm} from "react-hook-form";
-import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES} from "utils/routes";
+import {APP_AUTH_ROUTES} from "utils/routes";
 
 import classes from "./loginPage.module.css";
+import {useNavigate} from "react-router-dom";
 interface LoginFormData {
   email: string;
   pass: string;
@@ -20,6 +21,7 @@ interface LoginFormData {
 const LoginPage = () => {
   const dispatch = useDispatch<AppDispatch>();
   const history = createBrowserHistory();
+  const navigate = useNavigate();
   const authRequest = useSelector(selectAuthData);
   const authRequestIsLoading = useSelector(selectAuthIsLoading);
   const authRequestError = useSelector(selectAuthError);
@@ -38,11 +40,12 @@ const LoginPage = () => {
       return;
     }
     if (authRequest.token) {
-      if (history.location.pathname === APP_GENERAL_ROUTES.login.link) {
-        history.push(APP_AUTH_ROUTES.main.link || "/");
+      if (history.location.pathname === APP_AUTH_ROUTES.login.link) {
+        setTimeout(() => {
+          navigate(APP_AUTH_ROUTES.main.link || "/");
+        }, 1000);
       }
       dispatch(getUserAuth(true));
-
       return;
     }
     dispatch(getUserAuth(false));
@@ -69,6 +72,11 @@ const LoginPage = () => {
       <button className={classes.submitBtn}>
         {authRequestIsLoading ? "Loading ..." : "Login"}
       </button>
+      {authRequest && authRequest.success && (
+        <span className={classes.errorReqText} style={{color: "yellowgreen"}}>
+          Success!!!
+        </span>
+      )}
       {(authRequestError || (authRequest && !authRequest.success)) && (
         <span className={classes.errorReqText}>
           {authRequest && !authRequest.success

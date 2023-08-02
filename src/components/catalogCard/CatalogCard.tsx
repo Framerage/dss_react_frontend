@@ -1,13 +1,18 @@
-import React, {useMemo} from "react";
+import React, {useEffect, useMemo, useState} from "react";
 import {CatalogCardNesting, cardThemes} from "typings/catalogCards";
 import ImageSlider from "components/imageSlider/ImageSlider";
-
+import PlusIcon from "assets/icons/btn-plus.svg";
+import AddedIcon from "assets/icons/btn-checked.svg";
+import Unliked from "assets/icons/heart.svg";
+import Liked from "assets/icons/liked.svg";
 import classes from "./catalogCard.module.css";
 interface CardProps {
   card?: CatalogCardNesting;
   onClickCard?: (id: string) => void;
 }
 const CatalogCard: React.FC<CardProps> = ({card, onClickCard}) => {
+  const [isCardAdded, setIsCardAdded] = useState(false);
+  const [isCardLiked, setIsCardLiked] = useState(false);
   const cardTheme = useMemo(() => {
     if (!card) {
       return cardThemes.some;
@@ -26,6 +31,14 @@ const CatalogCard: React.FC<CardProps> = ({card, onClickCard}) => {
 
   const cardImages = card && card.imgUrl.length > 0 ? card.imgUrl : [];
 
+  const onAddToPackage = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    setIsCardAdded(!isCardAdded);
+  };
+  const onLikeCard = (e: React.MouseEvent<HTMLElement>) => {
+    e.stopPropagation();
+    setIsCardLiked(!isCardLiked);
+  };
   return (
     <div className={classes.cardContainer}>
       <div className={classes.cardPreview}>
@@ -36,6 +49,13 @@ const CatalogCard: React.FC<CardProps> = ({card, onClickCard}) => {
           </div>
           <div className={classes.extraInfoText}>
             Likes:&nbsp;{card && card.likes ? card.viewsCount : 0}
+            <img
+              src={isCardLiked ? Liked : Unliked}
+              alt="like"
+              width={25}
+              height={25}
+              onClick={onLikeCard}
+            />
           </div>
         </div>
       </div>
@@ -59,7 +79,14 @@ const CatalogCard: React.FC<CardProps> = ({card, onClickCard}) => {
           {card?.descrip || ""}
         </div>
         <div>{card?.price || 0}rub</div>
-        <div>addBtn</div>
+        <div className={classes.addBtnContainer}>
+          <img
+            src={isCardAdded ? AddedIcon : PlusIcon}
+            alt="addBtn"
+            className={classes.addBtn}
+            onClick={onAddToPackage}
+          />
+        </div>
       </div>
     </div>
   );
