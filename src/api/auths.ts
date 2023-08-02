@@ -21,5 +21,5 @@ export const userRegistration = async (request: {
   return instance
     .post("/auth/registration", {...request})
     .then(res => res.data)
-    .catch(({response}) => response);
+    .catch(({response}) => response.data);
 };

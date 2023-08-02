@@ -7,17 +7,24 @@
     display: flex;
     flex-direction: column;
 }
+.extraFunctional{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px 10px;
+    margin: 0 20px;
+    /* position: sticky;
+    top: 150px;
+    z-index: 1000;
+    background-color: #201F2E;
+    border-radius: 0 0 30px 30px; */
+}
 .catalogCards{
     width: 100%;
     display: flex;
     flex-wrap: wrap;
     align-items: flex-start;
-}
-.extraFunctional{
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    margin: 0 30px;
+    margin-top: 16px;
 }
 .warnText{
     font-size: 28px;

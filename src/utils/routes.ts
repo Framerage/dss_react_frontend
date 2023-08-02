@@ -2,6 +2,7 @@ import CatalogCard from "components/catalogCard/CatalogCard";
 import Catalog from "pages/catalog/Catalog";
 import CreateOrder from "pages/createOrder/CreateOrder";
 import CreatingCard from "pages/creatingCard/CreatingCard";
+import ErrorPage from "pages/errorPage/ErrorPage";
 import LoginPage from "pages/loginPage/LoginPage";
 import MainPage from "pages/mainPage";
 import RegistrationPage from "pages/regPage/RegistrainPage";
@@ -32,7 +33,7 @@ export const APP_AUTH_ROUTES: RoutesType = {
   contacts: {link: FOR_GH_PAGES + "/contacts", component: null},
   order: {link: FOR_GH_PAGES + "/create-order", component: CreateOrder},
   personalPage: {link: FOR_GH_PAGES + "/personal-page", component: null},
-  error: {link: "*", component: MainPage},
+  error: {link: "*", component: ErrorPage},
 };
 // "homepage": "https://framerage.github.io/dss_react_frontend",
 

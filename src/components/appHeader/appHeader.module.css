@@ -1,9 +1,13 @@
 .headerContainer {
   width: 100%;
-  height: 150px;
+  height: 130px;
   display: flex;
   justify-content: space-between;
-  padding: 32px
+  padding: 32px;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  /* background-color: #201F2E; */
 }
 .headerLogo {
   display: flex;
@@ -85,11 +89,12 @@
 .headerNavItem {
   text-decoration: none;
   color: black;
-  font-size: 14px;
+  font-size: 16px;
+  font-weight: 700;
   cursor: pointer;
   padding: 5px;
   transition: 0.2s;
-  filter:drop-shadow(0 0px 2px aqua)
+  text-shadow:0 1px 7px aqua
 
 }
 .headerNavItem:hover {
