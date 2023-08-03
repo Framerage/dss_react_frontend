@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/dss_react_frontend/static/css/main.d6a15b93.css",
-    "main.js": "/dss_react_frontend/static/js/main.d0669e8e.js",
+    "main.css": "/dss_react_frontend/static/css/main.540c2517.css",
+    "main.js": "/dss_react_frontend/static/js/main.8d0a9bdb.js",
     "static/media/bas-relief.jpg": "/dss_react_frontend/static/media/bas-relief.089ae646703c7e55fc8f.jpg",
     "static/media/defaultCardImg.png": "/dss_react_frontend/static/media/defaultCardImg.79d5df9a9f2d9845564f.png",
     "static/media/furniture.jpg": "/dss_react_frontend/static/media/furniture.e07cadfb201c7f113947.jpg",
@@ -10,13 +10,17 @@
     "static/media/neon-decor.jpeg": "/dss_react_frontend/static/media/neon-decor.e7531d78df75f792bd1f.jpeg",
     "static/media/decor-logo.png": "/dss_react_frontend/static/media/decor-logo.6b40a5fc309d5b6e8034.png",
     "static/media/3d-printer.jpg": "/dss_react_frontend/static/media/3d-printer.2acc2547e42a7ae9540e.jpg",
+    "static/media/btn-checked.svg": "/dss_react_frontend/static/media/btn-checked.4bd49de75a0e5a3ef4c2aa960665057e.svg",
+    "static/media/heart.svg": "/dss_react_frontend/static/media/heart.36bb8db409ab2e1658bc8beee0647f15.svg",
+    "static/media/fillHeart.svg": "/dss_react_frontend/static/media/fillHeart.1072ea246fe94f673f7b1a2bc940e889.svg",
     "static/media/door-open-solid.svg": "/dss_react_frontend/static/media/door-open-solid.08adb0c0360a7a177501.svg",
     "index.html": "/dss_react_frontend/index.html",
-    "main.d6a15b93.css.map": "/dss_react_frontend/static/css/main.d6a15b93.css.map",
-    "main.d0669e8e.js.map": "/dss_react_frontend/static/js/main.d0669e8e.js.map"
+    "static/media/btn-plus.svg": "/dss_react_frontend/static/media/btn-plus.c4ad914c4a4c568589ae272f9f4b07bf.svg",
+    "main.540c2517.css.map": "/dss_react_frontend/static/css/main.540c2517.css.map",
+    "main.8d0a9bdb.js.map": "/dss_react_frontend/static/js/main.8d0a9bdb.js.map"
   },
   "entrypoints": [
-    "static/css/main.d6a15b93.css",
-    "static/js/main.d0669e8e.js"
+    "static/css/main.540c2517.css",
+    "static/js/main.8d0a9bdb.js"
   ]
 }
