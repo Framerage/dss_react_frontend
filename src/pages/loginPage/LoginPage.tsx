@@ -73,7 +73,10 @@ const LoginPage = () => {
         {authRequestIsLoading ? "Loading ..." : "Login"}
       </button>
       {authRequest && authRequest.success && (
-        <span className={classes.errorReqText} style={{color: "yellowgreen"}}>
+        <span
+          className={classes.errorReqText}
+          style={{color: "yellowgreen", padding: "5px 0"}}
+        >
           Success!!!
         </span>
       )}

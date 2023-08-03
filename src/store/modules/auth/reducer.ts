@@ -1,7 +1,11 @@
 import {createReducer} from "@reduxjs/toolkit";
 import {UserRegistrationFx, getAuthTokenFx} from "./async-actions";
 import {getUserAuth, resetAuthRequest, resetRegRequest} from "./actions";
-import {UserAuthorisation, userRegistration} from "typings/auths";
+import {
+  UserAuthorisation,
+  UserRegistrationValidation,
+  userRegistration,
+} from "typings/auths";
 export interface AuthInitialState {
   authRequest: {
     data: UserAuthorisation | null;
@@ -9,7 +13,7 @@ export interface AuthInitialState {
     error: null | string;
   };
   registrationReq: {
-    data: userRegistration | null;
+    data: userRegistration | UserRegistrationValidation[] | null;
     isLoading: boolean;
     error: null | string;
   };
@@ -39,8 +43,9 @@ export const authReducer = createReducer<AuthInitialState>(authInitialState, {
     state.isUserAuth = action.payload;
   },
   [getAuthTokenFx.fulfilled.type]: (state, action) => {
-    if (action.payload?.error) {
-      state.authRequest.error = action.payload.error;
+    if (!action.payload?.success) {
+      state.authRequest.data = null;
+      state.authRequest.error = action.payload.message;
       state.authRequest.isLoading = false;
       return;
     }
@@ -51,14 +56,15 @@ export const authReducer = createReducer<AuthInitialState>(authInitialState, {
     state.authRequest.isLoading = true;
     state.authRequest.error = null;
   },
-  [getAuthTokenFx.rejected.type]: state => {
-    state.authRequest.error = "Error with auth";
+  [getAuthTokenFx.rejected.type]: (state, action) => {
+    state.authRequest.error = action;
     state.authRequest.isLoading = false;
   },
 
   [UserRegistrationFx.fulfilled.type]: (state, action) => {
-    if (action.payload?.error) {
-      state.registrationReq.error = action.payload.error;
+    if (action.payload?.success) {
+      state.authRequest.data = null;
+      state.registrationReq.error = action.payload.message;
       state.registrationReq.isLoading = false;
       return;
     }

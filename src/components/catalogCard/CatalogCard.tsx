@@ -1,10 +1,10 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {useMemo, useState} from "react";
 import {CatalogCardNesting, cardThemes} from "typings/catalogCards";
 import ImageSlider from "components/imageSlider/ImageSlider";
 import PlusIcon from "assets/icons/btn-plus.svg";
 import AddedIcon from "assets/icons/btn-checked.svg";
 import Unliked from "assets/icons/heart.svg";
-import Liked from "assets/icons/liked.svg";
+import Liked from "assets/icons/fillHeart.svg";
 import classes from "./catalogCard.module.css";
 interface CardProps {
   card?: CatalogCardNesting;
@@ -55,6 +55,7 @@ const CatalogCard: React.FC<CardProps> = ({card, onClickCard}) => {
               width={25}
               height={25}
               onClick={onLikeCard}
+              className={classes.cardLike}
             />
           </div>
         </div>

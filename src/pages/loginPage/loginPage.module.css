@@ -53,7 +53,8 @@
 .errorReqText{
   font-size: 16px;
   font-weight: 600;
-  color: red;
+  color: darkred;
   width: 100%;
   text-align: center;
+  padding: 5px 0;
 }

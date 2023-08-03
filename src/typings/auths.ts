@@ -27,3 +27,10 @@ export interface userRegistration {
   success: boolean;
   status: number;
 }
+export interface UserRegistrationValidation {
+  location: string;
+  msg: string;
+  path: string;
+  type: string;
+  value: string;
+}

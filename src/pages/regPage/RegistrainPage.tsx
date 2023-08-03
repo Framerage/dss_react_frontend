@@ -27,12 +27,17 @@ const RegistrationPage = () => {
   const regIsLoading = useSelector(selectRegistrIsLoading);
   const regError = useSelector(selectRegistrError);
 
-  const {handleSubmit, register} = useForm<RegFormData>({
+  const {handleSubmit, register, formState} = useForm<RegFormData>({
     mode: "onSubmit",
     reValidateMode: "onSubmit",
     shouldFocusError: false,
   });
-
+  const minNameLength = 3;
+  const minPassLength = 6;
+  const emailPatternt = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
+  const namePatternError = formState.errors?.name?.type === "minLength";
+  const passPatternError = formState.errors?.pass?.type === "minLength";
+  const emailPatternError = formState.errors?.email?.type === "pattern";
   const [regPromoCode, setRegPromoCode] = useState("");
   const onRegistrationUser = (data: RegFormData) => {
     dispatch(UserRegistrationFx(data));
@@ -51,7 +56,10 @@ const RegistrationPage = () => {
     if (!regResult) {
       return;
     }
-    if (regResult && !regResult.success) {
+    if (regResult && !Array.isArray(regResult) && !regResult.success) {
+      return;
+    }
+    if (regResult && Array.isArray(regResult)) {
       return;
     }
     navigate(APP_GENERAL_ROUTES.login.link);
@@ -63,31 +71,51 @@ const RegistrationPage = () => {
         onSubmit={handleSubmit(onRegistrationUser)}
       >
         <h2 className={classes.formHead}>Registration</h2>
-        <input
-          type="text"
-          {...register("name")}
-          name="name"
-          placeholder="Имя"
-          className={classes.inputItem}
-          required
-        />
-        <input
-          type="text"
-          {...register("email")}
-          name="email"
-          placeholder="Почта"
-          className={classes.inputItem}
-          required
-        />
+        <div className={classes.formItem}>
+          <input
+            type="text"
+            {...register("name", {minLength: minNameLength})}
+            name="name"
+            placeholder="Имя"
+            className={classes.inputItem}
+            required
+          />
+          {namePatternError && (
+            <div className={classes.inputErr}>
+              Минимальное количство символов {minNameLength}
+            </div>
+          )}
+        </div>
+        <div className={classes.formItem}>
+          <input
+            type="text"
+            {...register("email", {pattern: emailPatternt})}
+            name="email"
+            placeholder="Почта"
+            className={classes.inputItem}
+            required
+          />
+          {emailPatternError && (
+            <div className={classes.inputErr}>Формат неверный</div>
+          )}
+        </div>
 
-        <input
-          type="password"
-          {...register("pass")}
-          name="pass"
-          placeholder="Пароль"
-          className={classes.inputItem}
-          required
-        />
+        <div className={classes.formItem}>
+          <input
+            type="password"
+            {...register("pass", {minLength: minPassLength})}
+            name="pass"
+            placeholder="Пароль"
+            className={classes.inputItem}
+            required
+          />
+          {passPatternError && (
+            <div className={classes.inputErr}>
+              Минимальное количство символов {minPassLength}
+            </div>
+          )}
+        </div>
+
         <input
           type="text"
           {...register("regPromo")}
@@ -101,11 +129,15 @@ const RegistrationPage = () => {
           {regIsLoading ? "Loading..." : "Registration"}
         </button>
       </form>
-      {(regError || (regResult && !regResult.success)) && (
+      {(regError ||
+        (regResult && !Array.isArray(regResult) && !regResult.success) ||
+        (regResult && Array.isArray(regResult))) && (
         <div className={classes.errorText}>
           Регистрация не удалась
           <br />
-          {regResult && !regResult.success ? regResult.message : regError}
+          {regResult && !Array.isArray(regResult) && !regResult.success
+            ? regResult.message
+            : regError}
         </div>
       )}
     </div>
