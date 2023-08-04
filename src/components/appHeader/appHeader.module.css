@@ -49,9 +49,27 @@
   text-shadow: 0 5px 5px black;
 
 }
+.cartBlock{
+  width:25px;
+  display: flex;
+  flex-direction: column;
+}
+.userShopCart{
+  width: 25px;
+  height: 25px;
+  cursor: pointer;
+}
+.imgBorder{
+  width: 0;
+  height: 2px;
+  background-color: teal;
+  transition: 0.5s;
+}
+.cartBlock:hover>.imgBorder {
+  width:100%
+}
 .userBonuses{
   font-size: 16px;
-
 }
 .bonusesValue{
   width: min-content;

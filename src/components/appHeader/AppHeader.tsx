@@ -9,7 +9,9 @@ import {
   resetRegRequest,
 } from "store/modules/auth/actions";
 import {isUserAuth, selectAuthData} from "store/modules/auth/selectors";
+import ShopCart from "assets/icons/cart-shopping-solid.svg";
 import classes from "./appHeader.module.css";
+import {isShoppingCartUse} from "store/modules/cart/actions";
 const AppHeader = () => {
   const dispatch = useDispatch<AppDispatch>();
   const isAuth = useSelector(isUserAuth);
@@ -22,6 +24,7 @@ const AppHeader = () => {
     dispatch(resetRegRequest());
     dispatch(getUserAuth(false));
   };
+  const onOpenShopCart = () => dispatch(isShoppingCartUse(true));
   return (
     <header className={classes.headerContainer}>
       <Link to={APP_AUTH_ROUTES.main.link} className={classes.headerLogo}>
@@ -31,6 +34,16 @@ const AppHeader = () => {
       </Link>
       {isAuth ? (
         <div className={classes.authedBlock}>
+          <div className={classes.cartBlock}>
+            <img
+              src={ShopCart}
+              alt="cart"
+              onClick={onOpenShopCart}
+              className={classes.userShopCart}
+            />
+            <div className={classes.imgBorder}></div>
+          </div>
+
           <div className={classes.userBonuses}>
             Bonuses:&nbsp;
             <i className={classes.bonusesValue}>{userBonuses}</i>
@@ -45,13 +58,13 @@ const AppHeader = () => {
       ) : (
         <nav className={classes.headerNav}>
           <Link
-            to={FOR_GH_PAGES + APP_GENERAL_ROUTES.login.link}
+            to={APP_GENERAL_ROUTES.login.link}
             className={classes.headerNavItem}
           >
             Sign in
           </Link>
           <Link
-            to={FOR_GH_PAGES + APP_GENERAL_ROUTES.registration.link}
+            to={APP_GENERAL_ROUTES.registration.link}
             className={classes.headerNavItem}
           >
             Sign up

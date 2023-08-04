@@ -6,6 +6,7 @@ import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES, FOR_GH_PAGES} from "utils/routes";
 import AppMenu from "components/appMenu";
 import {useSelector} from "react-redux";
 import {isUserAuth} from "store/modules/auth/selectors";
+import ModalCart from "components/modalCart/ModalCart";
 
 const AppLayout = () => {
   const isAuth = useSelector(isUserAuth);
@@ -35,6 +36,7 @@ const AppLayout = () => {
   //TODO: адаптив для всех страниц
   return (
     <div className={classes.appWrapper}>
+      <ModalCart />
       <AppHeader />
       <main className={classes.mainContainer}>
         {isAuth ? (
