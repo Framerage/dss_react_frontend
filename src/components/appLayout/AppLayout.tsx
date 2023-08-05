@@ -7,6 +7,7 @@ import AppMenu from "components/appMenu";
 import {useSelector} from "react-redux";
 import {isUserAuth} from "store/modules/auth/selectors";
 import ModalCart from "components/modalCart/ModalCart";
+import {isShopCartUse} from "store/modules/cart/selectors";
 
 const AppLayout = () => {
   const isAuth = useSelector(isUserAuth);
@@ -22,6 +23,8 @@ const AppLayout = () => {
       //TODO: сделать страницы, довить в роуты, исправить роуты(убрать gh pages)
     ];
   }, [isAuth]);
+  const isCartOpened = useSelector(isShopCartUse);
+
   //TODO: корзина, модалка для корзины из пицца, тултипы-настройка стилей
   //TODO: добавить в бэк корзину(массив добавленных айдишников), добавить в бэк лайки (массив лайкнутых айдишников)
   //TODO: карточка,страница для карточки,лайк, просмотры, корзина
@@ -35,7 +38,13 @@ const AppLayout = () => {
   //TODO: сохранять корзину и избранные в локалсторейдж или на бд?
   //TODO: адаптив для всех страниц
   return (
-    <div className={classes.appWrapper}>
+    <div
+      className={classes.appWrapper}
+      style={{
+        height: isCartOpened ? "100vh" : "auto",
+        overflow: isCartOpened ? "hidden" : "none",
+      }}
+    >
       <ModalCart />
       <AppHeader />
       <main className={classes.mainContainer}>

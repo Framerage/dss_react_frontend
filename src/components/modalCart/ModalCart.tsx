@@ -7,7 +7,8 @@ import {AppDispatch} from "store";
 import {isShopCartUse} from "store/modules/cart/selectors";
 import {isShoppingCartUse} from "store/modules/cart/actions";
 import RemoveIcon from "assets/icons/btn-remove.svg";
-import EmptyCartImg from "assets/images/empty-cart.jpg";
+import EmptyCartImg from "assets/icons/emptyIcon.svg";
+import ArrowIcon from "assets/icons/arrow.svg";
 const ModalCart = () => {
   const dispatch = useDispatch<AppDispatch>();
   const isCartOpened = useSelector(isShopCartUse);
@@ -16,7 +17,16 @@ const ModalCart = () => {
     console.log("close cart");
     dispatch(isShoppingCartUse(false));
   };
-  const items = [{imageURL: "", title: "---", price: 111}];
+  // const items = [
+  //   {imageURL: "", title: "---", price: 111},
+  //   {imageURL: "", title: "---", price: 111},
+  //   {imageURL: "", title: "---", price: 111},
+  //   {imageURL: "", title: "---", price: 111},
+  //   {imageURL: "", title: "---", price: 111},
+  //   {imageURL: "", title: "---", price: 111},
+  //   {imageURL: "", title: "---", price: 111},
+  // ];
+  const items: any[] = [];
   const orderPrice = 234532;
   return (
     <div
@@ -24,8 +34,8 @@ const ModalCart = () => {
         isCartOpened ? classes.overlayVisible : ""
       }`}
     >
-      <div className={`${classes.drawer} ${isCartOpened ? "" : ""}`}>
-        <h2 style={{marginBottom: "30px"}} className={classes.drawerTitle}>
+      <div className={classes.drawer}>
+        <h2 className={classes.drawerTitle}>
           Package
           <img
             onClick={onCloseCart}
@@ -37,22 +47,22 @@ const ModalCart = () => {
           />
         </h2>
 
-        {items.length > 0 ? (
-          <div className="drawerItems">
-            <div className="items">
+        {items && items.length > 0 ? (
+          <div className={classes.drawerItems}>
+            <div className={classes.items}>
               {items.map(obj => (
-                <div key={obj.imageURL} className="cartItem">
+                <div key={obj.imageURL} className={classes.cartItem}>
                   <div
                     style={{backgroundImage: `url(${obj.imageURL})`}}
-                    className="cartItemImg"
+                    className={classes.cartItemImg}
                   ></div>
-                  <div className="cartItem__info">
-                    <p className="cartItem__text">{obj.title}</p>
-                    <b>{obj.price} rub</b>
+                  <div className={classes.cartItem__info}>
+                    <p className={classes.cartItem__text}>{obj.title}</p>
+                    <b className={classes.cartItem__price}>{obj.price} rub</b>
                   </div>
                   <img
                     // onClick={() => onRemove(obj.id)}
-                    className="cartItem__removeBtn"
+                    className={classes.cartItem__removeBtn}
                     width={32}
                     height={32}
                     src={RemoveIcon}
@@ -61,30 +71,27 @@ const ModalCart = () => {
                 </div>
               ))}
             </div>
-            <div className="overlay__total">
+            <div className={classes.overlay__total}>
               <ul>
-                <li className="overlay__total__item">
+                <li className={classes.overlay__total__item}>
                   <span>Итого:</span>
-                  <div></div>
                   <b>{orderPrice} руб.</b>
-                </li>
-                <li className="overlay__total__item">
-                  <span>Налог 5%:</span>
-                  <div></div>
-                  <b>{Math.ceil(orderPrice * 0.05)} руб.</b>
                 </li>
               </ul>
               <button
                 // disabled={isLoadingOrders}
                 // onClick={onClickOrder}
-                className="greenBtn"
+                className={classes.greenBtn}
               >
-                Оформить заказ <img src={EmptyCartImg} alt="Arrow" />
+                Оформить заказ <img src={ArrowIcon} alt="Arrow" />
               </button>
             </div>
           </div>
         ) : (
-          <div>anything</div>
+          <div className={classes.emptyCart}>
+            <img src={EmptyCartImg} alt="emptyCart" width={150} height={150} />
+            Empty
+          </div>
           //   <Info
           //     title={isOrderComlete ? "Order comleted" : "Cart empty"}
           //     description={

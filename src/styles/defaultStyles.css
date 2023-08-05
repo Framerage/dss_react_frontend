@@ -9,14 +9,14 @@ body,html {
   background: linear-gradient(30deg,#00a2ff,black,aqua,#b4b3b3,aqua,black,#00a2ff) no-repeat;
   /* background-attachment: fixed; */
 }
-body::-webkit-scrollbar {
+*::-webkit-scrollbar {
   width: 15px;
 
 }
-body::-webkit-scrollbar-track {
+*::-webkit-scrollbar-track {
   background: linear-gradient(#00a2ff,aqua);
 }
-body::-webkit-scrollbar-thumb {
+*::-webkit-scrollbar-thumb {
   background-color: teal;
   border-radius: 5px;
 }

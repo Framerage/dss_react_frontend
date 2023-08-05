@@ -1,6 +1,6 @@
 import React from "react";
 import {Link} from "react-router-dom";
-import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES, FOR_GH_PAGES} from "utils/routes";
+import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES} from "utils/routes";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "store";
 import {
