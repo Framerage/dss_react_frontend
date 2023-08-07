@@ -21,6 +21,8 @@ import {selectAuthData} from "store/modules/auth/selectors";
 import classes from "./catalog.module.css";
 import AppSearcher from "components/appSearcher/AppSearcher";
 import {useFiltredCards} from "hooks/catalog/useFiltredCards";
+import {getUpdatedShopCartCards} from "store/modules/cart/selectors";
+import {updateCardsOfCart} from "store/modules/cart/actions";
 const Catalog = () => {
   const navigation = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
@@ -32,7 +34,24 @@ const Catalog = () => {
   const cardsError = useSelector(catalogCardsError);
 
   const choosedFilter = useSelector(choosedCatalogFilter);
+  const shopCartCards = useSelector(getUpdatedShopCartCards);
 
+  const addCardToShopCart = useCallback(
+    (card: CatalogCardNesting) => {
+      if (!shopCartCards.length) {
+        dispatch(updateCardsOfCart([card]));
+        return;
+      }
+      if (shopCartCards.some(el => el._id === card._id)) {
+        dispatch(
+          updateCardsOfCart(shopCartCards.filter(el => el._id !== card._id)),
+        );
+        return;
+      }
+      dispatch(updateCardsOfCart([...shopCartCards, card]));
+    },
+    [shopCartCards],
+  );
   const [searchValue, setSearchValue] = useState("");
 
   const filtredCards = useFiltredObj<CatalogCardNesting>(
@@ -95,6 +114,10 @@ const Catalog = () => {
                   key={card._id}
                   card={card}
                   onClickCard={onGetCardDescrip}
+                  isCardAdded={shopCartCards.some(el =>
+                    el._id.includes(card._id),
+                  )}
+                  onAddCardToCart={addCardToShopCart}
                 />
               ))
             ) : (

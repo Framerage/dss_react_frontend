@@ -1,35 +1,36 @@
-import React, {useState} from "react";
+import React, {useMemo, useState} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
 
 import classes from "./modalCart.module.css";
 import {AppDispatch} from "store";
-import {isShopCartUse} from "store/modules/cart/selectors";
-import {isShoppingCartUse} from "store/modules/cart/actions";
+import {
+  getUpdatedShopCartCards,
+  isShopCartUse,
+} from "store/modules/cart/selectors";
+import {isShoppingCartUse, updateCardsOfCart} from "store/modules/cart/actions";
 import RemoveIcon from "assets/icons/btn-remove.svg";
 import EmptyCartImg from "assets/icons/emptyIcon.svg";
-import ArrowIcon from "assets/icons/arrow.svg";
 import {Link} from "react-router-dom";
 import {APP_AUTH_ROUTES} from "utils/routes";
 import CardShopCart from "components/cardShopCart";
 const ModalCart = () => {
   const dispatch = useDispatch<AppDispatch>();
   const isCartOpened = useSelector(isShopCartUse);
+  const shopCartCards = useSelector(getUpdatedShopCartCards);
 
   const onCloseCart = () => {
     dispatch(isShoppingCartUse(false));
   };
-  const items = [
-    {imageURL: "", title: "---", price: 111},
-    {imageURL: "", title: "---", price: 111},
-    {imageURL: "", title: "---", price: 111},
-    {imageURL: "", title: "---", price: 111},
-    {imageURL: "", title: "---", price: 111},
-    // {imageURL: "", title: "---", price: 111},
-    // {imageURL: "", title: "---", price: 111},
-  ];
-  // const items: any[] = [];
-  const orderPrice = 234532;
+  const totalPrice = useMemo(() => {
+    if (!shopCartCards.length) {
+      return 0;
+    }
+    return shopCartCards.reduce((sum, el) => sum + el.price, 0);
+  }, [shopCartCards]);
+
+  const onRemoveCardFromCart = (id: string) =>
+    dispatch(updateCardsOfCart(shopCartCards.filter(el => el._id !== id)));
   return (
     <div
       className={`${classes.overlay} ${
@@ -47,11 +48,11 @@ const ModalCart = () => {
           />
         </h2>
 
-        {items && items.length > 0 ? (
+        {shopCartCards && shopCartCards.length > 0 ? (
           <div className={classes.shopCartItems}>
             <div className={classes.items}>
               {/* <shopCartItem/> */}
-              {items.map(obj => (
+              {shopCartCards.map(card => (
                 // <div key={obj.imageURL} className={classes.cartItem}>
                 //   <div
                 //     style={{backgroundImage: `url(${obj.imageURL})`}}
@@ -70,12 +71,19 @@ const ModalCart = () => {
                 //     alt="Remove"
                 //   />
                 // </div>
-                <CardShopCart key={obj.price} />
+                <CardShopCart
+                  key={card._id}
+                  card={card}
+                  onRemove={onRemoveCardFromCart}
+                />
               ))}
             </div>
-            <div>Total: ---</div>
+            <div className={classes.totalPrice}>
+              Total:&nbsp;{totalPrice}&nbsp;rub
+            </div>
             <Link
-              to={APP_AUTH_ROUTES.order.link}
+              // to={APP_AUTH_ROUTES.order.link}
+              to={"#"}
               // onClick={onClickOrder}
               className={classes.createOrderBtn}
             >

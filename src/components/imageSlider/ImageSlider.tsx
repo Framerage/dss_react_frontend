@@ -6,12 +6,10 @@ import classes from "./imageSlider.module.css";
 import {setBase64Image} from "helpers/appHelpers";
 interface ImageSliderProps {
   images: string[];
-  scaled?: boolean;
   componentScale?: number;
 }
 const ImageSlider: React.FC<ImageSliderProps> = ({
   images = [],
-  scaled = true,
   componentScale,
 }) => {
   const [choosedImg, setChoosedImg] = useState(0);
@@ -27,7 +25,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
   return (
     <div
       className={classes.imageSlider}
-      onClick={e => scaled && onScaleImg(e)}
+      onClick={e => onScaleImg(e)}
       style={{
         transform: componentScale ? `scale(${componentScale})` : "scale(1)",
       }}
@@ -39,7 +37,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
             : defaultImg
         }
         alt="cardImg"
-        className={cn(classes.cardImg, {[classes.scaledImg]: isImgScaled})}
+        className={cn(classes.cardImg)}
       />
       <div className={classes.sliderPoints}>
         {images.map((_, index) => (

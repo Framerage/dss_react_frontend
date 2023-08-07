@@ -9,9 +9,15 @@ import classes from "./catalogCard.module.css";
 interface CardProps {
   card?: CatalogCardNesting;
   onClickCard?: (id: string) => void;
+  isCardAdded: boolean;
+  onAddCardToCart: (card: CatalogCardNesting) => void;
 }
-const CatalogCard: React.FC<CardProps> = ({card, onClickCard}) => {
-  const [isCardAdded, setIsCardAdded] = useState(false);
+const CatalogCard: React.FC<CardProps> = ({
+  card,
+  onClickCard,
+  isCardAdded,
+  onAddCardToCart,
+}) => {
   const [isCardLiked, setIsCardLiked] = useState(false);
   const cardTheme = useMemo(() => {
     if (!card) {
@@ -31,9 +37,12 @@ const CatalogCard: React.FC<CardProps> = ({card, onClickCard}) => {
 
   const cardImages = card && card.imgUrl.length > 0 ? card.imgUrl : [];
 
-  const onAddToPackage = (e: React.MouseEvent<HTMLElement>) => {
+  const onAddToPackage = (
+    e: React.MouseEvent<HTMLElement>,
+    card: CatalogCardNesting,
+  ) => {
     e.stopPropagation();
-    setIsCardAdded(!isCardAdded);
+    onAddCardToCart(card);
   };
   const onLikeCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -77,15 +86,15 @@ const CatalogCard: React.FC<CardProps> = ({card, onClickCard}) => {
         <div className={classes.infoCardDescrip}>
           Description:&nbsp;
           <br />
-          {card?.descrip || ""}
+          <span className={classes.descripText}>{card?.descrip || ""}</span>
         </div>
-        <div>{card?.price || 0}rub</div>
+        <div>Price:&nbsp;{card?.price || 0}&nbsp;rub</div>
         <div className={classes.addBtnContainer}>
           <img
             src={isCardAdded ? AddedIcon : PlusIcon}
             alt="addBtn"
             className={classes.addBtn}
-            onClick={onAddToPackage}
+            onClick={e => card && onAddToPackage(e, card)}
           />
         </div>
       </div>

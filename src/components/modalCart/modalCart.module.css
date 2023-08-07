@@ -61,6 +61,14 @@
     padding: 0 10px;
     border-radius: 10px;
   }
+  .totalPrice{
+    width: 100%;
+    font-size: 20px;
+    font-weight: 600;
+    color: black;
+    text-shadow: 0 0 5px white;
+    margin: 10px 0;
+  }
   .createOrderBtn {
     text-decoration: none;
     width: 200px;

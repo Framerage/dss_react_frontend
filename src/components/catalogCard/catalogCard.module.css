@@ -51,7 +51,7 @@
     font-weight: 600;
     letter-spacing: 2px;
     color: black;
-    text-shadow: 0 5px 10px white;
+    text-shadow: 0 0 5px white;
     text-align: center;
     display: flex;
     flex-direction: column;
@@ -75,12 +75,15 @@
 .infoCardDescrip{
     width: 100%;
     font-size: 18px;
-    font-weight: 400;
+    font-weight: 600;
     text-align: left;
     overflow: hidden;
     word-wrap: break-word;
     margin: 5px 0;
     padding: 0 5px;
+}
+.descripText{
+    font-weight: 400;
 }
 .addBtnContainer{
     width: 100%;

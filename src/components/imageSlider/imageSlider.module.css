@@ -14,9 +14,6 @@
     cursor: pointer;
     transition: 0.2s;
 }
-.scaledImg{
-    transform: scale(3);
-}
 .imageSlider:hover>.cardImg{
     border-color: aquamarine
 }

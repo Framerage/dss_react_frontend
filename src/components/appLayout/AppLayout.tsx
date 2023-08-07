@@ -24,8 +24,7 @@ const AppLayout = () => {
     ];
   }, [isAuth]);
   const isCartOpened = useSelector(isShopCartUse);
-  //TODO: сделать карточку для корзины
-  //TODO: корзина, модалка для корзины из пицца, тултипы-настройка стилей
+  //TODO: масштабирование картинок
   //TODO: добавить в бэк корзину(массив добавленных айдишников), добавить в бэк лайки (массив лайкнутых айдишников)
   //TODO: карточка,страница для карточки,лайк, просмотры, корзина
   //TODO: главная страница
@@ -42,7 +41,7 @@ const AppLayout = () => {
       className={classes.appWrapper}
       style={{
         height: isCartOpened ? "100vh" : "auto",
-        overflow: isCartOpened ? "hidden" : "none",
+        overflow: isCartOpened ? "hidden" : "inherit",
       }}
     >
       <ModalCart />
