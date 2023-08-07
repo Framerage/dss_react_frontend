@@ -6,8 +6,14 @@ import classes from "./imageSlider.module.css";
 import {setBase64Image} from "helpers/appHelpers";
 interface ImageSliderProps {
   images: string[];
+  scaled?: boolean;
+  componentScale?: number;
 }
-const ImageSlider: React.FC<ImageSliderProps> = ({images = []}) => {
+const ImageSlider: React.FC<ImageSliderProps> = ({
+  images = [],
+  scaled = true,
+  componentScale,
+}) => {
   const [choosedImg, setChoosedImg] = useState(0);
   const [isImgScaled, setIsImageScaled] = useState(false);
   const onScaleImg = (e: React.MouseEvent<HTMLElement>) => {
@@ -19,7 +25,13 @@ const ImageSlider: React.FC<ImageSliderProps> = ({images = []}) => {
     setChoosedImg(index);
   };
   return (
-    <div className={classes.imageSlider} onClick={e => onScaleImg(e)}>
+    <div
+      className={classes.imageSlider}
+      onClick={e => scaled && onScaleImg(e)}
+      style={{
+        transform: componentScale ? `scale(${componentScale})` : "scale(1)",
+      }}
+    >
       <img
         src={
           images && images.length > 0

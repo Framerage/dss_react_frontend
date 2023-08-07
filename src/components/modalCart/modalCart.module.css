@@ -58,44 +58,9 @@
     flex: 1;
     overflow: auto;
     margin-bottom: 40px;
-    padding-right: 10px;
-  }
-  .cartItem {
-    display: flex;
-    align-items: center;
-    border: 1px solid #f3f3f3;
+    padding: 0 10px;
     border-radius: 10px;
-    overflow: hidden;
-    padding: 20px;
   }
-      .cartItemImg {
-      width: 90px;
-      height: 80px;
-      background-repeat: no-repeat;
-      background-size: cover;
-      margin-right: 20px;
-      background-position: center;
-      margin-bottom: 20px;
-    }
-    .cartItem__info {
-      margin-right: 20px;
-      &>.cartItem__text {
-        font-size: 16px;
-        margin-bottom: 5px;
-        color: red;
-      };
-      &>.cartItem__price{
-      font-size: 14px;
-      }
-    }
-    .cartItem__removeBtn {
-      opacity: 0.5;
-      cursor: pointer;
-      transition: opacity 0.15s ease-in-out;
-      &:hover {
-        opacity: 1;
-      }
-    }
   .createOrderBtn {
     text-decoration: none;
     width: 200px;

@@ -11,41 +11,20 @@ import EmptyCartImg from "assets/icons/emptyIcon.svg";
 import ArrowIcon from "assets/icons/arrow.svg";
 import {Link} from "react-router-dom";
 import {APP_AUTH_ROUTES} from "utils/routes";
+import CardShopCart from "components/cardShopCart";
 const ModalCart = () => {
   const dispatch = useDispatch<AppDispatch>();
   const isCartOpened = useSelector(isShopCartUse);
 
   const onCloseCart = () => {
-    console.log("close cart");
     dispatch(isShoppingCartUse(false));
   };
-  // const test = {
-  //   createdAt: "2023-07-28T21:32:26.136Z",
-  //   descrip: "Simple and nice decise for your home",
-  //   fullDescrip:
-  //     "Its does not afraid water and and sun, except for high temperature",
-  //   imgUrl: [""],
-  //   likes: 0,
-  //   price: 1599,
-  //   theme: "volPrinter",
-  //   title: "Decor vases",
-  //   updatedAt: "2023-07-28T21:32:26.136Z",
-  //   user: {
-  //     bonuses: 0,
-  //     _id: "64c21f5a3dc3aa01c651e175",
-  //     name: "ArtemAdm",
-  //     email: "officialigonin@mail.ru",
-  //   },
-  //   viewsCount: 0,
-  //   __v: 0,
-  //   _id: "64c433ea4ffff67da2b905be",
-  // };
   const items = [
     {imageURL: "", title: "---", price: 111},
     {imageURL: "", title: "---", price: 111},
     {imageURL: "", title: "---", price: 111},
-    // {imageURL: "", title: "---", price: 111},
-    // {imageURL: "", title: "---", price: 111},
+    {imageURL: "", title: "---", price: 111},
+    {imageURL: "", title: "---", price: 111},
     // {imageURL: "", title: "---", price: 111},
     // {imageURL: "", title: "---", price: 111},
   ];
@@ -73,26 +52,28 @@ const ModalCart = () => {
             <div className={classes.items}>
               {/* <shopCartItem/> */}
               {items.map(obj => (
-                <div key={obj.imageURL} className={classes.cartItem}>
-                  <div
-                    style={{backgroundImage: `url(${obj.imageURL})`}}
-                    className={classes.cartItemImg}
-                  ></div>
-                  <div className={classes.cartItem__info}>
-                    <p className={classes.cartItem__text}>{obj.title}</p>
-                    <b className={classes.cartItem__price}>{obj.price} rub</b>
-                  </div>
-                  <img
-                    // onClick={() => onRemove(obj.id)}
-                    className={classes.cartItem__removeBtn}
-                    width={32}
-                    height={32}
-                    src={RemoveIcon}
-                    alt="Remove"
-                  />
-                </div>
+                // <div key={obj.imageURL} className={classes.cartItem}>
+                //   <div
+                //     style={{backgroundImage: `url(${obj.imageURL})`}}
+                //     className={classes.cartItemImg}
+                //   ></div>
+                //   <div className={classes.cartItem__info}>
+                //     <p className={classes.cartItem__text}>{obj.title}</p>
+                //     <b className={classes.cartItem__price}>{obj.price} rub</b>
+                //   </div>
+                //   <img
+                //     // onClick={() => onRemove(obj.id)}
+                //     className={classes.cartItem__removeBtn}
+                //     width={32}
+                //     height={32}
+                //     src={RemoveIcon}
+                //     alt="Remove"
+                //   />
+                // </div>
+                <CardShopCart key={obj.price} />
               ))}
             </div>
+            <div>Total: ---</div>
             <Link
               to={APP_AUTH_ROUTES.order.link}
               // onClick={onClickOrder}
