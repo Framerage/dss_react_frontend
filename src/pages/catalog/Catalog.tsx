@@ -59,18 +59,19 @@ const Catalog = () => {
   const filtredCardsBySearch = useFiltredCards(filtredCards, searchValue);
 
   useEffect(() => {
-    dispatch(getCatalogCardsFx()).then(({payload}) => {
-      if (authRequest) {
-        const newCartList = payload
-          .map((el: CatalogCardNesting) => {
-            if (authRequest.userCart.some(card => card._id === el._id)) {
-              return el;
-            }
-          })
-          .filter((item: any) => item !== undefined);
-        dispatch(updateCardsOfCart(newCartList));
-      }
-    });
+    !cards &&
+      dispatch(getCatalogCardsFx()).then(({payload}) => {
+        if (authRequest) {
+          const newCartList = payload
+            .map((el: CatalogCardNesting) => {
+              if (authRequest.userCart.some(card => card._id === el._id)) {
+                return el;
+              }
+            })
+            .filter((item: any) => item !== undefined);
+          dispatch(updateCardsOfCart(newCartList));
+        }
+      });
   }, []);
 
   const catalogFilterItems = [
@@ -119,7 +120,13 @@ const Catalog = () => {
             user: {...authRequest, userCart: [card]},
             auth: authRequest.token,
           }),
-        ).then(({payload}) => dispatch(updateCardsOfCart(payload.userCart)));
+        ).then(({payload}) =>
+          dispatch(
+            updateCardsOfCart(
+              payload.userCart ? payload.userCart : shopCartCards,
+            ),
+          ),
+        );
         return;
       }
       if (authRequest.userCart.some(el => el._id === card._id)) {
@@ -131,7 +138,13 @@ const Catalog = () => {
             },
             auth: authRequest.token,
           }),
-        ).then(({payload}) => dispatch(updateCardsOfCart(payload.userCart)));
+        ).then(({payload}) =>
+          dispatch(
+            updateCardsOfCart(
+              payload.userCart ? payload.userCart : shopCartCards,
+            ),
+          ),
+        );
         return;
       }
       dispatch(
@@ -139,7 +152,13 @@ const Catalog = () => {
           user: {...authRequest, userCart: [...authRequest.userCart, card]},
           auth: authRequest.token,
         }),
-      ).then(({payload}) => dispatch(updateCardsOfCart(payload.userCart)));
+      ).then(({payload}) =>
+        dispatch(
+          updateCardsOfCart(
+            payload.userCart ? payload.userCart : shopCartCards,
+          ),
+        ),
+      );
     },
     [shopCartCards, authRequest],
   );
@@ -169,9 +188,11 @@ const Catalog = () => {
                   key={card._id}
                   card={card}
                   onClickCard={onGetCardDescrip}
-                  isCardAdded={shopCartCards.some(el =>
-                    el._id.includes(card._id),
-                  )}
+                  isCardAdded={
+                    shopCartCards?.length > 0
+                      ? shopCartCards.some(el => el._id.includes(card._id))
+                      : false
+                  }
                   onAddCardToCart={addCardToShopCart}
                   isAuthDone={!!authRequest}
                 />

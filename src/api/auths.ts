@@ -32,7 +32,7 @@ export const editUserExtraInfo = async ({
   auth: string;
 }) => {
   return instance
-    .patch("/auth/me", {...user}, {headers: {Authorization: auth}})
+    .put("/auth/me", {...user}, {headers: {Authorization: auth}})
     .then(res => res.data)
     .catch(err => err.response.data);
 };

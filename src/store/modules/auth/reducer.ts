@@ -24,7 +24,7 @@ export interface AuthInitialState {
   };
   isUserAuth: boolean;
   editingUserExtraInfo: {
-    data: null | EditingUserExtraInfoResult;
+    data: EditingUserExtraInfoResult | null;
     isLoading: boolean;
     error: null | string;
   };
@@ -61,7 +61,7 @@ export const authReducer = createReducer<AuthInitialState>(authInitialState, {
   [editUserExtraInfoFx.fulfilled.type]: (state, action) => {
     if (!action.payload?.success) {
       state.editingUserExtraInfo.data = null;
-      state.editingUserExtraInfo.error = action.payload.message;
+      state.editingUserExtraInfo.error = action.payload?.message;
       state.editingUserExtraInfo.isLoading = false;
       return;
     }

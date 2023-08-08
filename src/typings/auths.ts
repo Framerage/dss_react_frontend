@@ -43,6 +43,6 @@ export interface UserRegistrationValidation {
 export interface EditingUserExtraInfoResult {
   success: boolean;
   message: string;
-  userCart: string[];
+  userCart: CatalogCardNesting[];
   userLikes: string[];
 }
