@@ -10,6 +10,7 @@ interface CardProps {
   card?: CatalogCardNesting;
   onClickCard?: (id: string) => void;
   isCardAdded: boolean;
+  isAuthDone: boolean;
   onAddCardToCart: (card: CatalogCardNesting) => void;
 }
 const CatalogCard: React.FC<CardProps> = ({
@@ -17,6 +18,7 @@ const CatalogCard: React.FC<CardProps> = ({
   onClickCard,
   isCardAdded,
   onAddCardToCart,
+  isAuthDone,
 }) => {
   const [isCardLiked, setIsCardLiked] = useState(false);
   const cardTheme = useMemo(() => {
@@ -89,14 +91,16 @@ const CatalogCard: React.FC<CardProps> = ({
           <span className={classes.descripText}>{card?.descrip || ""}</span>
         </div>
         <div>Price:&nbsp;{card?.price || 0}&nbsp;rub</div>
-        <div className={classes.addBtnContainer}>
-          <img
-            src={isCardAdded ? AddedIcon : PlusIcon}
-            alt="addBtn"
-            className={classes.addBtn}
-            onClick={e => card && onAddToPackage(e, card)}
-          />
-        </div>
+        {isAuthDone && (
+          <div className={classes.addBtnContainer}>
+            <img
+              src={isCardAdded ? AddedIcon : PlusIcon}
+              alt="addBtn"
+              className={classes.addBtn}
+              onClick={e => card && onAddToPackage(e, card)}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

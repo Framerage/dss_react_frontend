@@ -16,13 +16,19 @@ import CatalogFilter from "components/catalogFilter";
 import {carrentCatalogFilter} from "store/modules/catalog/actions";
 import {useFiltredObj} from "hooks/useFilteredObj";
 import {CatalogCardNesting} from "typings/catalogCards";
-import {selectAuthData} from "store/modules/auth/selectors";
+import {
+  selectAuthData,
+  selectEditUserExtraInfoResult,
+  selectEditUserExtraInfoResultError,
+  selectEditUserExtraInfoResultIsLoading,
+} from "store/modules/auth/selectors";
 
 import classes from "./catalog.module.css";
 import AppSearcher from "components/appSearcher/AppSearcher";
 import {useFiltredCards} from "hooks/catalog/useFiltredCards";
 import {getUpdatedShopCartCards} from "store/modules/cart/selectors";
 import {updateCardsOfCart} from "store/modules/cart/actions";
+import {editUserExtraInfoFx} from "store/modules/auth/async-actions";
 const Catalog = () => {
   const navigation = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
@@ -35,23 +41,14 @@ const Catalog = () => {
 
   const choosedFilter = useSelector(choosedCatalogFilter);
   const shopCartCards = useSelector(getUpdatedShopCartCards);
-
-  const addCardToShopCart = useCallback(
-    (card: CatalogCardNesting) => {
-      if (!shopCartCards.length) {
-        dispatch(updateCardsOfCart([card]));
-        return;
-      }
-      if (shopCartCards.some(el => el._id === card._id)) {
-        dispatch(
-          updateCardsOfCart(shopCartCards.filter(el => el._id !== card._id)),
-        );
-        return;
-      }
-      dispatch(updateCardsOfCart([...shopCartCards, card]));
-    },
-    [shopCartCards],
+  const editingCardResult = useSelector(selectEditUserExtraInfoResult);
+  const editingCardResultIsLoading = useSelector(
+    selectEditUserExtraInfoResultIsLoading,
   );
+  const editingCardResultError = useSelector(
+    selectEditUserExtraInfoResultError,
+  );
+
   const [searchValue, setSearchValue] = useState("");
 
   const filtredCards = useFiltredObj<CatalogCardNesting>(
@@ -61,15 +58,19 @@ const Catalog = () => {
   );
   const filtredCardsBySearch = useFiltredCards(filtredCards, searchValue);
 
-  const onGetCardDescrip = useCallback((cardId: string) => {
-    navigation(FOR_GH_PAGES + APP_AUTH_ROUTES.catalog.link + "/" + cardId);
-  }, []);
-
-  const onGetCurrentFilter = (theme: string) =>
-    dispatch(carrentCatalogFilter(theme));
-
   useEffect(() => {
-    dispatch(getCatalogCardsFx());
+    dispatch(getCatalogCardsFx()).then(({payload}) => {
+      if (authRequest) {
+        const newCartList = payload
+          .map((el: CatalogCardNesting) => {
+            if (authRequest.userCart.some(card => card._id === el._id)) {
+              return el;
+            }
+          })
+          .filter((item: any) => item !== undefined);
+        dispatch(updateCardsOfCart(newCartList));
+      }
+    });
   }, []);
 
   const catalogFilterItems = [
@@ -88,6 +89,60 @@ const Catalog = () => {
     }
     setSearchValue(value);
   };
+
+  const onGetCardDescrip = useCallback((cardId: string) => {
+    navigation(FOR_GH_PAGES + APP_AUTH_ROUTES.catalog.link + "/" + cardId);
+  }, []);
+
+  const onGetCurrentFilter = (theme: string) =>
+    dispatch(carrentCatalogFilter(theme));
+
+  const addCardToShopCart = useCallback(
+    (card: CatalogCardNesting) => {
+      if (!authRequest) {
+        if (!shopCartCards.length) {
+          dispatch(updateCardsOfCart([card]));
+          return;
+        }
+        if (shopCartCards.some(el => el._id === card._id)) {
+          dispatch(
+            updateCardsOfCart(shopCartCards.filter(el => el._id !== card._id)),
+          );
+          return;
+        }
+        dispatch(updateCardsOfCart([...shopCartCards, card]));
+        return;
+      }
+      if (!authRequest.userCart.length) {
+        dispatch(
+          editUserExtraInfoFx({
+            user: {...authRequest, userCart: [card]},
+            auth: authRequest.token,
+          }),
+        ).then(({payload}) => dispatch(updateCardsOfCart(payload.userCart)));
+        return;
+      }
+      if (authRequest.userCart.some(el => el._id === card._id)) {
+        dispatch(
+          editUserExtraInfoFx({
+            user: {
+              ...authRequest,
+              userCart: authRequest.userCart.filter(el => el._id !== card._id),
+            },
+            auth: authRequest.token,
+          }),
+        ).then(({payload}) => dispatch(updateCardsOfCart(payload.userCart)));
+        return;
+      }
+      dispatch(
+        editUserExtraInfoFx({
+          user: {...authRequest, userCart: [...authRequest.userCart, card]},
+          auth: authRequest.token,
+        }),
+      ).then(({payload}) => dispatch(updateCardsOfCart(payload.userCart)));
+    },
+    [shopCartCards, authRequest],
+  );
   return (
     <div className={classes.catalogContainer}>
       <CatalogFilter
@@ -118,6 +173,7 @@ const Catalog = () => {
                     el._id.includes(card._id),
                   )}
                   onAddCardToCart={addCardToShopCart}
+                  isAuthDone={!!authRequest}
                 />
               ))
             ) : (

@@ -1,3 +1,4 @@
+import {UserAuthorisation} from "typings/auths";
 import instance from "./api";
 
 export const getAuthToken = async ({
@@ -22,4 +23,16 @@ export const userRegistration = async (request: {
     .post("/auth/registration", {...request})
     .then(res => res.data)
     .catch(({response}) => response.data);
+};
+export const editUserExtraInfo = async ({
+  user,
+  auth,
+}: {
+  user: UserAuthorisation;
+  auth: string;
+}) => {
+  return instance
+    .patch("/auth/me", {...user}, {headers: {Authorization: auth}})
+    .then(res => res.data)
+    .catch(err => err.response.data);
 };

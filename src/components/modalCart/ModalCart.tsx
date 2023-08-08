@@ -8,16 +8,20 @@ import {
   getUpdatedShopCartCards,
   isShopCartUse,
 } from "store/modules/cart/selectors";
-import {isShoppingCartUse, updateCardsOfCart} from "store/modules/cart/actions";
 import RemoveIcon from "assets/icons/btn-remove.svg";
 import EmptyCartImg from "assets/icons/emptyIcon.svg";
 import {Link} from "react-router-dom";
 import {APP_AUTH_ROUTES} from "utils/routes";
 import CardShopCart from "components/cardShopCart";
+import {selectAuthData} from "store/modules/auth/selectors";
+import {isShoppingCartUse, updateCardsOfCart} from "store/modules/cart/actions";
+import {editUserExtraInfoFx} from "store/modules/auth/async-actions";
+
 const ModalCart = () => {
   const dispatch = useDispatch<AppDispatch>();
   const isCartOpened = useSelector(isShopCartUse);
   const shopCartCards = useSelector(getUpdatedShopCartCards);
+  const authRequest = useSelector(selectAuthData);
 
   const onCloseCart = () => {
     dispatch(isShoppingCartUse(false));
@@ -29,8 +33,21 @@ const ModalCart = () => {
     return shopCartCards.reduce((sum, el) => sum + el.price, 0);
   }, [shopCartCards]);
 
-  const onRemoveCardFromCart = (id: string) =>
+  const onRemoveCardFromCart = (id: string) => {
     dispatch(updateCardsOfCart(shopCartCards.filter(el => el._id !== id)));
+    if (authRequest) {
+      dispatch(
+        editUserExtraInfoFx({
+          user: {
+            ...authRequest,
+            userCart: authRequest.userCart.filter(el => el._id !== id),
+          },
+          auth: authRequest.token,
+        }),
+      );
+    }
+  };
+
   return (
     <div
       className={`${classes.overlay} ${
@@ -51,26 +68,7 @@ const ModalCart = () => {
         {shopCartCards && shopCartCards.length > 0 ? (
           <div className={classes.shopCartItems}>
             <div className={classes.items}>
-              {/* <shopCartItem/> */}
               {shopCartCards.map(card => (
-                // <div key={obj.imageURL} className={classes.cartItem}>
-                //   <div
-                //     style={{backgroundImage: `url(${obj.imageURL})`}}
-                //     className={classes.cartItemImg}
-                //   ></div>
-                //   <div className={classes.cartItem__info}>
-                //     <p className={classes.cartItem__text}>{obj.title}</p>
-                //     <b className={classes.cartItem__price}>{obj.price} rub</b>
-                //   </div>
-                //   <img
-                //     // onClick={() => onRemove(obj.id)}
-                //     className={classes.cartItem__removeBtn}
-                //     width={32}
-                //     height={32}
-                //     src={RemoveIcon}
-                //     alt="Remove"
-                //   />
-                // </div>
                 <CardShopCart
                   key={card._id}
                   card={card}

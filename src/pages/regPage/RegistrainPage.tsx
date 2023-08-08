@@ -51,7 +51,6 @@ const RegistrationPage = () => {
     }
     setRegPromoCode(promo[0]);
   }, [history]);
-
   useEffect(() => {
     if (!regResult) {
       return;

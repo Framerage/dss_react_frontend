@@ -31,3 +31,16 @@ export const selectRegistrError = createSelector(
   selectAuthState,
   state => state.registrationReq.error,
 );
+
+export const selectEditUserExtraInfoResult = createSelector(
+  selectAuthState,
+  state => state.editingUserExtraInfo.data,
+);
+export const selectEditUserExtraInfoResultIsLoading = createSelector(
+  selectAuthState,
+  state => state.editingUserExtraInfo.isLoading,
+);
+export const selectEditUserExtraInfoResultError = createSelector(
+  selectAuthState,
+  state => state.editingUserExtraInfo.error,
+);

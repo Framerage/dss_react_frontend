@@ -1,7 +1,12 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {UserRegistrationFx, getAuthTokenFx} from "./async-actions";
+import {
+  UserRegistrationFx,
+  editUserExtraInfoFx,
+  getAuthTokenFx,
+} from "./async-actions";
 import {getUserAuth, resetAuthRequest, resetRegRequest} from "./actions";
 import {
+  EditingUserExtraInfoResult,
   UserAuthorisation,
   UserRegistrationValidation,
   userRegistration,
@@ -18,6 +23,11 @@ export interface AuthInitialState {
     error: null | string;
   };
   isUserAuth: boolean;
+  editingUserExtraInfo: {
+    data: null | EditingUserExtraInfoResult;
+    isLoading: boolean;
+    error: null | string;
+  };
 }
 const authInitialState = {
   isUserAuth: false,
@@ -27,6 +37,11 @@ const authInitialState = {
     error: null,
   },
   registrationReq: {
+    data: null,
+    isLoading: false,
+    error: null,
+  },
+  editingUserExtraInfo: {
     data: null,
     isLoading: false,
     error: null,
@@ -42,6 +57,27 @@ export const authReducer = createReducer<AuthInitialState>(authInitialState, {
   [getUserAuth.type]: (state, action) => {
     state.isUserAuth = action.payload;
   },
+
+  [editUserExtraInfoFx.fulfilled.type]: (state, action) => {
+    if (!action.payload?.success) {
+      state.editingUserExtraInfo.data = null;
+      state.editingUserExtraInfo.error = action.payload.message;
+      state.editingUserExtraInfo.isLoading = false;
+      return;
+    }
+    state.editingUserExtraInfo = action.payload;
+    state.authRequest.data = {...state.authRequest.data, ...action.payload};
+    state.editingUserExtraInfo.isLoading = false;
+  },
+  [editUserExtraInfoFx.pending.type]: state => {
+    state.editingUserExtraInfo.isLoading = true;
+    state.editingUserExtraInfo.error = null;
+  },
+  [editUserExtraInfoFx.rejected.type]: state => {
+    state.editingUserExtraInfo.error = "Error with edit";
+    state.editingUserExtraInfo.isLoading = false;
+  },
+
   [getAuthTokenFx.fulfilled.type]: (state, action) => {
     if (!action.payload?.success) {
       state.authRequest.data = null;
@@ -62,7 +98,7 @@ export const authReducer = createReducer<AuthInitialState>(authInitialState, {
   },
 
   [UserRegistrationFx.fulfilled.type]: (state, action) => {
-    if (action.payload?.success) {
+    if (!action.payload?.success) {
       state.authRequest.data = null;
       state.registrationReq.error = action.payload.message;
       state.registrationReq.isLoading = false;

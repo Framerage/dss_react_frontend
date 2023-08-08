@@ -76,9 +76,10 @@
     background: yellowgreen;
     border-radius: 18px;
     border: 0;
-    color: white;
+    color: black;
     font-size: 16px;
-    font-weight: 500;
+    text-shadow: 0 0 5px white;
+    font-weight: 600;
     transition: 0.2s ease-in-out;
     cursor: pointer;
     display: flex;
@@ -87,6 +88,8 @@
   }
   .createOrderBtn:hover{
     background: #6f9623;
+    color: white;
+    text-shadow: 0 0 5px black;
   } 
    .emptyCart{
     width: 100%;

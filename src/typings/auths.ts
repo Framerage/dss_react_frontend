@@ -1,3 +1,5 @@
+import {CatalogCardNesting} from "./catalogCards";
+
 export interface UserAuthorisation {
   createdAt: string;
   email: string;
@@ -12,6 +14,8 @@ export interface UserAuthorisation {
   message: string;
   success: boolean;
   status: number;
+  userCart: CatalogCardNesting[];
+  userLikes: string[];
 }
 export interface userRegistration {
   createdAt: string;
@@ -26,6 +30,8 @@ export interface userRegistration {
   message: string;
   success: boolean;
   status: number;
+  userCart: string[];
+  userLikes: string[];
 }
 export interface UserRegistrationValidation {
   location: string;
@@ -33,4 +39,10 @@ export interface UserRegistrationValidation {
   path: string;
   type: string;
   value: string;
+}
+export interface EditingUserExtraInfoResult {
+  success: boolean;
+  message: string;
+  userCart: string[];
+  userLikes: string[];
 }
