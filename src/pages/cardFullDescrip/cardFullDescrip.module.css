@@ -1,0 +1,16 @@
+.fullDescripContainer{
+    width: 100%;
+    border: 1px solid white;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+}
+.descripPreview{
+    width: 100%;
+    border: 1px solid red;
+}
+.descripExtraContent{
+    width: 100%;
+    border: 1px solid blue;
+    padding: 10px 0;
+}

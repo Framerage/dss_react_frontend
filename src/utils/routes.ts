@@ -1,4 +1,4 @@
-import CatalogCard from "components/catalogCard/CatalogCard";
+import CardFullDescrip from "pages/cardFullDescrip/CardFullDescrip";
 import Catalog from "pages/catalog/Catalog";
 import CreateOrder from "pages/createOrder/CreateOrder";
 import CreatingCard from "pages/creatingCard/CreatingCard";
@@ -16,7 +16,7 @@ export const FOR_GH_PAGES = "";
 export const APP_GENERAL_ROUTES: RoutesType = {
   main: {link: FOR_GH_PAGES, component: MainPage, index: true},
   catalog: {link: FOR_GH_PAGES + "/cards", component: Catalog},
-  catalogCard: {link: FOR_GH_PAGES + "/cards/:id", component: null},
+  catalogCard: {link: FOR_GH_PAGES + "/cards/:id", component: CardFullDescrip},
   contacts: {link: FOR_GH_PAGES + "/contacts", component: null},
   login: {link: FOR_GH_PAGES + "/auth/login", component: LoginPage},
   registration: {
@@ -28,7 +28,7 @@ export const APP_GENERAL_ROUTES: RoutesType = {
 export const APP_AUTH_ROUTES: RoutesType = {
   main: {link: FOR_GH_PAGES, component: MainPage, index: true},
   catalog: {link: FOR_GH_PAGES + "/cards", component: Catalog},
-  catalogCard: {link: FOR_GH_PAGES + "/cards/:id", component: null},
+  catalogCard: {link: FOR_GH_PAGES + "/cards/:id", component: CardFullDescrip},
   creatingCard: {link: FOR_GH_PAGES + "/create-card", component: CreatingCard},
   contacts: {link: FOR_GH_PAGES + "/contacts", component: null},
   order: {link: FOR_GH_PAGES + "/create-order", component: CreateOrder},
