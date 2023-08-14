@@ -1,11 +1,12 @@
-import React, {useMemo, useState} from "react";
-import {CatalogCardNesting, cardThemes} from "typings/catalogCards";
+import React, {useState} from "react";
+import {CatalogCardNesting} from "typings/catalogCards";
 import ImageSlider from "components/imageSlider/ImageSlider";
 import PlusIcon from "assets/icons/btn-plus.svg";
 import AddedIcon from "assets/icons/btn-checked.svg";
 import Unliked from "assets/icons/heart.svg";
 import Liked from "assets/icons/fillHeart.svg";
 import classes from "./catalogCard.module.css";
+import {useCheckCardTheme} from "hooks/catalog/useCheckCardTheme";
 interface CardProps {
   card?: CatalogCardNesting;
   onClickCard?: (id: string) => void;
@@ -21,21 +22,7 @@ const CatalogCard: React.FC<CardProps> = ({
   isAuthDone,
 }) => {
   const [isCardLiked, setIsCardLiked] = useState(false);
-  const cardTheme = useMemo(() => {
-    if (!card) {
-      return cardThemes.some;
-    }
-    if (!card.theme) {
-      return cardThemes.some;
-    }
-    const themes = Object.entries(cardThemes).map(key => {
-      if (key[0] === card.theme) {
-        return key[1];
-      }
-      return "";
-    });
-    return themes.filter(el => el && el)[0];
-  }, [card, card?.theme]);
+  const cardTheme = useCheckCardTheme(card || null);
 
   const cardImages = card && card.imgUrl.length > 0 ? card.imgUrl : [];
 

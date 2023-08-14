@@ -28,7 +28,7 @@ export const createNewCatalogCard = async ({
 };
 
 export const getCardFullDescrip = async (id: string) => {
-  const response = await instance.post(`/cards/${id}`);
+  const response = await instance(`/cards/${id}`);
   if (response.status !== 200) {
     console.error(response, "resp");
     return null;
