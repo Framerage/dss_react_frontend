@@ -65,7 +65,7 @@ export const authReducer = createReducer<AuthInitialState>(authInitialState, {
       state.editingUserExtraInfo.isLoading = false;
       return;
     }
-    state.editingUserExtraInfo = action.payload;
+    state.editingUserExtraInfo.data = action.payload;
     state.authRequest.data = {...state.authRequest.data, ...action.payload};
     state.editingUserExtraInfo.isLoading = false;
   },
