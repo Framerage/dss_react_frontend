@@ -43,7 +43,7 @@ const CardFullDescrip = () => {
   return (
     <>
       {!cardDescripIsLoading ? (
-        cardDescrip && (
+        cardDescrip ? (
           <div className={classes.fullDescripContainer}>
             <div className={classes.cardContent}>
               <div className={classes.contentSlider}>
@@ -84,9 +84,10 @@ const CardFullDescrip = () => {
             </div>
             <div className={classes.cardFullDescrip}>
               {cardDescrip.fullDescrip || "-"}
-              text text text
             </div>
           </div>
+        ) : (
+          <div className={classes.errorInfo}>{cardDescripError || "Error"}</div>
         )
       ) : (
         <PointLoader scale={0.7} />
