@@ -1,6 +1,7 @@
 import {createReducer} from "@reduxjs/toolkit";
 import {
   createNewCatalogCardFx,
+  editCatalogCardFx,
   getCardFullDescripFx,
   getCatalogCardsFx,
 } from "./async-actions";
@@ -50,6 +51,27 @@ export const catalogReducer = createReducer(catalogInitialState, {
   [resetCreatingCardResult.type]: state => {
     state.cardCreating.data = null;
   },
+
+  [editCatalogCardFx.fulfilled.type]: (state, action) => {
+    if (action.payload?.error) {
+      state.catalogCardDescrip.data = null;
+      state.catalogCardDescrip.error = action.payload.message;
+      state.catalogCardDescrip.isLoading = false;
+      return;
+    }
+    state.catalogCardDescrip.data = action.payload;
+    state.catalogCardDescrip.isLoading = false;
+  },
+  [editCatalogCardFx.pending.type]: state => {
+    state.catalogCardDescrip.isLoading = true;
+    state.catalogCardDescrip.error = null;
+  },
+  [editCatalogCardFx.rejected.type]: state => {
+    state.catalogCardDescrip.data = null;
+    state.catalogCardDescrip.error = "Error with getting card";
+    state.catalogCardDescrip.isLoading = false;
+  },
+  // editCatalogCardFx
   [getCardFullDescripFx.fulfilled.type]: (state, action) => {
     if (action.payload?.error) {
       state.catalogCardDescrip.data = null;

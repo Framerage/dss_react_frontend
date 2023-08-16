@@ -37,7 +37,7 @@ export const getCardFullDescrip = async (id: string) => {
 };
 
 export const editCatalogCard = async (card: CatalogCardNesting) => {
-  const response = await instance.patch(`/cards/${card._id}`);
+  const response = await instance.patch(`/cards/${card._id}`, card);
   if (response.status !== 200) {
     console.error(response, "resp");
     return null;

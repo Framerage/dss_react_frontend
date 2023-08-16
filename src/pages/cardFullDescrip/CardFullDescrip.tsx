@@ -1,5 +1,4 @@
 import React, {useEffect, useState} from "react";
-import classes from "./cardFullDescrip.module.css";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "store";
@@ -8,13 +7,17 @@ import {
   catalogCardDescripError,
   catalogCardDescripIsLoading,
 } from "store/modules/catalog/selectors";
-import {getCardFullDescripFx} from "store/modules/catalog/async-actions";
+import {
+  editCatalogCardFx,
+  getCardFullDescripFx,
+} from "store/modules/catalog/async-actions";
 import PointLoader from "components/pointLoader/PointLoader";
 import ImageSlider from "components/imageSlider/ImageSlider";
 import {useCheckCardTheme} from "hooks/catalog/useCheckCardTheme";
 import cn from "classnames";
 import Unliked from "assets/icons/heart.svg";
 import Liked from "assets/icons/fillHeart.svg";
+import classes from "./cardFullDescrip.module.css";
 const CardFullDescrip = () => {
   const dispatch = useDispatch<AppDispatch>();
   const pathParam = useParams<{id: string}>();
@@ -26,9 +29,25 @@ const CardFullDescrip = () => {
   const cardTheme = useCheckCardTheme(cardDescrip);
 
   const [isCardLiked, setIsCardLiked] = useState(false);
+  const [cardLikes, setCardLikes] = useState(
+    cardDescrip && cardDescrip.likes ? cardDescrip.likes : 0,
+  );
   const onLikeCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     setIsCardLiked(!isCardLiked);
+    if (isCardLiked) {
+      if (cardLikes === 0) {
+        return;
+      }
+      setCardLikes(cardLikes - 1);
+      cardDescrip &&
+        dispatch(editCatalogCardFx({...cardDescrip, likes: cardLikes - 1}));
+      return;
+    }
+    setCardLikes(cardLikes + 1);
+    cardDescrip &&
+      dispatch(editCatalogCardFx({...cardDescrip, likes: cardLikes + 1}));
+    //TODO: ДОБавить отправку айдишника в массив пользователя
   };
   useEffect(() => {
     if (cardDescrip) {
@@ -40,6 +59,7 @@ const CardFullDescrip = () => {
     }
     pathParam.id && dispatch(getCardFullDescripFx(pathParam.id));
   }, []);
+
   return (
     <>
       {!cardDescripIsLoading ? (
@@ -68,7 +88,7 @@ const CardFullDescrip = () => {
                 Views:&nbsp;{cardDescrip.viewsCount || 0}
               </div>
               <div className={classes.extraContItem}>
-                Likes:&nbsp;{cardDescrip.likes || 0}
+                Likes:&nbsp;{cardLikes}
                 <img
                   src={isCardLiked ? Liked : Unliked}
                   alt="like"
