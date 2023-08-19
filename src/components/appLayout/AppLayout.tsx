@@ -13,13 +13,23 @@ const AppLayout = () => {
   const isAuth = useSelector(isUserAuth);
   const appNavigation = useMemo(() => {
     return [
-      {title: "Catalog", link: FOR_GH_PAGES + "/cards"},
+      {
+        title: "Catalog",
+        link: isAuth
+          ? APP_AUTH_ROUTES.catalog.link
+          : APP_GENERAL_ROUTES.catalog.link,
+      },
       {
         title: "Order",
         link: APP_AUTH_ROUTES.order.link,
       },
       {title: "About", link: FOR_GH_PAGES + "/about"},
-      {title: "Contacts", link: FOR_GH_PAGES + "/contacts"},
+      {
+        title: "Contacts",
+        link: isAuth
+          ? APP_AUTH_ROUTES.contacts.link
+          : APP_GENERAL_ROUTES.contacts.link,
+      },
       //TODO: сделать страницы, довить в роуты, исправить роуты(убрать gh pages)
     ];
   }, [isAuth]);
