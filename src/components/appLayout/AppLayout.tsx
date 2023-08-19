@@ -25,10 +25,8 @@ const AppLayout = () => {
   }, [isAuth]);
   const isCartOpened = useSelector(isShopCartUse);
   //TODO: масштабирование картинок
-  //TODO: карточка,страница для карточки,лайк, просмотры, корзина
   //TODO: главная страница
   //TODO:  сохранять токен в куки
-  //TODO: повесить useParams для карточки по айди
   //TODO: создать лк+ сделать запрос на auth/me для отображения текущего юзера
   //TODO: footer+share+animation idia
   //TODO: about заменить на акции ???

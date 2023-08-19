@@ -13,6 +13,12 @@ interface CardProps {
   isCardAdded: boolean;
   isAuthDone: boolean;
   onAddCardToCart: (card: CatalogCardNesting) => void;
+  isUserLikedCard: Boolean;
+  onLikeCard: (
+    card: CatalogCardNesting,
+    isCardLiked: boolean,
+    cardLikes: number,
+  ) => void;
 }
 const CatalogCard: React.FC<CardProps> = ({
   card,
@@ -20,10 +26,14 @@ const CatalogCard: React.FC<CardProps> = ({
   isCardAdded,
   onAddCardToCart,
   isAuthDone,
+  isUserLikedCard,
+  onLikeCard,
 }) => {
-  const [isCardLiked, setIsCardLiked] = useState(false);
+  const [isCardLiked, setIsCardLiked] = useState(isUserLikedCard);
   const cardTheme = useCheckCardTheme(card || null);
-
+  const [cardLikes, setCardlikes] = useState(
+    card && card.likes ? card.likes : 0,
+  );
   const cardImages = card && card.imgUrl.length > 0 ? card.imgUrl : [];
 
   const onAddToPackage = (
@@ -33,9 +43,20 @@ const CatalogCard: React.FC<CardProps> = ({
     e.stopPropagation();
     onAddCardToCart(card);
   };
-  const onLikeCard = (e: React.MouseEvent<HTMLElement>) => {
+  const onClickLike = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
+    if (!isCardLiked) {
+      if (card && card.likes === 0) {
+        return;
+      }
+      setIsCardLiked(!isCardLiked);
+      setCardlikes(cardLikes + 1);
+      card && onLikeCard(card, false, card.likes || 0);
+      return;
+    }
     setIsCardLiked(!isCardLiked);
+    setCardlikes(cardLikes - 1);
+    card && onLikeCard(card, true, card.likes || 0);
   };
   return (
     <div className={classes.cardContainer}>
@@ -46,13 +67,13 @@ const CatalogCard: React.FC<CardProps> = ({
             Views:&nbsp;{card && card.viewsCount ? card.viewsCount : 0}
           </div>
           <div className={classes.extraInfoText}>
-            Likes:&nbsp;{card && card.likes ? card.viewsCount : 0}
+            Likes:&nbsp;{cardLikes}
             <img
               src={isCardLiked ? Liked : Unliked}
               alt="like"
               width={25}
               height={25}
-              onClick={onLikeCard}
+              onClick={onClickLike}
               className={classes.cardLike}
             />
           </div>

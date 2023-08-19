@@ -11,7 +11,10 @@ import {
 } from "store/modules/catalog/selectors";
 import PointLoader from "components/pointLoader/PointLoader";
 import {AppDispatch} from "store";
-import {getCatalogCardsFx} from "store/modules/catalog/async-actions";
+import {
+  editCatalogCardFx,
+  getCatalogCardsFx,
+} from "store/modules/catalog/async-actions";
 import CatalogFilter from "components/catalogFilter";
 import {carrentCatalogFilter} from "store/modules/catalog/actions";
 import {useFiltredObj} from "hooks/useFilteredObj";
@@ -41,13 +44,6 @@ const Catalog = () => {
 
   const choosedFilter = useSelector(choosedCatalogFilter);
   const shopCartCards = useSelector(getUpdatedShopCartCards);
-  const editingCardResult = useSelector(selectEditUserExtraInfoResult);
-  const editingCardResultIsLoading = useSelector(
-    selectEditUserExtraInfoResultIsLoading,
-  );
-  const editingCardResultError = useSelector(
-    selectEditUserExtraInfoResultError,
-  );
 
   const [searchValue, setSearchValue] = useState("");
 
@@ -59,19 +55,18 @@ const Catalog = () => {
   const filtredCardsBySearch = useFiltredCards(filtredCards, searchValue);
 
   useEffect(() => {
-    !cards &&
-      dispatch(getCatalogCardsFx()).then(({payload}) => {
-        if (authRequest) {
-          const newCartList = payload
-            .map((el: CatalogCardNesting) => {
-              if (authRequest.userCart.some(card => card._id === el._id)) {
-                return el;
-              }
-            })
-            .filter((item: any) => item !== undefined);
-          dispatch(updateCardsOfCart(newCartList));
-        }
-      });
+    dispatch(getCatalogCardsFx()).then(({payload}) => {
+      if (authRequest) {
+        const newCartList = payload
+          .map((el: CatalogCardNesting) => {
+            if (authRequest.userCart.some(card => card._id === el._id)) {
+              return el;
+            }
+          })
+          .filter((item: any) => item !== undefined);
+        dispatch(updateCardsOfCart(newCartList));
+      }
+    });
   }, []);
 
   const catalogFilterItems = [
@@ -162,6 +157,32 @@ const Catalog = () => {
     },
     [shopCartCards, authRequest],
   );
+  const onSendLike = (
+    catalogCard: CatalogCardNesting,
+    isCardLiked: boolean,
+    cardLikes: number,
+  ) => {
+    catalogCard &&
+      dispatch(
+        editCatalogCardFx({
+          ...catalogCard,
+          likes: isCardLiked ? cardLikes - 1 : cardLikes + 1,
+        }),
+      );
+    if (authRequest && authRequest.token && catalogCard) {
+      dispatch(
+        editUserExtraInfoFx({
+          user: {
+            ...authRequest,
+            userLikes: isCardLiked
+              ? authRequest.userLikes.filter(el => el !== catalogCard._id)
+              : [...authRequest.userLikes, catalogCard._id],
+          },
+          auth: authRequest.token,
+        }),
+      );
+    }
+  };
   return (
     <div className={classes.catalogContainer}>
       <CatalogFilter
@@ -195,6 +216,10 @@ const Catalog = () => {
                   }
                   onAddCardToCart={addCardToShopCart}
                   isAuthDone={!!authRequest}
+                  isUserLikedCard={Boolean(
+                    authRequest && authRequest.userLikes.includes(card._id),
+                  )}
+                  onLikeCard={onSendLike}
                 />
               ))
             ) : (
@@ -203,7 +228,7 @@ const Catalog = () => {
               </div>
             )
           ) : (
-            <PointLoader scale={0.4} />
+            <PointLoader scale={0.3} />
           )}
         </div>
       </div>

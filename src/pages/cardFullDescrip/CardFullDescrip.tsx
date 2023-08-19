@@ -18,9 +18,14 @@ import cn from "classnames";
 import Unliked from "assets/icons/heart.svg";
 import Liked from "assets/icons/fillHeart.svg";
 import classes from "./cardFullDescrip.module.css";
+import {selectAuthData} from "store/modules/auth/selectors";
+import {editUserExtraInfoFx} from "store/modules/auth/async-actions";
+
 const CardFullDescrip = () => {
   const dispatch = useDispatch<AppDispatch>();
   const pathParam = useParams<{id: string}>();
+
+  const authRequest = useSelector(selectAuthData);
 
   const cardDescrip = useSelector(catalogCardDescrip);
   const cardDescripIsLoading = useSelector(catalogCardDescripIsLoading);
@@ -32,6 +37,38 @@ const CardFullDescrip = () => {
   const [cardLikes, setCardLikes] = useState(
     cardDescrip && cardDescrip.likes ? cardDescrip.likes : 0,
   );
+  useEffect(() => {
+    setIsCardLiked(
+      Boolean(
+        authRequest &&
+          cardDescrip &&
+          authRequest.userLikes.includes(cardDescrip._id),
+      ),
+    );
+  }, []);
+
+  const onSendLike = () => {
+    cardDescrip &&
+      dispatch(
+        editCatalogCardFx({
+          ...cardDescrip,
+          likes: isCardLiked ? cardLikes - 1 : cardLikes + 1,
+        }),
+      );
+    if (authRequest && authRequest.token && cardDescrip) {
+      dispatch(
+        editUserExtraInfoFx({
+          user: {
+            ...authRequest,
+            userLikes: isCardLiked
+              ? authRequest.userLikes.filter(el => el !== cardDescrip._id)
+              : [...authRequest.userLikes, cardDescrip._id],
+          },
+          auth: authRequest.token,
+        }),
+      );
+    }
+  };
   const onLikeCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     setIsCardLiked(!isCardLiked);
@@ -40,14 +77,11 @@ const CardFullDescrip = () => {
         return;
       }
       setCardLikes(cardLikes - 1);
-      cardDescrip &&
-        dispatch(editCatalogCardFx({...cardDescrip, likes: cardLikes - 1}));
+      onSendLike();
       return;
     }
     setCardLikes(cardLikes + 1);
-    cardDescrip &&
-      dispatch(editCatalogCardFx({...cardDescrip, likes: cardLikes + 1}));
-    //TODO: ДОБавить отправку айдишника в массив пользователя
+    onSendLike();
   };
   useEffect(() => {
     if (cardDescrip) {
@@ -110,7 +144,7 @@ const CardFullDescrip = () => {
           <div className={classes.errorInfo}>{cardDescripError || "Error"}</div>
         )
       ) : (
-        <PointLoader scale={0.7} />
+        <PointLoader scale={0.5} />
       )}
     </>
   );

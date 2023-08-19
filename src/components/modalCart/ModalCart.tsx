@@ -55,7 +55,7 @@ const ModalCart = () => {
 
   const onRemoveCardFromCart = (id: string) => {
     dispatch(updateCardsOfCart(shopCartCards.filter(el => el._id !== id)));
-    if (authRequest) {
+    if (authRequest && authRequest.token) {
       dispatch(
         editUserExtraInfoFx({
           user: {
