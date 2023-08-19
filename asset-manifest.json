@@ -1,29 +1,29 @@
 {
   "files": {
-    "main.css": "/static/css/main.1b6141f4.css",
-    "main.js": "/static/js/main.ffca0e01.js",
-    "static/media/bas-relief.jpg": "/static/media/bas-relief.089ae646703c7e55fc8f.jpg",
-    "static/media/defaultCardImg.png": "/static/media/defaultCardImg.79d5df9a9f2d9845564f.png",
-    "static/media/furniture.jpg": "/static/media/furniture.e07cadfb201c7f113947.jpg",
-    "static/media/engr-acrilic.jpg": "/static/media/engr-acrilic.8602ebba59161bdba51d.jpg",
-    "static/media/plywood-frame.jpg": "/static/media/plywood-frame.e16c78e6bc4b27d440f2.jpg",
-    "static/media/neon-decor.jpeg": "/static/media/neon-decor.e7531d78df75f792bd1f.jpeg",
-    "static/media/decor-logo.png": "/static/media/decor-logo.6b40a5fc309d5b6e8034.png",
-    "static/media/3d-printer.jpg": "/static/media/3d-printer.2acc2547e42a7ae9540e.jpg",
-    "static/media/emptyIcon.svg": "/static/media/emptyIcon.50c2a1088181ad679bf15de2fcfa6a6c.svg",
-    "static/media/btn-checked.svg": "/static/media/btn-checked.4bd49de75a0e5a3ef4c2aa960665057e.svg",
-    "static/media/heart.svg": "/static/media/heart.36bb8db409ab2e1658bc8beee0647f15.svg",
-    "static/media/fillHeart.svg": "/static/media/fillHeart.1072ea246fe94f673f7b1a2bc940e889.svg",
-    "static/media/cart-shopping-solid.svg": "/static/media/cart-shopping-solid.30255b02b4d20766b4123ccb0aa6df55.svg",
-    "static/media/door-open-solid.svg": "/static/media/door-open-solid.08adb0c0360a7a177501.svg",
-    "static/media/btn-remove.svg": "/static/media/btn-remove.845f3635ea9172b44524338f95f29737.svg",
-    "index.html": "/index.html",
-    "static/media/btn-plus.svg": "/static/media/btn-plus.c4ad914c4a4c568589ae272f9f4b07bf.svg",
-    "main.1b6141f4.css.map": "/static/css/main.1b6141f4.css.map",
-    "main.ffca0e01.js.map": "/static/js/main.ffca0e01.js.map"
+    "main.css": "/dss_react_frontend/static/css/main.6ee15b70.css",
+    "main.js": "/dss_react_frontend/static/js/main.f313bfda.js",
+    "static/media/bas-relief.jpg": "/dss_react_frontend/static/media/bas-relief.089ae646703c7e55fc8f.jpg",
+    "static/media/defaultCardImg.png": "/dss_react_frontend/static/media/defaultCardImg.79d5df9a9f2d9845564f.png",
+    "static/media/furniture.jpg": "/dss_react_frontend/static/media/furniture.e07cadfb201c7f113947.jpg",
+    "static/media/engr-acrilic.jpg": "/dss_react_frontend/static/media/engr-acrilic.8602ebba59161bdba51d.jpg",
+    "static/media/plywood-frame.jpg": "/dss_react_frontend/static/media/plywood-frame.e16c78e6bc4b27d440f2.jpg",
+    "static/media/neon-decor.jpeg": "/dss_react_frontend/static/media/neon-decor.e7531d78df75f792bd1f.jpeg",
+    "static/media/decor-logo.png": "/dss_react_frontend/static/media/decor-logo.6b40a5fc309d5b6e8034.png",
+    "static/media/3d-printer.jpg": "/dss_react_frontend/static/media/3d-printer.2acc2547e42a7ae9540e.jpg",
+    "static/media/emptyIcon.svg": "/dss_react_frontend/static/media/emptyIcon.50c2a1088181ad679bf15de2fcfa6a6c.svg",
+    "static/media/btn-checked.svg": "/dss_react_frontend/static/media/btn-checked.4bd49de75a0e5a3ef4c2aa960665057e.svg",
+    "static/media/heart.svg": "/dss_react_frontend/static/media/heart.36bb8db409ab2e1658bc8beee0647f15.svg",
+    "static/media/fillHeart.svg": "/dss_react_frontend/static/media/fillHeart.1072ea246fe94f673f7b1a2bc940e889.svg",
+    "static/media/cart-shopping-solid.svg": "/dss_react_frontend/static/media/cart-shopping-solid.30255b02b4d20766b4123ccb0aa6df55.svg",
+    "static/media/door-open-solid.svg": "/dss_react_frontend/static/media/door-open-solid.08adb0c0360a7a177501.svg",
+    "index.html": "/dss_react_frontend/index.html",
+    "static/media/btn-remove.svg": "/dss_react_frontend/static/media/btn-remove.845f3635ea9172b44524338f95f29737.svg",
+    "static/media/btn-plus.svg": "/dss_react_frontend/static/media/btn-plus.c4ad914c4a4c568589ae272f9f4b07bf.svg",
+    "main.6ee15b70.css.map": "/dss_react_frontend/static/css/main.6ee15b70.css.map",
+    "main.f313bfda.js.map": "/dss_react_frontend/static/js/main.f313bfda.js.map"
   },
   "entrypoints": [
-    "static/css/main.1b6141f4.css",
-    "static/js/main.ffca0e01.js"
+    "static/css/main.6ee15b70.css",
+    "static/js/main.f313bfda.js"
   ]
 }
