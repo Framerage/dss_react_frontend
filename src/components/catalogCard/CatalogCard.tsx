@@ -45,18 +45,18 @@ const CatalogCard: React.FC<CardProps> = ({
   };
   const onClickLike = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
-    if (!isCardLiked) {
-      if (card && card.likes === 0) {
+    if (isCardLiked) {
+      if (cardLikes === 0) {
         return;
       }
       setIsCardLiked(!isCardLiked);
-      setCardlikes(cardLikes + 1);
-      card && onLikeCard(card, false, card.likes || 0);
+      setCardlikes(cardLikes - 1);
+      card && onLikeCard(card, true, card.likes || 0);
       return;
     }
     setIsCardLiked(!isCardLiked);
-    setCardlikes(cardLikes - 1);
-    card && onLikeCard(card, true, card.likes || 0);
+    setCardlikes(cardLikes + 1);
+    card && onLikeCard(card, false, card.likes || 0);
   };
   return (
     <div className={classes.cardContainer}>
