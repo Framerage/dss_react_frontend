@@ -23,7 +23,12 @@ const AppLayout = () => {
         title: "Order",
         link: APP_AUTH_ROUTES.order.link,
       },
-      {title: "About", link: FOR_GH_PAGES + "/about"},
+      {
+        title: "About",
+        link: isAuth
+          ? APP_AUTH_ROUTES.about.link
+          : APP_GENERAL_ROUTES.about.link,
+      },
       {
         title: "Contacts",
         link: isAuth
