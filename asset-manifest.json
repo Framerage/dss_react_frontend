@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/dss_react_frontend/static/css/main.6ee15b70.css",
-    "main.js": "/dss_react_frontend/static/js/main.69d2c56c.js",
+    "main.css": "/dss_react_frontend/static/css/main.c91eb585.css",
+    "main.js": "/dss_react_frontend/static/js/main.c08fa3df.js",
     "static/media/bas-relief.jpg": "/dss_react_frontend/static/media/bas-relief.089ae646703c7e55fc8f.jpg",
     "static/media/defaultCardImg.png": "/dss_react_frontend/static/media/defaultCardImg.79d5df9a9f2d9845564f.png",
     "static/media/furniture.jpg": "/dss_react_frontend/static/media/furniture.e07cadfb201c7f113947.jpg",
@@ -19,11 +19,11 @@
     "index.html": "/dss_react_frontend/index.html",
     "static/media/btn-remove.svg": "/dss_react_frontend/static/media/btn-remove.845f3635ea9172b44524338f95f29737.svg",
     "static/media/btn-plus.svg": "/dss_react_frontend/static/media/btn-plus.c4ad914c4a4c568589ae272f9f4b07bf.svg",
-    "main.6ee15b70.css.map": "/dss_react_frontend/static/css/main.6ee15b70.css.map",
-    "main.69d2c56c.js.map": "/dss_react_frontend/static/js/main.69d2c56c.js.map"
+    "main.c91eb585.css.map": "/dss_react_frontend/static/css/main.c91eb585.css.map",
+    "main.c08fa3df.js.map": "/dss_react_frontend/static/js/main.c08fa3df.js.map"
   },
   "entrypoints": [
-    "static/css/main.6ee15b70.css",
-    "static/js/main.69d2c56c.js"
+    "static/css/main.c91eb585.css",
+    "static/js/main.c08fa3df.js"
   ]
 }
