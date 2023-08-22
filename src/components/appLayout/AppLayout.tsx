@@ -35,7 +35,6 @@ const AppLayout = () => {
           ? APP_AUTH_ROUTES.contacts.link
           : APP_GENERAL_ROUTES.contacts.link,
       },
-      //TODO: сделать страницы, довить в роуты, исправить роуты(убрать gh pages)
     ];
   }, [isAuth]);
   const isCartOpened = useSelector(isShopCartUse);
