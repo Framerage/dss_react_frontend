@@ -1,25 +1,20 @@
-import React, {useRef, useState} from "react";
-
+import React from "react";
 import classes from "./mainPage.module.css";
 
+import CardArtFrame from "assets/images/art-frame.png";
+import CardDecorFrame from "assets/images/pic-frame.png";
+import CardMirrowFrame from "assets/images/mirrow-frame.png";
+import PreviewCard from "components/previewCard/PreviewCard";
+const previewCards = [
+  {img: CardArtFrame, text: "Creative Art Decor Design"},
+  {img: CardDecorFrame, text: "Creative 3D creating Neon DIY"},
+  {
+    img: CardMirrowFrame,
+    text: "Home comfort simple usefull interesting news",
+    isCircle: true,
+  },
+];
 const MainPage = () => {
-  const videoRef = useRef<HTMLVideoElement | null>(null);
-  const [currentProgress, setCurrentProgress] = useState(0);
-  const [isVideoActive, setIsVideoActive] = useState(false);
-  const handleProgress = () => {
-    const vDuration = videoRef.current?.duration || 0;
-    const vCurrentTime = videoRef.current?.currentTime || 0;
-    const vCurrentProgress = (vDuration / vCurrentTime) * 100;
-    setCurrentProgress(vCurrentProgress);
-  };
-  const onActivePlayer = () => {
-    if (isVideoActive) {
-      videoRef.current?.pause();
-    }
-    videoRef.current?.play();
-    setIsVideoActive(!isVideoActive);
-  };
-  console.log(videoRef, "vid ref");
   return (
     <div
       style={{
@@ -34,23 +29,23 @@ const MainPage = () => {
     >
       <div className={classes.mainContent}>
         <div className={classes.appPreview}>
-          <video
-            ref={videoRef}
-            tabIndex={-1}
-            // src="https://www.youtube.com/watch?v=2tAPxjcGLms"
-            className={classes.previewPlayer}
-            webkit-playsinline=""
-            playsInline
-            controlsList="nodownload"
-            controls
-          >
-            <source
-              src="https://www.youtube.com/watch?v=2tAPxjcGLms"
-              type="video/mp4"
+          {previewCards.map(card => (
+            <PreviewCard
+              key={card.text}
+              imgUrl={card.img}
+              contentText={card.text}
+              isCircle={card.isCircle}
             />
-          </video>
-          <div onClick={onActivePlayer}>Play</div>
-          <progress value={currentProgress} max={100} />
+          ))}
+        </div>
+        <div className={classes.appPreview}>
+          {previewCards.map(card => (
+            <PreviewCard
+              key={card.text}
+              imgUrl={card.img}
+              contentText={card.text}
+            />
+          ))}
         </div>
       </div>
     </div>

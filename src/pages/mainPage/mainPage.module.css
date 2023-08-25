@@ -5,17 +5,11 @@
 }
 .appPreview{
     max-width: 1440px;
-    margin: 0 100px;
+    margin-left:150px;
     display: flex;
-    flex-direction: column;
     align-items: center;
     justify-content: center;
+    gap: 100px;
     border-radius: 50px;
-}
-.previewPlayer{
-    box-shadow: 0 0 10px grey, 0 0 15px white, 0 0 25px grey;
-    margin-bottom: 15px;
-    width: 100%;
-    height: auto;
-    
+    border: 1px solid black;
 }

@@ -41,8 +41,9 @@ const AppLayout = () => {
   }, [isAuth]);
   const isCartOpened = useSelector(isShopCartUse);
   const isPopupOpen = useSelector(selectPopupImage);
-  //TODO: главная страница, разобраться с внедрением видео в страницу либо придумать чтото другое
+  //TODO: главная страница, продолжить идею карточек, каждая карточка с якорем на тематический блок на главной, почистить картинки
   //TODO:  сохранять токен в куки
+  //TODO:  убрать комменты в корзине приложения
   //TODO: создать лк+ сделать запрос на auth/me для отображения текущего юзера
   //TODO: footer+share+animation idia
   //TODO: about заменить на акции ???
