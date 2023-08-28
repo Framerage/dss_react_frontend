@@ -1,0 +1,8 @@
+.previewBlockContainer{
+    max-width: 1440px;
+    height: 100vh;
+    margin-left: 150px;
+    border: 1px solid red;
+    border-radius: 30px;
+    margin-top: 30px;
+}

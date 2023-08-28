@@ -1,17 +1,23 @@
 import React from "react";
-import classes from "./mainPage.module.css";
-
 import CardArtFrame from "assets/images/art-frame.png";
 import CardDecorFrame from "assets/images/pic-frame.png";
 import CardMirrowFrame from "assets/images/mirrow-frame.png";
 import PreviewCard from "components/previewCard/PreviewCard";
+import PreviewMainBlock from "components/previewMainBlock/PreviewMainBlock";
+
+import classes from "./mainPage.module.css";
 const previewCards = [
-  {img: CardArtFrame, text: "Creative Art Decor Design"},
-  {img: CardDecorFrame, text: "Creative 3D creating Neon DIY"},
+  {img: CardArtFrame, text: "Creative Art Decor Design", link: "art-decor"},
+  {
+    img: CardDecorFrame,
+    text: "Creative 3D creating Neon DIY",
+    link: "art-neon",
+  },
   {
     img: CardMirrowFrame,
     text: "Home comfort simple usefull interesting news",
     isCircle: true,
+    link: "art-furniture",
   },
 ];
 const MainPage = () => {
@@ -35,18 +41,13 @@ const MainPage = () => {
               imgUrl={card.img}
               contentText={card.text}
               isCircle={card.isCircle}
+              link={card.link}
             />
           ))}
         </div>
-        <div className={classes.appPreview}>
-          {previewCards.map(card => (
-            <PreviewCard
-              key={card.text}
-              imgUrl={card.img}
-              contentText={card.text}
-            />
-          ))}
-        </div>
+        <PreviewMainBlock text="some text" id="art-decor" />
+        <PreviewMainBlock text="some text" id="art-neon" />
+        <PreviewMainBlock text="some text" id="art-furniture" />
       </div>
     </div>
   );
