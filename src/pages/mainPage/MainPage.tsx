@@ -48,6 +48,12 @@ const MainPage = () => {
         <PreviewMainBlock text="some text" id="art-decor" />
         <PreviewMainBlock text="some text" id="art-neon" />
         <PreviewMainBlock text="some text" id="art-furniture" />
+        <div
+          onClick={() => window.scrollTo(0, 0)}
+          className={classes.scrollBtn}
+        >
+          Up&nbsp;&#8593;
+        </div>
       </div>
     </div>
   );

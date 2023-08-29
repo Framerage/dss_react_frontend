@@ -25,6 +25,7 @@ const PreviewCard: React.FC<PreviewCardProps> = ({
     <a href={`#${link}`}>
       <div className={classes.previewCardContainer} style={{...geometricStyle}}>
         <img
+          loading="lazy"
           src={imgUrl}
           alt="frame"
           onMouseMove={onMoveGeoMetric}

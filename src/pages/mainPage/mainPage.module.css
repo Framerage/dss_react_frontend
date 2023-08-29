@@ -13,3 +13,18 @@
     border-radius: 50px;
     border: 1px solid black;
 }
+.scrollBtn{
+    width: min-content;
+    height: 45px;
+    margin: 0 auto;
+    padding-bottom: 10px;
+    font-size: 30px;
+    font-weight: 600;
+    color: black;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.scrollBtn:hover{
+    border-bottom: 6px groove aqua;
+    text-shadow:0 5px 10px aqua;
+}

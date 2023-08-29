@@ -2,7 +2,57 @@
     max-width: 1440px;
     height: 100vh;
     margin-left: 150px;
-    border: 1px solid red;
     border-radius: 30px;
     margin-top: 30px;
+    display: flex;
+    align-items: center;
+}
+.descripPoint{
+    width: 100%;
+    height: auto;
+    padding: 10px;
+    font-size: 22px;
+    font-weight: 600;
+    color: black;
+    text-shadow:  0 0px 5px aqua;
+}
+.examplePoint{
+    width: 100%;
+    height: auto;
+}
+.descripPoint, .examplePoint{
+    transform: translateX(0);
+    opacity: 1;
+}
+.activeLeftPoint{
+    animation: slide-left 1.5s ease-in-out alternate;
+
+}
+.activeRightPoint{
+    animation: slide-right 1.5s ease-in-out alternate;
+
+}
+@keyframes slide-left{
+    0%{
+        transform: translateX(-1000px);
+    opacity: 0;
+
+    }
+    100%{
+        transform: translateX(0);
+    opacity: 1;
+
+    }
+}
+@keyframes slide-right{
+    0%{
+        transform: translateX(1000px);
+    opacity: 0;
+
+    }
+    100%{
+        transform: translateX(0);
+    opacity: 1;
+
+    }
 }
