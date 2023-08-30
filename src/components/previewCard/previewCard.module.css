@@ -10,6 +10,7 @@
     transform-style: preserve-3d;
     perspective: 600px;
     cursor: move;
+    text-decoration: none;
 }
 .previewFrame{
     width: 100%;
@@ -26,7 +27,8 @@
     font-size: 28px;
     font-weight: 600;
     font-style: italic;
-
+    color: black;
+    text-shadow: 0 0 10px aqua;
     display: flex;
     align-items: center;
     justify-content: center;

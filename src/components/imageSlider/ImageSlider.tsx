@@ -10,10 +10,14 @@ import {AppDispatch} from "store";
 interface ImageSliderProps {
   images: string[];
   componentScale?: number;
+  isImgFile?: boolean;
+  isScaled?: boolean;
 }
 const ImageSlider: React.FC<ImageSliderProps> = ({
   images = [],
   componentScale,
+  isImgFile = false,
+  isScaled = true,
 }) => {
   const dispatch = useDispatch<AppDispatch>();
   const [choosedImg, setChoosedImg] = useState(0);
@@ -21,7 +25,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
   const onScaleImg = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     setIsImageScaled(!isImgScaled);
-    dispatch(setPopupImage(images[choosedImg]));
+    dispatch(setPopupImage(setBase64Image("", images[choosedImg])));
   };
   const onChooseImg = (e: React.MouseEvent<HTMLElement>, index: number) => {
     e.stopPropagation();
@@ -30,7 +34,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
   return (
     <div
       className={classes.imageSlider}
-      onClick={e => onScaleImg(e)}
+      onClick={e => isScaled && onScaleImg(e)}
       style={{
         transform: componentScale ? `scale(${componentScale})` : "scale(1)",
       }}
@@ -38,11 +42,13 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
       <img
         src={
           images && images.length > 0
-            ? setBase64Image("", images[choosedImg])
+            ? isImgFile
+              ? images[choosedImg]
+              : setBase64Image("", images[choosedImg])
             : defaultImg
         }
         alt="cardImg"
-        className={cn(classes.cardImg)}
+        className={cn(classes.cardImg, {[classes.cardHover]: isImgScaled})}
       />
       <div className={classes.sliderPoints}>
         {images.map((_, index) => (

@@ -22,22 +22,24 @@ const PreviewCard: React.FC<PreviewCardProps> = ({
     });
   };
   return (
-    <a href={`#${link}`}>
-      <div className={classes.previewCardContainer} style={{...geometricStyle}}>
-        <img
-          loading="lazy"
-          src={imgUrl}
-          alt="frame"
-          onMouseMove={onMoveGeoMetric}
-          className={classes.previewFrame}
-        />
-        <div
-          className={cn(classes.previewCardContent, {
-            [classes.previewCircleCard]: isCircle,
-          })}
-        >
-          {contentText}
-        </div>
+    <a
+      href={`#${link}`}
+      className={classes.previewCardContainer}
+      style={{...geometricStyle}}
+    >
+      <img
+        loading="lazy"
+        src={imgUrl}
+        alt="frame"
+        onMouseMove={onMoveGeoMetric}
+        className={classes.previewFrame}
+      />
+      <div
+        className={cn(classes.previewCardContent, {
+          [classes.previewCircleCard]: isCircle,
+        })}
+      >
+        {contentText}
       </div>
     </a>
   );

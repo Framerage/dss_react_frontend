@@ -1,3 +1,12 @@
+.mainContainer{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    color: black;
+    font-size: 20px;
+}
 .mainContent{
     width: 100%;
     display: flex;
@@ -6,12 +15,12 @@
 .appPreview{
     max-width: 1440px;
     margin-left:150px;
+    height: 90vh;
     display: flex;
     align-items: center;
     justify-content: center;
     gap: 100px;
     border-radius: 50px;
-    border: 1px solid black;
 }
 .scrollBtn{
     width: min-content;

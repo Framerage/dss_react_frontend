@@ -19,6 +19,10 @@
 .examplePoint{
     width: 100%;
     height: auto;
+    font-size: 22px;
+    font-weight: 600;
+    color: black;
+    text-shadow:  0 0px 5px aqua;
 }
 .descripPoint, .examplePoint{
     transform: translateX(0);

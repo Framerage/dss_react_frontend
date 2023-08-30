@@ -4,7 +4,6 @@ import cn from "classnames";
 import {useOnClickOutside} from "hooks/useClickOutside";
 import {useDispatch, useSelector} from "react-redux";
 import {selectPopupImage} from "store/modules/popup/selectors";
-import {setBase64Image} from "helpers/appHelpers";
 import {resetPopupImage} from "store/modules/popup/actions";
 import {AppDispatch} from "store";
 const AppPopup = () => {
@@ -28,11 +27,7 @@ const AppPopup = () => {
       })}
     >
       <div className={classes.popupWindow} ref={popupRef}>
-        <img
-          src={setBase64Image("", scaledImage)}
-          alt="scaledImg"
-          className={classes.popupImg}
-        />
+        <img src={scaledImage} alt="scaledImg" className={classes.popupImg} />
         <div className={classes.closeBtn} onClick={onClosePopup}>
           Close
         </div>

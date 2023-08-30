@@ -11,11 +11,11 @@
     max-height: 90%;
     border-radius: 10px;
     border:4px groove transparent;
-    cursor: pointer;
     transition: 0.2s;
 }
-.imageSlider:hover>.cardImg{
-    border-color: aquamarine
+.imageSlider:hover>.cardHover{
+    border-color: aquamarine;
+    cursor: pointer;
 }
 .sliderPoints{
     width: 100%;

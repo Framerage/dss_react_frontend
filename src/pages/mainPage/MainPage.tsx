@@ -1,38 +1,48 @@
 import React from "react";
-import CardArtFrame from "assets/images/art-frame.png";
 import CardDecorFrame from "assets/images/pic-frame.png";
 import CardMirrowFrame from "assets/images/mirrow-frame.png";
 import PreviewCard from "components/previewCard/PreviewCard";
 import PreviewMainBlock from "components/previewMainBlock/PreviewMainBlock";
 
+import PrintHisImg1 from "assets/images/printerHistory/print1.jpg";
+import PrintHisImg3 from "assets/images/printerHistory/print3.jpg";
+
 import classes from "./mainPage.module.css";
+import {
+  FURNITURE_HISTORY,
+  NEON_HISTORY,
+  VOL_PRINTERS_HISTORY,
+} from "components/previewMainBlock/constants";
 const previewCards = [
-  {img: CardArtFrame, text: "Creative Art Decor Design", link: "art-decor"},
   {
     img: CardDecorFrame,
-    text: "Creative 3D creating Neon DIY",
-    link: "art-neon",
+    text: "Home comfort, simple, usefull and interesting furniture ",
+    link: "art-furniture",
   },
   {
     img: CardMirrowFrame,
-    text: "Home comfort simple usefull interesting news",
+    text: "Creative neon decors, DIY, neon lamps",
+    link: "art-neon",
     isCircle: true,
-    link: "art-furniture",
+  },
+  {
+    img: CardDecorFrame,
+    text: "Creative 3D models",
+    link: "art-printers",
+  },
+];
+const previewContent = [
+  {text: FURNITURE_HISTORY, id: "art-furniture", images: []},
+  {text: NEON_HISTORY, id: "art-neon", images: [], reverse: true},
+  {
+    text: VOL_PRINTERS_HISTORY,
+    id: "art-printers",
+    images: [PrintHisImg1, PrintHisImg3],
   },
 ];
 const MainPage = () => {
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        alignItems: "center",
-        justifyContent: "center",
-        width: "100%",
-        color: "black",
-        fontSize: "20px",
-      }}
-    >
+    <div className={classes.mainContainer}>
       <div className={classes.mainContent}>
         <div className={classes.appPreview}>
           {previewCards.map(card => (
@@ -45,9 +55,15 @@ const MainPage = () => {
             />
           ))}
         </div>
-        <PreviewMainBlock text="some text" id="art-decor" />
-        <PreviewMainBlock text="some text" id="art-neon" />
-        <PreviewMainBlock text="some text" id="art-furniture" />
+        {previewContent.map(block => (
+          <PreviewMainBlock
+            text={block.text}
+            id={block.id}
+            key={block.id}
+            images={block.images}
+            reverse={block.reverse}
+          />
+        ))}
         <div
           onClick={() => window.scrollTo(0, 0)}
           className={classes.scrollBtn}
