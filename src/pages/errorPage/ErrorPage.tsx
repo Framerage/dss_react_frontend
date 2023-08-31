@@ -5,7 +5,7 @@ import {useNavigate} from "react-router-dom";
 import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES} from "utils/routes";
 import {useSelector} from "react-redux";
 import {isUserAuth} from "store/modules/auth/selectors";
-const ErrorPage = () => {
+const ErrorPage: React.FC = () => {
   const navigate = useNavigate();
   const isAuth = useSelector(isUserAuth);
   const [timer, setTimer] = useState(10);
@@ -24,7 +24,7 @@ const ErrorPage = () => {
         Error 404. This page does not exist.
       </div>
       <div className={cn(classes.errText, classes.errTimer)}>
-        Will return at:&nbsp;{timer}&nbsp;...
+        Will return to "Main page" at:&nbsp;{timer}&nbsp;...
       </div>
     </div>
   );

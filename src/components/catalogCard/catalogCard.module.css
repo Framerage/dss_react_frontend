@@ -10,9 +10,7 @@
     display: flex;
     transition: 0.2s;
 }
-.cardContainer:hover{
-    border-color: aquamarine;
-}
+
 .cardPreview{
     width: 294px;
     height: 100%;

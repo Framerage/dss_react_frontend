@@ -6,56 +6,64 @@
     margin-top: 30px;
     display: flex;
     align-items: center;
+    position: relative;
 }
 .descripPoint{
-    width: 100%;
     height: auto;
-    padding: 10px;
     font-size: 22px;
     font-weight: 600;
     color: black;
-    text-shadow:  0 0px 5px aqua;
+    text-shadow:  0 0px 5px white;
 }
 .examplePoint{
-    width: 100%;
     height: auto;
     font-size: 22px;
     font-weight: 600;
     color: black;
-    text-shadow:  0 0px 5px aqua;
+    text-shadow:  0 0px 5px white;
 }
 .descripPoint, .examplePoint{
+    max-height: 60vh;
     transform: translateX(0);
+    position: absolute;
     opacity: 1;
+    background:linear-gradient(30deg,black,lightgrey,white,lightgrey,black);
+    padding: 10px;
+    border-radius: 5px;
+    box-shadow: 0 0px 10px black,10px 10px 20px black,15px 15px 30px black;
+    text-align: center;
+    overflow: auto;
 }
 .activeLeftPoint{
     animation: slide-left 1.5s ease-in-out alternate;
-
+    left: 10px;
+    width:45%;
 }
 .activeRightPoint{
     animation: slide-right 1.5s ease-in-out alternate;
-
+    right: 10px;
+    width:45%;
 }
 @keyframes slide-left{
     0%{
-        transform: translateX(-1000px);
+        left: -400px;
     opacity: 0;
 
     }
     100%{
-        transform: translateX(0);
+        left: 10px;
     opacity: 1;
 
     }
 }
 @keyframes slide-right{
     0%{
-        transform: translateX(1000px);
+        right:-400px;
     opacity: 0;
 
     }
     100%{
-        transform: translateX(0);
+        right:10px;
     opacity: 1;
 
     }

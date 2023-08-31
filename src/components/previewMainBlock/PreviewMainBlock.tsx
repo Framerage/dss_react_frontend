@@ -32,11 +32,7 @@ const PreviewMainBlock: React.FC<PreaviewBlockProps> = ({
           [classes.activeRightPoint]: inView,
         })}
       >
-        {reverse ? (
-          text
-        ) : (
-          <ImageSlider images={images} isImgFile isScaled={false} />
-        )}
+        {reverse ? text : <ImageSlider images={images} isImgFile />}
       </div>
     </div>
   );

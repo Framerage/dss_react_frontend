@@ -25,7 +25,11 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
   const onScaleImg = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     setIsImageScaled(!isImgScaled);
-    dispatch(setPopupImage(setBase64Image("", images[choosedImg])));
+    dispatch(
+      setPopupImage(
+        isImgFile ? images[choosedImg] : setBase64Image("", images[choosedImg]),
+      ),
+    );
   };
   const onChooseImg = (e: React.MouseEvent<HTMLElement>, index: number) => {
     e.stopPropagation();
@@ -34,7 +38,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
   return (
     <div
       className={classes.imageSlider}
-      onClick={e => isScaled && onScaleImg(e)}
+      onClick={e => images && images.length > 0 && isScaled && onScaleImg(e)}
       style={{
         transform: componentScale ? `scale(${componentScale})` : "scale(1)",
       }}
@@ -49,6 +53,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
         }
         alt="cardImg"
         className={cn(classes.cardImg, {[classes.cardHover]: isImgScaled})}
+        loading="lazy"
       />
       <div className={classes.sliderPoints}>
         {images.map((_, index) => (

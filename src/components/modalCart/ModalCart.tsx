@@ -27,22 +27,22 @@ const ModalCart = () => {
   const catalogCards = useSelector(catalogCardsData);
   const errorMsg = !catalogCards ? "Open catalog, please" : "Empty cart";
 
-  // useEffect(() => {
-  //   isCartOpened &&
-  //     !catalogCards &&
-  //     dispatch(getCatalogCardsFx()).then(({payload}) => {
-  //       if (authRequest) {
-  //         const newCartList = payload
-  //           .map((el: CatalogCardNesting) => {
-  //             if (authRequest.userCart.some(card => card._id === el._id)) {
-  //               return el;
-  //             }
-  //           })
-  //           .filter((item: any) => item !== undefined);
-  //         dispatch(updateCardsOfCart(newCartList));
-  //       }
-  //     });
-  // }, [isCartOpened, catalogCards]);
+  useEffect(() => {
+    isCartOpened &&
+      !catalogCards &&
+      dispatch(getCatalogCardsFx()).then(({payload}) => {
+        if (authRequest) {
+          const newCartList = payload
+            .map((el: CatalogCardNesting) => {
+              if (authRequest.userCart.some(card => card._id === el._id)) {
+                return el;
+              }
+            })
+            .filter((item: any) => item !== undefined);
+          dispatch(updateCardsOfCart(newCartList));
+        }
+      });
+  }, [isCartOpened, catalogCards]);
   const onCloseCart = () => {
     dispatch(isShoppingCartUse(false));
   };

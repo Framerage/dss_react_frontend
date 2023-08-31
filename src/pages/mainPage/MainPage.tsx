@@ -7,6 +7,10 @@ import PreviewMainBlock from "components/previewMainBlock/PreviewMainBlock";
 import PrintHisImg1 from "assets/images/printerHistory/print1.jpg";
 import PrintHisImg3 from "assets/images/printerHistory/print3.jpg";
 
+import NeonHisImg1 from "assets/images/neonHistory/neon1.jpeg";
+import NeonHisImg2 from "assets/images/neonHistory/neon2.jpg";
+import NeonHisImg3 from "assets/images/neonHistory/neon3.jpg";
+
 import classes from "./mainPage.module.css";
 import {
   FURNITURE_HISTORY,
@@ -33,14 +37,19 @@ const previewCards = [
 ];
 const previewContent = [
   {text: FURNITURE_HISTORY, id: "art-furniture", images: []},
-  {text: NEON_HISTORY, id: "art-neon", images: [], reverse: true},
+  {
+    text: NEON_HISTORY,
+    id: "art-neon",
+    images: [NeonHisImg1, NeonHisImg2, NeonHisImg3],
+    reverse: true,
+  },
   {
     text: VOL_PRINTERS_HISTORY,
     id: "art-printers",
     images: [PrintHisImg1, PrintHisImg3],
   },
 ];
-const MainPage = () => {
+const MainPage: React.FC = () => {
   return (
     <div className={classes.mainContainer}>
       <div className={classes.mainContent}>
