@@ -11,6 +11,12 @@ import NeonHisImg1 from "assets/images/neonHistory/neon1.jpeg";
 import NeonHisImg2 from "assets/images/neonHistory/neon2.jpg";
 import NeonHisImg3 from "assets/images/neonHistory/neon3.jpg";
 
+import FurnHisImg1 from "assets/images/furnitureHistory/furn1.jpg";
+import FurnHisImg2 from "assets/images/furnitureHistory/furn2.jpg";
+import FurnHisImg3 from "assets/images/furnitureHistory/furn3.jpg";
+import FurnHisImg4 from "assets/images/furnitureHistory/furn4.jpg";
+import FurnHisImg5 from "assets/images/furnitureHistory/furn5.jpg";
+
 import classes from "./mainPage.module.css";
 import {
   FURNITURE_HISTORY,
@@ -36,7 +42,11 @@ const previewCards = [
   },
 ];
 const previewContent = [
-  {text: FURNITURE_HISTORY, id: "art-furniture", images: []},
+  {
+    text: FURNITURE_HISTORY,
+    id: "art-furniture",
+    images: [FurnHisImg1, FurnHisImg2, FurnHisImg3, FurnHisImg4, FurnHisImg5],
+  },
   {
     text: NEON_HISTORY,
     id: "art-neon",

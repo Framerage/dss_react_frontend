@@ -25,7 +25,7 @@ const PreviewMainBlock: React.FC<PreaviewBlockProps> = ({
           [classes.activeLeftPoint]: inView,
         })}
       >
-        {reverse ? <ImageSlider images={images} /> : text}
+        {reverse ? <ImageSlider images={images} isImgFile /> : text}
       </div>
       <div
         className={cn(classes.examplePoint, {

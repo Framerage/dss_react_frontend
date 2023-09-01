@@ -22,7 +22,7 @@ const AppLayout = () => {
           : APP_GENERAL_ROUTES.catalog.link,
       },
       {
-        title: "Order",
+        title: "Create own decor",
         link: APP_AUTH_ROUTES.order.link,
       },
       {
@@ -41,9 +41,8 @@ const AppLayout = () => {
   }, [isAuth]);
   const isCartOpened = useSelector(isShopCartUse);
   const isPopupOpen = useSelector(selectPopupImage);
-  //TODO: создать отдельный список роутов(якорей) для блоков на главной, оформить блоки(найти статьи на три общие темы декор неон фуринитура)
   //TODO:  сохранять токен в куки
-  //TODO:  убрать комменты в корзине приложения
+  //TODO:  разработать логику оформления заказа
   //TODO: создать лк+ сделать запрос на auth/me для отображения текущего юзера
   //TODO: footer+share+animation idia
   //TODO: подумать об использовании промокода при регистрации для акций и бонусов(проверку делать на бэке и возвращать текущее/расчитанное кол-во бонусов)
