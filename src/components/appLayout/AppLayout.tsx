@@ -10,6 +10,7 @@ import ModalCart from "components/modalCart/ModalCart";
 import {isShopCartUse} from "store/modules/cart/selectors";
 import AppPopup from "components/AppPopup/AppPopup";
 import {selectPopupImage} from "store/modules/popup/selectors";
+import AppFooter from "components/appFooter/AppFooter";
 
 const AppLayout = () => {
   const isAuth = useSelector(isUserAuth);
@@ -41,10 +42,10 @@ const AppLayout = () => {
   }, [isAuth]);
   const isCartOpened = useSelector(isShopCartUse);
   const isPopupOpen = useSelector(selectPopupImage);
+  //TODO: разоабраться с размерами контента в карточках на главной
+  //TODO: создать лк+ сделать запрос на auth/me для отображения текущего юзера
   //TODO:  сохранять токен в куки
   //TODO:  разработать логику оформления заказа
-  //TODO: создать лк+ сделать запрос на auth/me для отображения текущего юзера
-  //TODO: footer+share+animation idia
   //TODO: подумать об использовании промокода при регистрации для акций и бонусов(проверку делать на бэке и возвращать текущее/расчитанное кол-во бонусов)
   //TODO: сохранять корзину в локалсторейдж или на бд?
   //TODO: адаптив для всех страниц
@@ -90,7 +91,7 @@ const AppLayout = () => {
           </>
         )}
       </main>
-      <footer className={classes.footerContainer}>footer</footer>
+      <AppFooter />
     </div>
   );
 };

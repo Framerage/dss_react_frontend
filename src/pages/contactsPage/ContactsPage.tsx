@@ -11,11 +11,15 @@ const sharedContacts = [
     link: "https://api.whatsapp.com/send?phone=79876395283",
     img: WhatsappIcon,
   },
-  {name: "Vkontakte", link: "https://vk.com/id118856849", img: VkIcon},
+  {
+    name: "Vkontakte",
+    link: "https://vk.com/id118856849",
+    img: VkIcon,
+  },
 ];
 const jobEmail = "officialigonin@mail.ru";
 const telNumber = "+79876395283";
-const ContactsPage = () => {
+const ContactsPage: React.FC = () => {
   return (
     <div className={classes.contactsContainer}>
       <div className={classes.contentItem}>
@@ -26,7 +30,12 @@ const ContactsPage = () => {
         Телефон для связи:<a href={`tel:${telNumber}`}>{telNumber}</a>, либо
         соц. сети
         {sharedContacts.map(link => (
-          <a href={link.link} title={link.name} target="_blank">
+          <a
+            href={link.link}
+            title={link.name}
+            target="_blank"
+            rel="noopener noreferrer"
+          >
             <img src={link.img} width={35} height={35} alt="shareLink" />
           </a>
         ))}
