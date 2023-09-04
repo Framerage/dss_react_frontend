@@ -1,7 +1,6 @@
 import React from "react";
 import {useLocation} from "react-router-dom";
 import classes from "./appFooter.module.css";
-import {FOR_GH_PAGES} from "utils/routes";
 
 import VkIcon from "assets/icons/vk.svg";
 import WhatsappIcon from "assets/icons/whatsapp.svg";
@@ -19,7 +18,7 @@ const sharedContacts = [
   },
   {
     name: "Vkontakte",
-    link: "https://vk.com/share.php?url=",
+    link: "https://vk.com/share.php?text=",
     img: VkIcon,
   },
 ];
@@ -27,7 +26,7 @@ const sharedContacts = [
 const domen = "framerage.github.io";
 const AppFooter: React.FC = () => {
   const router = useLocation();
-  const currentPath = domen + FOR_GH_PAGES + router.pathname;
+  const currentPath = domen + router.pathname;
 
   return (
     <div className={classes.footerContainer}>

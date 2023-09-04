@@ -38,23 +38,44 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
   return (
     <div
       className={classes.imageSlider}
-      onClick={e => images && images.length > 0 && isScaled && onScaleImg(e)}
       style={{
         transform: componentScale ? `scale(${componentScale})` : "scale(1)",
       }}
     >
-      <img
-        src={
-          images && images.length > 0
-            ? isImgFile
-              ? images[choosedImg]
-              : setBase64Image("", images[choosedImg])
-            : defaultImg
-        }
-        alt="cardImg"
-        className={cn(classes.cardImg, {[classes.cardHover]: isImgScaled})}
-        loading="lazy"
-      />
+      <div className={classes.imageContainer}>
+        <div
+          className={classes.imgArrow}
+          onClick={() => choosedImg !== 0 && setChoosedImg(choosedImg - 1)}
+        >
+          &#8249;
+        </div>
+        <img
+          src={
+            images && images.length > 0
+              ? isImgFile
+                ? images[choosedImg]
+                : setBase64Image("", images[choosedImg])
+              : defaultImg
+          }
+          alt="cardImg"
+          className={cn(classes.cardImg, {[classes.cardHover]: isImgScaled})}
+          loading="lazy"
+          onClick={e =>
+            images && images.length > 0 && isScaled && onScaleImg(e)
+          }
+        />
+        <div
+          className={classes.imgArrow}
+          onClick={() =>
+            choosedImg !== images.length - 1 &&
+            choosedImg < images.length &&
+            setChoosedImg(choosedImg + 1)
+          }
+        >
+          &#8250;
+        </div>
+      </div>
+
       <div className={classes.sliderPoints}>
         {images.map((_, index) => (
           <div
