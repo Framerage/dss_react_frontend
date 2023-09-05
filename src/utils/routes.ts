@@ -27,7 +27,6 @@ export const APP_GENERAL_ROUTES: RoutesType = {
     link: FOR_GH_PAGES + "/auth/registration",
     component: RegistrationPage,
   },
-  error: {link: "*", component: LoginPage},
 };
 export const APP_AUTH_ROUTES: RoutesType = {
   main: {link: FOR_GH_PAGES, component: MainPage, index: true},
@@ -40,7 +39,6 @@ export const APP_AUTH_ROUTES: RoutesType = {
   personalPage: {link: FOR_GH_PAGES + "/personal-page", component: null},
   login: {link: FOR_GH_PAGES + "/auth/login", component: LoginPage},
   personPage: {link: FOR_GH_PAGES + "/my-account", component: PersonalPage},
-  error: {link: "*", component: ErrorPage},
 };
 // "homepage": "https://framerage.github.io/dss_react_frontend",
 

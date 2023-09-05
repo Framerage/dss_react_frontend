@@ -1,8 +1,9 @@
 .searcherContainer{
-    width:520px;
+    width: 100%;
     display: flex;
     align-items: center;
     position: relative;
+    margin-left: 30px;
 }
 .searcherInput{
     width: 100%;
@@ -30,7 +31,7 @@
     height: 39px;
     padding: 5px;
     top: 0px;
-    left: 480px;
+    left: 96%;
     transition: 0.2s;
     transform: translateX();
     border: 1px solid black;
@@ -49,7 +50,7 @@
         transform: rotate(0deg);
     }
     100%{
-        left: 480px;
+        left: 96%;
         transform: rotate(720deg);
     }
 }
@@ -72,7 +73,7 @@
 }
 @keyframes btnHidden{
     0%{
-        width: 520px;
+        width: 100%;
     }
     100%{
         width: 100px;

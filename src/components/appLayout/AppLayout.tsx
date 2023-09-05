@@ -11,6 +11,8 @@ import {isShopCartUse} from "store/modules/cart/selectors";
 import AppPopup from "components/AppPopup/AppPopup";
 import {selectPopupImage} from "store/modules/popup/selectors";
 import AppFooter from "components/appFooter/AppFooter";
+import LoginPage from "pages/loginPage/LoginPage";
+import ErrorPage from "pages/errorPage";
 
 const AppLayout = () => {
   const isAuth = useSelector(isUserAuth);
@@ -72,6 +74,7 @@ const AppLayout = () => {
                   Component={appRoute.component}
                 />
               ))}
+              <Route path="*" Component={isAuth ? ErrorPage : LoginPage} />
             </Routes>
             <AppMenu menuItems={appNavigation} />
           </>
@@ -86,6 +89,7 @@ const AppLayout = () => {
                   Component={appRoute.component}
                 />
               ))}
+              <Route path="*" Component={isAuth ? ErrorPage : LoginPage} />
             </Routes>
             <AppMenu menuItems={appNavigation} />
           </>

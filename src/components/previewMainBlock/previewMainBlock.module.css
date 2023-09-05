@@ -1,31 +1,28 @@
 .previewBlockContainer{
     max-width: 1440px;
-    height: 100vh;
-    margin-left: 150px;
-    border-radius: 30px;
+    min-height: 100vh;
     margin-top: 30px;
     display: flex;
+    flex-wrap: wrap;
     align-items: center;
+    gap: 20px;
     position: relative;
 }
 .descripPoint{
-    height: auto;
     font-size: 22px;
     font-weight: 600;
     color: black;
     text-shadow:  0 0px 5px white;
 }
 .examplePoint{
-    height: auto;
     font-size: 22px;
     font-weight: 600;
     color: black;
     text-shadow:  0 0px 5px white;
 }
 .descripPoint, .examplePoint{
+    min-width: 325px;
     max-height: 60vh;
-    transform: translateX(0);
-    position: absolute;
     opacity: 1;
     background:linear-gradient(30deg,black,lightgrey,white,lightgrey,black);
     padding: 5px;
@@ -33,38 +30,35 @@
     box-shadow: 0 0px 10px black,10px 10px 20px black,15px 15px 30px black;
     text-align: center;
     overflow: auto;
+    display: none;
 }
 .activeLeftPoint{
     animation: slide-left 1.5s ease-in-out alternate;
-    left: 10px;
     width:45%;
+    display: block;
 }
 .activeRightPoint{
     animation: slide-right 1.5s ease-in-out alternate;
-    right: 10px;
     width:45%;
+    display: block;
 }
 @keyframes slide-left{
     0%{
-        left: -400px;
+    transform: translateX(-400px);
     opacity: 0;
-
     }
     100%{
-        left: 10px;
+    transform: translateX(0px);
     opacity: 1;
-
     }
 }
 @keyframes slide-right{
     0%{
-        right:-400px;
+    transform: translateX(400px);
     opacity: 0;
-
     }
     100%{
-        right:10px;
+    transform: translateX(0px);
     opacity: 1;
-
     }
 }

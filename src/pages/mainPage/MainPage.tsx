@@ -29,6 +29,7 @@ const previewCards = [
     text: "Home comfort, simple, usefull and interesting furniture ",
     link: "art-furniture",
   },
+
   {
     img: CardMirrowFrame,
     text: "Creative neon decors, DIY, neon lamps",
@@ -74,15 +75,18 @@ const MainPage: React.FC = () => {
             />
           ))}
         </div>
-        {previewContent.map(block => (
-          <PreviewMainBlock
-            text={block.text}
-            id={block.id}
-            key={block.id}
-            images={block.images}
-            reverse={block.reverse}
-          />
-        ))}
+        <div className={classes.appPreviewBlocks}>
+          {previewContent.map(block => (
+            <PreviewMainBlock
+              text={block.text}
+              id={block.id}
+              key={block.id}
+              images={block.images}
+              reverse={block.reverse}
+            />
+          ))}
+        </div>
+
         <div
           onClick={() => window.scrollTo(0, 0)}
           className={classes.scrollBtn}

@@ -4,12 +4,14 @@
     align-items: center;
     justify-content: center;
     position: relative;
-    max-width: 400px;
-    max-height: 600px;
+    max-width: 255px;
+    min-width: 175px;
+    min-height: min-content;
+    max-height: 400px;
     transition: 0.5s;
     transform-style: preserve-3d;
     perspective: 600px;
-    cursor: move;
+    cursor: pointer;
     text-decoration: none;
 }
 .previewFrame{
