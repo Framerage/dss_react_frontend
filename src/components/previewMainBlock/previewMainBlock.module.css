@@ -28,7 +28,7 @@
     position: absolute;
     opacity: 1;
     background:linear-gradient(30deg,black,lightgrey,white,lightgrey,black);
-    padding: 10px;
+    padding: 5px;
     border-radius: 5px;
     box-shadow: 0 0px 10px black,10px 10px 20px black,15px 15px 30px black;
     text-align: center;

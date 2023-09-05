@@ -7,6 +7,7 @@ import CreatingCard from "pages/creatingCard/CreatingCard";
 import ErrorPage from "pages/errorPage/ErrorPage";
 import LoginPage from "pages/loginPage/LoginPage";
 import MainPage from "pages/mainPage";
+import PersonalPage from "pages/personalPage/PersonalPage";
 import RegistrationPage from "pages/regPage/RegistrainPage";
 
 interface RoutesType {
@@ -38,6 +39,7 @@ export const APP_AUTH_ROUTES: RoutesType = {
   order: {link: FOR_GH_PAGES + "/create-order", component: CreateOrder},
   personalPage: {link: FOR_GH_PAGES + "/personal-page", component: null},
   login: {link: FOR_GH_PAGES + "/auth/login", component: LoginPage},
+  personPage: {link: FOR_GH_PAGES + "/my-account", component: PersonalPage},
   error: {link: "*", component: ErrorPage},
 };
 // "homepage": "https://framerage.github.io/dss_react_frontend",

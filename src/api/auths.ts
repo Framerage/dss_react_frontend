@@ -36,3 +36,8 @@ export const editUserExtraInfo = async ({
     .then(res => res.data)
     .catch(err => err.response.data);
 };
+export const getAccountInfo = async (auth: string) => {
+  return instance.get("/auth/me", {headers: {Authorization: auth}});
+  // .then(res => res.data)
+  // .catch(({resp}) => resp.data);
+};

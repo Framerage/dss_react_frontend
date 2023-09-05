@@ -33,6 +33,7 @@ const AppFooter: React.FC = () => {
       Share in:
       {sharedContacts.map(link => (
         <a
+          key={link.name}
           href={link.link + currentPath}
           title={link.name}
           target="_blank"

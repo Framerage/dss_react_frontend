@@ -18,6 +18,7 @@ interface RegFormData {
   pass: string;
   name: string;
   regPromo: string;
+  repeatPass: string;
 }
 const RegistrationPage = () => {
   const navigate = useNavigate();
@@ -37,10 +38,19 @@ const RegistrationPage = () => {
   const emailPatternt = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
   const namePatternError = formState.errors?.name?.type === "minLength";
   const passPatternError = formState.errors?.pass?.type === "minLength";
+  const repeatpassPatternError =
+    formState.errors?.repeatPass?.type === "minLength";
+  const [repeatPassEqual, setRepeatPassEqual] = useState(false);
   const emailPatternError = formState.errors?.email?.type === "pattern";
   const [regPromoCode, setRegPromoCode] = useState("");
   const onRegistrationUser = (data: RegFormData) => {
-    dispatch(UserRegistrationFx(data));
+    const {name, pass, email, regPromo} = data;
+    if (data.repeatPass === pass) {
+      setRepeatPassEqual(false);
+      dispatch(UserRegistrationFx({name, pass, email, regPromo}));
+      return;
+    }
+    setRepeatPassEqual(true);
   };
   useEffect(() => {
     const promo =
@@ -114,7 +124,23 @@ const RegistrationPage = () => {
             </div>
           )}
         </div>
-
+        <div className={classes.formItem}>
+          <input
+            type="password"
+            {...register("repeatPass", {minLength: minPassLength})}
+            name="repeatPass"
+            placeholder="Повторите пароль"
+            className={classes.inputItem}
+            required
+          />
+          {(repeatPassEqual || repeatpassPatternError) && (
+            <div className={classes.inputErr}>
+              {repeatpassPatternError
+                ? `Минимальное количство символов ${minPassLength}`
+                : "Пароли не совпадают"}
+            </div>
+          )}
+        </div>
         <input
           type="text"
           {...register("regPromo")}
