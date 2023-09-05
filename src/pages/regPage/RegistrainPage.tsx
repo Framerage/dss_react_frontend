@@ -74,86 +74,84 @@ const RegistrationPage = () => {
     navigate(APP_GENERAL_ROUTES.login.link);
   }, [regResult]);
   return (
-    <div className={classes.regContainer}>
-      <form
-        className={classes.formBlock}
-        onSubmit={handleSubmit(onRegistrationUser)}
-      >
-        <h2 className={classes.formHead}>Registration</h2>
-        <div className={classes.formItem}>
-          <input
-            type="text"
-            {...register("name", {minLength: minNameLength})}
-            name="name"
-            placeholder="Имя"
-            className={classes.inputItem}
-            required
-          />
-          {namePatternError && (
-            <div className={classes.inputErr}>
-              Минимальное количство символов {minNameLength}
-            </div>
-          )}
-        </div>
-        <div className={classes.formItem}>
-          <input
-            type="text"
-            {...register("email", {pattern: emailPatternt})}
-            name="email"
-            placeholder="Почта"
-            className={classes.inputItem}
-            required
-          />
-          {emailPatternError && (
-            <div className={classes.inputErr}>Формат неверный</div>
-          )}
-        </div>
-
-        <div className={classes.formItem}>
-          <input
-            type="password"
-            {...register("pass", {minLength: minPassLength})}
-            name="pass"
-            placeholder="Пароль"
-            className={classes.inputItem}
-            required
-          />
-          {passPatternError && (
-            <div className={classes.inputErr}>
-              Минимальное количство символов {minPassLength}
-            </div>
-          )}
-        </div>
-        <div className={classes.formItem}>
-          <input
-            type="password"
-            {...register("repeatPass", {minLength: minPassLength})}
-            name="repeatPass"
-            placeholder="Повторите пароль"
-            className={classes.inputItem}
-            required
-          />
-          {(repeatPassEqual || repeatpassPatternError) && (
-            <div className={classes.inputErr}>
-              {repeatpassPatternError
-                ? `Минимальное количство символов ${minPassLength}`
-                : "Пароли не совпадают"}
-            </div>
-          )}
-        </div>
+    <form
+      className={classes.formBlock}
+      onSubmit={handleSubmit(onRegistrationUser)}
+    >
+      <h2 className={classes.formHead}>Registration</h2>
+      <div className={classes.formItem}>
         <input
           type="text"
-          {...register("regPromo")}
-          name="regPromo"
-          placeholder="Промокод"
-          className={classes.inputPromo}
-          onChange={e => setRegPromoCode(e.target.value)}
-          value={regPromoCode}
+          {...register("name", {minLength: minNameLength})}
+          name="name"
+          placeholder="Имя"
+          className={classes.inputItem}
+          required
         />
-        <button className={classes.submitBtn}>
-          {regIsLoading ? "Loading..." : "Registration"}
-        </button>
-      </form>
+        {namePatternError && (
+          <div className={classes.inputErr}>
+            Минимальное количство символов {minNameLength}
+          </div>
+        )}
+      </div>
+      <div className={classes.formItem}>
+        <input
+          type="text"
+          {...register("email", {pattern: emailPatternt})}
+          name="email"
+          placeholder="Почта"
+          className={classes.inputItem}
+          required
+        />
+        {emailPatternError && (
+          <div className={classes.inputErr}>Формат неверный</div>
+        )}
+      </div>
+
+      <div className={classes.formItem}>
+        <input
+          type="password"
+          {...register("pass", {minLength: minPassLength})}
+          name="pass"
+          placeholder="Пароль"
+          className={classes.inputItem}
+          required
+        />
+        {passPatternError && (
+          <div className={classes.inputErr}>
+            Минимальное количство символов {minPassLength}
+          </div>
+        )}
+      </div>
+      <div className={classes.formItem}>
+        <input
+          type="password"
+          {...register("repeatPass", {minLength: minPassLength})}
+          name="repeatPass"
+          placeholder="Повторите пароль"
+          className={classes.inputItem}
+          required
+        />
+        {(repeatPassEqual || repeatpassPatternError) && (
+          <div className={classes.inputErr}>
+            {repeatpassPatternError
+              ? `Минимальное количство символов ${minPassLength}`
+              : "Пароли не совпадают"}
+          </div>
+        )}
+      </div>
+      <input
+        type="text"
+        {...register("regPromo")}
+        name="regPromo"
+        placeholder="Промокод"
+        className={classes.inputPromo}
+        onChange={e => setRegPromoCode(e.target.value)}
+        value={regPromoCode}
+      />
+      <button className={classes.submitBtn}>
+        {regIsLoading ? "Loading..." : "Registration"}
+      </button>
       {(regError ||
         (regResult && !Array.isArray(regResult) && !regResult.success) ||
         (regResult && Array.isArray(regResult))) && (
@@ -165,7 +163,7 @@ const RegistrationPage = () => {
             : regError}
         </div>
       )}
-    </div>
+    </form>
   );
 };
 export default RegistrationPage;
