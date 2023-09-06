@@ -8,15 +8,15 @@ export const isUserAuth = createSelector(
 );
 export const selectAuthData = createSelector(
   selectAuthState,
-  state => state.authRequest.data,
+  state => state.userInfo.data,
 );
 export const selectAuthIsLoading = createSelector(
   selectAuthState,
-  state => state.authRequest.isLoading,
+  state => state.userInfo.isLoading,
 );
 export const selectAuthError = createSelector(
   selectAuthState,
-  state => state.authRequest.error,
+  state => state.userInfo.error,
 );
 
 export const selectRegistrData = createSelector(

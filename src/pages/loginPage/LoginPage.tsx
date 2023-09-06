@@ -2,7 +2,7 @@ import React, {useEffect} from "react";
 import {createBrowserHistory} from "history";
 import {AppDispatch} from "store";
 import {useDispatch, useSelector} from "react-redux";
-import {getAuthTokenFx} from "store/modules/auth/async-actions";
+import {fetchUserInfo, getAuthTokenFx} from "store/modules/auth/async-actions";
 import {
   selectAuthData,
   selectAuthError,
@@ -14,6 +14,7 @@ import {APP_AUTH_ROUTES} from "utils/routes";
 
 import classes from "./loginPage.module.css";
 import {useNavigate} from "react-router-dom";
+import Cookies from "js-cookie";
 interface LoginFormData {
   email: string;
   pass: string;
@@ -26,6 +27,10 @@ const LoginPage = () => {
   const authRequestIsLoading = useSelector(selectAuthIsLoading);
   const authRequestError = useSelector(selectAuthError);
 
+  const saveCookieTkn = (string: string) => {
+    Cookies.set("perAcTkn", string, {expires: 1 / 24 / 12});
+  };
+
   const {handleSubmit, register} = useForm<LoginFormData>({
     mode: "onSubmit",
     reValidateMode: "onSubmit",
@@ -36,11 +41,14 @@ const LoginPage = () => {
       ({payload}) => {
         console.log(payload, "resp");
         if ("perAcTkn" in payload && payload.perAcTkn) {
+          saveCookieTkn(String(payload.perAcTkn));
+          dispatch(fetchUserInfo(payload.perAcTkn));
           console.log("done");
         }
       },
     );
   };
+  //TODO: check заменить токен в ответе с бека на пустоту или вообще убрать
 
   // useEffect(() => {
   //   if (!accTknm) {

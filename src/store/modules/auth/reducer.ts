@@ -12,8 +12,8 @@ import {
   userRegistration,
 } from "typings/auths";
 export interface AuthInitialState {
-  authRequest: {
-    data: {success: boolean; message?: string} | null;
+  userInfo: {
+    data: UserAuthorisation | null;
     isLoading: boolean;
     error: null | string;
   };
@@ -31,7 +31,7 @@ export interface AuthInitialState {
 }
 const authInitialState = {
   isUserAuth: false,
-  authRequest: {
+  userInfo: {
     data: null,
     isLoading: false,
     error: null,
@@ -49,7 +49,7 @@ const authInitialState = {
 };
 export const authReducer = createReducer<AuthInitialState>(authInitialState, {
   [resetAuthRequest.type]: state => {
-    state.authRequest.data = null;
+    state.userInfo.data = null;
   },
   [resetRegRequest.type]: state => {
     state.registrationReq.data = null;
@@ -81,26 +81,26 @@ export const authReducer = createReducer<AuthInitialState>(authInitialState, {
 
   [fetchUserInfo.fulfilled.type]: (state, {payload}) => {
     if (!payload?.success) {
-      state.authRequest.data = null;
-      state.authRequest.error = payload.message;
-      state.authRequest.isLoading = false;
+      state.userInfo.data = null;
+      state.userInfo.error = payload.message;
+      state.userInfo.isLoading = false;
       return;
     }
-    state.authRequest.data = {success: payload.success};
-    state.authRequest.isLoading = false;
+    state.userInfo.data = payload;
+    state.userInfo.isLoading = false;
   },
   [fetchUserInfo.pending.type]: state => {
-    state.authRequest.isLoading = true;
-    state.authRequest.error = null;
+    state.userInfo.isLoading = true;
+    state.userInfo.error = null;
   },
   [fetchUserInfo.rejected.type]: (state, action) => {
-    state.authRequest.error = action;
-    state.authRequest.isLoading = false;
+    state.userInfo.error = action;
+    state.userInfo.isLoading = false;
   },
 
   [UserRegistrationFx.fulfilled.type]: (state, action) => {
     if (!action.payload?.success) {
-      state.authRequest.data = null;
+      state.userInfo.data = null;
       state.registrationReq.error = action.payload.message;
       state.registrationReq.isLoading = false;
       return;
