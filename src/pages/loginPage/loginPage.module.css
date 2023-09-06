@@ -9,7 +9,6 @@
   animation: scaled 1s ease-in-out;
   margin: 0 auto;
   margin-top: 100px;
-  border: 1px solid red;
 }
 @keyframes scaled {
   0% {

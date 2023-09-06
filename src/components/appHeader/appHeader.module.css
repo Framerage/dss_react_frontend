@@ -39,6 +39,33 @@
 .headerLogo:hover>.botBorder {
   width:100%
 }
+.goBackArrow{
+  position: absolute;
+  top: 140px;
+  left: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: space-around;
+  width: 100px;
+  border-radius: 5px;
+  padding: 0 5px;
+  cursor: pointer;
+  transition: 0.2s;
+}
+.goBackArrow:hover{
+  transform: scale(1.1);
+}
+.arrowText{
+  position: absolute;
+  left: 35px;
+  top: -10px;
+  transform: skewY(15deg);
+  color: black;
+  font-size: 18px;
+  font-weight: 900;
+  text-shadow:  3px 5px 3px teal;
+  text-transform: uppercase;
+}
 .authedBlock{
   width: 300px;
   height: min-content;

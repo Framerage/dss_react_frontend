@@ -14,7 +14,7 @@ import AppFooter from "components/appFooter/AppFooter";
 import LoginPage from "pages/loginPage/LoginPage";
 import ErrorPage from "pages/errorPage";
 
-const AppLayout = () => {
+const AppLayout: React.FC = () => {
   const isAuth = useSelector(isUserAuth);
   const appNavigation = useMemo(() => {
     return [
@@ -44,6 +44,7 @@ const AppLayout = () => {
   }, [isAuth]);
   const isCartOpened = useSelector(isShopCartUse);
   const isPopupOpen = useSelector(selectPopupImage);
+
   //TODO:  сохранять токен в куки
   //TODO:  разработать логику оформления заказа
   //TODO: подумать об использовании промокода при регистрации для акций и бонусов(проверку делать на бэке и возвращать текущее/расчитанное кол-во бонусов)
@@ -51,6 +52,7 @@ const AppLayout = () => {
   //TODO: создать лк, добавить иконку юзера в хедер
   //TODO: разоабраться с размерами контента в карточках на главной
   //TODO: адаптив для всех страниц
+
   return (
     <div
       className={classes.appWrapper}

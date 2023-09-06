@@ -1,5 +1,5 @@
 import React from "react";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES} from "utils/routes";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "store";
@@ -12,13 +12,18 @@ import {isUserAuth, selectAuthData} from "store/modules/auth/selectors";
 import ShopCart from "assets/icons/cart-shopping-solid.svg";
 import classes from "./appHeader.module.css";
 import {isShoppingCartUse} from "store/modules/cart/actions";
+import Arrow from "assets/icons/backArrow.svg";
 const AppHeader = () => {
   const dispatch = useDispatch<AppDispatch>();
+  const navigate = useNavigate();
   const isAuth = useSelector(isUserAuth);
   const authRequest = useSelector(selectAuthData);
 
-  const userBonuses = authRequest?.bonuses || 0;
-  const currentUser = authRequest?.name || "-";
+  // const userBonuses = authRequest?.bonuses || 0;
+  const userBonuses = 0;
+  // const currentUser = authRequest?.name || "-";
+  const currentUser = "-";
+  //TODO: check userinfo
   const onLogOut = () => {
     dispatch(resetAuthRequest());
     dispatch(resetRegRequest());
@@ -32,6 +37,16 @@ const AppHeader = () => {
         <div className={classes.secondLogo}>spirit</div>
         <div className={classes.botBorder}></div>
       </Link>
+      <div onClick={() => navigate(-1)} className={classes.goBackArrow}>
+        <img
+          src={Arrow}
+          alt="back"
+          width={30}
+          height={30}
+          style={{transform: "rotate(-130deg)", position: "relative"}}
+        />
+        <span className={classes.arrowText}>Back</span>
+      </div>
       {isAuth ? (
         <div className={classes.authedBlock}>
           <div className={classes.cartBlock}>

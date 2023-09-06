@@ -12,3 +12,4 @@ export const editUserExtraInfoFx = createAsyncThunk(
   "editUser",
   editUserExtraInfo,
 );
+export const fetchUserInfo = createAsyncThunk("fetchUser", getAccountInfo);

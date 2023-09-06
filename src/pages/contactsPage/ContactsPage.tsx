@@ -31,6 +31,7 @@ const ContactsPage: React.FC = () => {
         соц. сети
         {sharedContacts.map(link => (
           <a
+            key={link.name}
             href={link.link}
             title={link.name}
             target="_blank"

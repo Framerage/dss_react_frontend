@@ -32,24 +32,31 @@ const LoginPage = () => {
     shouldFocusError: false,
   });
   const getAuth = async (data: LoginFormData) => {
-    dispatch(getAuthTokenFx({email: data.email, pass: data.pass}));
+    dispatch(getAuthTokenFx({email: data.email, pass: data.pass})).then(
+      ({payload}) => {
+        console.log(payload, "resp");
+        if ("perAcTkn" in payload && payload.perAcTkn) {
+          console.log("done");
+        }
+      },
+    );
   };
 
-  useEffect(() => {
-    if (!authRequest) {
-      return;
-    }
-    if (authRequest.token) {
-      if (history.location.pathname === APP_AUTH_ROUTES.login.link) {
-        setTimeout(() => {
-          navigate(APP_AUTH_ROUTES.main.link || "/");
-        }, 1000);
-      }
-      dispatch(getUserAuth(true));
-      return;
-    }
-    dispatch(getUserAuth(false));
-  }, [authRequest]);
+  // useEffect(() => {
+  //   if (!accTknm) {
+  //     return;
+  //   }
+  //   if (accTknm) {
+  //     if (history.location.pathname === APP_AUTH_ROUTES.login.link) {
+  //       setTimeout(() => {
+  //         navigate(APP_AUTH_ROUTES.main.link || "/");
+  //       }, 1000);
+  //     }
+  //     dispatch(getUserAuth(true));
+  //     return;
+  //   }
+  //   dispatch(getUserAuth(false));
+  // }, [accTknm]);
 
   return (
     <form className={classes.formBlock} onSubmit={handleSubmit(getAuth)}>

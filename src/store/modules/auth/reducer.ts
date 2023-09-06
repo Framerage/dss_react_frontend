@@ -2,7 +2,7 @@ import {createReducer} from "@reduxjs/toolkit";
 import {
   UserRegistrationFx,
   editUserExtraInfoFx,
-  getAuthTokenFx,
+  fetchUserInfo,
 } from "./async-actions";
 import {getUserAuth, resetAuthRequest, resetRegRequest} from "./actions";
 import {
@@ -13,7 +13,7 @@ import {
 } from "typings/auths";
 export interface AuthInitialState {
   authRequest: {
-    data: UserAuthorisation | null;
+    data: {success: boolean; message?: string} | null;
     isLoading: boolean;
     error: null | string;
   };
@@ -66,7 +66,8 @@ export const authReducer = createReducer<AuthInitialState>(authInitialState, {
       return;
     }
     state.editingUserExtraInfo.data = action.payload;
-    state.authRequest.data = {...state.authRequest.data, ...action.payload};
+    // state.authRequest.data = {...state.authRequest.data, ...action.payload};
+    //TODO: доделать юзеринфо
     state.editingUserExtraInfo.isLoading = false;
   },
   [editUserExtraInfoFx.pending.type]: state => {
@@ -78,21 +79,21 @@ export const authReducer = createReducer<AuthInitialState>(authInitialState, {
     state.editingUserExtraInfo.isLoading = false;
   },
 
-  [getAuthTokenFx.fulfilled.type]: (state, action) => {
-    if (!action.payload?.success) {
+  [fetchUserInfo.fulfilled.type]: (state, {payload}) => {
+    if (!payload?.success) {
       state.authRequest.data = null;
-      state.authRequest.error = action.payload.message;
+      state.authRequest.error = payload.message;
       state.authRequest.isLoading = false;
       return;
     }
-    state.authRequest.data = action.payload;
+    state.authRequest.data = {success: payload.success};
     state.authRequest.isLoading = false;
   },
-  [getAuthTokenFx.pending.type]: state => {
+  [fetchUserInfo.pending.type]: state => {
     state.authRequest.isLoading = true;
     state.authRequest.error = null;
   },
-  [getAuthTokenFx.rejected.type]: (state, action) => {
+  [fetchUserInfo.rejected.type]: (state, action) => {
     state.authRequest.error = action;
     state.authRequest.isLoading = false;
   },
