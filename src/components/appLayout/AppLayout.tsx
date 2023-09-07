@@ -1,10 +1,10 @@
-import React, {useMemo} from "react";
+import React, {useEffect, useLayoutEffect, useMemo, useState} from "react";
 import classes from "./appLayout.module.css";
 import AppHeader from "../appHeader/AppHeader";
 import {Route, Routes} from "react-router-dom";
 import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES} from "utils/routes";
 import AppMenu from "components/appMenu";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {isUserAuth} from "store/modules/auth/selectors";
 import ModalCart from "components/modalCart/ModalCart";
 import {isShopCartUse} from "store/modules/cart/selectors";
@@ -13,9 +13,24 @@ import {selectPopupImage} from "store/modules/popup/selectors";
 import AppFooter from "components/appFooter/AppFooter";
 import LoginPage from "pages/loginPage/LoginPage";
 import ErrorPage from "pages/errorPage";
+import {AppDispatch} from "store";
+import Cookies from "js-cookie";
+import {getUserAuth} from "store/modules/auth/actions";
 
 const AppLayout: React.FC = () => {
   const isAuth = useSelector(isUserAuth);
+  const dispatch = useDispatch<AppDispatch>();
+  const accTkn = Cookies.get("perAcTkn");
+  console.log(accTkn, "accTkn");
+  useLayoutEffect(() => {
+    if (!isAuth) {
+      if (accTkn) {
+        dispatch(getUserAuth(true));
+        return;
+      }
+    }
+  }, [isAuth]);
+
   const appNavigation = useMemo(() => {
     return [
       {

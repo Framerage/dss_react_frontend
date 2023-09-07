@@ -36,18 +36,28 @@ const LoginPage = () => {
     reValidateMode: "onSubmit",
     shouldFocusError: false,
   });
-  const getAuth = async (data: LoginFormData) => {
-    dispatch(getAuthTokenFx({email: data.email, pass: data.pass})).then(
-      ({payload}) => {
-        console.log(payload, "resp");
-        if ("perAcTkn" in payload && payload.perAcTkn) {
-          saveCookieTkn(String(payload.perAcTkn));
-          dispatch(fetchUserInfo(payload.perAcTkn));
-          console.log("done");
+  const getAuth = (data: LoginFormData) => {
+    dispatch(getAuthTokenFx({email: data.email, pass: data.pass})).then(res => {
+      const result = res.payload;
+      if (
+        result &&
+        "perAcTkn" in result &&
+        typeof result["perAcTkn"] !== "undefined"
+      ) {
+        saveCookieTkn(String(result.perAcTkn));
+        dispatch(fetchUserInfo(result.perAcTkn));
+        if (history.location.pathname === APP_AUTH_ROUTES.login.link) {
+          setTimeout(() => {
+            navigate(APP_AUTH_ROUTES.main.link || "/");
+          }, 1000);
         }
-      },
-    );
+        dispatch(getUserAuth(true));
+        return;
+      }
+      dispatch(getUserAuth(false));
+    });
   };
+  //TODO: check добавить отсдельный стор на состояние получения токена
   //TODO: check заменить токен в ответе с бека на пустоту или вообще убрать
 
   // useEffect(() => {
@@ -63,7 +73,6 @@ const LoginPage = () => {
   //     dispatch(getUserAuth(true));
   //     return;
   //   }
-  //   dispatch(getUserAuth(false));
   // }, [accTknm]);
 
   return (

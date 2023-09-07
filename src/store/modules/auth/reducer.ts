@@ -66,8 +66,7 @@ export const authReducer = createReducer<AuthInitialState>(authInitialState, {
       return;
     }
     state.editingUserExtraInfo.data = action.payload;
-    // state.authRequest.data = {...state.authRequest.data, ...action.payload};
-    //TODO: доделать юзеринфо
+    state.userInfo.data = {...state.userInfo.data, ...action.payload};
     state.editingUserExtraInfo.isLoading = false;
   },
   [editUserExtraInfoFx.pending.type]: state => {

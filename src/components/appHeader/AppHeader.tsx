@@ -13,20 +13,20 @@ import ShopCart from "assets/icons/cart-shopping-solid.svg";
 import classes from "./appHeader.module.css";
 import {isShoppingCartUse} from "store/modules/cart/actions";
 import Arrow from "assets/icons/backArrow.svg";
-const AppHeader = () => {
+import Cookies from "js-cookie";
+const AppHeader: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const isAuth = useSelector(isUserAuth);
   const authRequest = useSelector(selectAuthData);
 
-  // const userBonuses = authRequest?.bonuses || 0;
-  const userBonuses = 0;
-  // const currentUser = authRequest?.name || "-";
-  const currentUser = "-";
-  //TODO: check userinfo
+  const userBonuses = authRequest?.bonuses || 0;
+  const currentUser = authRequest?.name || "-";
+
   const onLogOut = () => {
     dispatch(resetAuthRequest());
     dispatch(resetRegRequest());
+    Cookies.remove("perAcTkn");
     dispatch(getUserAuth(false));
   };
   const onOpenShopCart = () => dispatch(isShoppingCartUse(true));
