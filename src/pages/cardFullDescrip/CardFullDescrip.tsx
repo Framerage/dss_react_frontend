@@ -18,18 +18,21 @@ import cn from "classnames";
 import Unliked from "assets/icons/heart.svg";
 import Liked from "assets/icons/fillHeart.svg";
 import classes from "./cardFullDescrip.module.css";
-import {selectAuthData} from "store/modules/auth/selectors";
+import {selectUserData} from "store/modules/auth/selectors";
 import {editUserExtraInfoFx} from "store/modules/auth/async-actions";
+import Cookies from "js-cookie";
 
 const CardFullDescrip = () => {
   const dispatch = useDispatch<AppDispatch>();
   const pathParam = useParams<{id: string}>();
 
-  const authRequest = useSelector(selectAuthData);
+  const userInfo = useSelector(selectUserData);
 
   const cardDescrip = useSelector(catalogCardDescrip);
   const cardDescripIsLoading = useSelector(catalogCardDescripIsLoading);
   const cardDescripError = useSelector(catalogCardDescripError);
+
+  const accS = Cookies.get("perAcTkn");
 
   const cardTheme = useCheckCardTheme(cardDescrip);
 
@@ -40,9 +43,7 @@ const CardFullDescrip = () => {
   useEffect(() => {
     setIsCardLiked(
       Boolean(
-        authRequest &&
-          cardDescrip &&
-          authRequest.userLikes.includes(cardDescrip._id),
+        userInfo && cardDescrip && userInfo.userLikes.includes(cardDescrip._id),
       ),
     );
   }, []);
@@ -55,16 +56,16 @@ const CardFullDescrip = () => {
           likes: isCardLiked ? cardLikes - 1 : cardLikes + 1,
         }),
       );
-    if (authRequest && authRequest.token && cardDescrip) {
+    if (userInfo && accS && cardDescrip) {
       dispatch(
         editUserExtraInfoFx({
           user: {
-            ...authRequest,
+            ...userInfo,
             userLikes: isCardLiked
-              ? authRequest.userLikes.filter(el => el !== cardDescrip._id)
-              : [...authRequest.userLikes, cardDescrip._id],
+              ? userInfo.userLikes.filter(el => el !== cardDescrip._id)
+              : [...userInfo.userLikes, cardDescrip._id],
           },
-          auth: authRequest.token,
+          auth: accS,
         }),
       );
     }

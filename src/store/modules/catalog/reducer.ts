@@ -71,7 +71,6 @@ export const catalogReducer = createReducer(catalogInitialState, {
     state.catalogCardDescrip.error = "Error with getting card";
     state.catalogCardDescrip.isLoading = false;
   },
-  // editCatalogCardFx
   [getCardFullDescripFx.fulfilled.type]: (state, action) => {
     if (action.payload?.error) {
       state.catalogCardDescrip.data = null;

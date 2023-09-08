@@ -6,15 +6,25 @@ export const isUserAuth = createSelector(
   selectAuthState,
   state => state.isUserAuth,
 );
-export const selectAuthData = createSelector(
+
+export const selectAuthIsLoading = createSelector(
+  selectAuthState,
+  state => state.authorization.isLoading,
+);
+export const selectAuthError = createSelector(
+  selectAuthState,
+  state => state.authorization.error,
+);
+
+export const selectUserData = createSelector(
   selectAuthState,
   state => state.userInfo.data,
 );
-export const selectAuthIsLoading = createSelector(
+export const selectUserIsLoading = createSelector(
   selectAuthState,
   state => state.userInfo.isLoading,
 );
-export const selectAuthError = createSelector(
+export const selectUserError = createSelector(
   selectAuthState,
   state => state.userInfo.error,
 );

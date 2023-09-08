@@ -1,11 +1,11 @@
-import React, {useEffect, useLayoutEffect, useMemo, useState} from "react";
+import React, {useEffect, useMemo} from "react";
 import classes from "./appLayout.module.css";
 import AppHeader from "../appHeader/AppHeader";
 import {Route, Routes} from "react-router-dom";
 import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES} from "utils/routes";
 import AppMenu from "components/appMenu";
 import {useDispatch, useSelector} from "react-redux";
-import {isUserAuth} from "store/modules/auth/selectors";
+import {isUserAuth, selectUserData} from "store/modules/auth/selectors";
 import ModalCart from "components/modalCart/ModalCart";
 import {isShopCartUse} from "store/modules/cart/selectors";
 import AppPopup from "components/AppPopup/AppPopup";
@@ -15,21 +15,14 @@ import LoginPage from "pages/loginPage/LoginPage";
 import ErrorPage from "pages/errorPage";
 import {AppDispatch} from "store";
 import Cookies from "js-cookie";
-import {getUserAuth} from "store/modules/auth/actions";
+import {getUserAuth, resetUserRequest} from "store/modules/auth/actions";
+import {fetchUserInfo} from "store/modules/auth/async-actions";
 
 const AppLayout: React.FC = () => {
+  const userData = useSelector(selectUserData);
   const isAuth = useSelector(isUserAuth);
   const dispatch = useDispatch<AppDispatch>();
   const accTkn = Cookies.get("perAcTkn");
-  console.log(accTkn, "accTkn");
-  useLayoutEffect(() => {
-    if (!isAuth) {
-      if (accTkn) {
-        dispatch(getUserAuth(true));
-        return;
-      }
-    }
-  }, [isAuth]);
 
   const appNavigation = useMemo(() => {
     return [
@@ -68,6 +61,36 @@ const AppLayout: React.FC = () => {
   //TODO: разоабраться с размерами контента в карточках на главной
   //TODO: адаптив для всех страниц
 
+  useEffect(() => {
+    if (!isAuth) {
+      if (userData && userData.success && !accTkn) {
+        dispatch(resetUserRequest());
+        dispatch(getUserAuth(false));
+        return;
+      }
+      if (!userData && !accTkn) {
+        dispatch(getUserAuth(false));
+        return;
+      }
+      if (!userData && accTkn) {
+        dispatch(fetchUserInfo(accTkn));
+        return;
+      }
+      if (userData && !userData.success && accTkn) {
+        dispatch(fetchUserInfo(accTkn));
+        return;
+      }
+    }
+    if (!accTkn) {
+      dispatch(resetUserRequest());
+      dispatch(getUserAuth(false));
+    }
+    console.log(isAuth, "isAuth");
+
+    console.log(userData, "userData");
+
+    console.log(accTkn, "accTkn");
+  }, [userData, accTkn, isAuth]);
   return (
     <div
       className={classes.appWrapper}

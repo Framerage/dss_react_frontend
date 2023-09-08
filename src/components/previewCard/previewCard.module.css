@@ -13,6 +13,7 @@
     perspective: 600px;
     cursor: pointer;
     text-decoration: none;
+    margin-top: 100px;
 }
 .previewFrame{
     width: 100%;

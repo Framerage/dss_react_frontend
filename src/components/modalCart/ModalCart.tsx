@@ -12,29 +12,31 @@ import {
   getUpdatedShopCartCards,
   isShopCartUse,
 } from "store/modules/cart/selectors";
-import {selectAuthData} from "store/modules/auth/selectors";
+import {selectUserData} from "store/modules/auth/selectors";
 import {isShoppingCartUse, updateCardsOfCart} from "store/modules/cart/actions";
 import {editUserExtraInfoFx} from "store/modules/auth/async-actions";
 import {getCatalogCardsFx} from "store/modules/catalog/async-actions";
 import {CatalogCardNesting} from "typings/catalogCards";
 import {catalogCardsData} from "store/modules/catalog/selectors";
+import Cookies from "js-cookie";
 
 const ModalCart = () => {
   const dispatch = useDispatch<AppDispatch>();
   const isCartOpened = useSelector(isShopCartUse);
   const shopCartCards = useSelector(getUpdatedShopCartCards);
-  const authRequest = useSelector(selectAuthData);
+  const userInfo = useSelector(selectUserData);
   const catalogCards = useSelector(catalogCardsData);
   const errorMsg = !catalogCards ? "Open catalog, please" : "Empty cart";
+  const accS = Cookies.get("perAcTkn");
 
   useEffect(() => {
     isCartOpened &&
       !catalogCards &&
       dispatch(getCatalogCardsFx()).then(({payload}) => {
-        if (authRequest) {
+        if (userInfo && userInfo.userCart) {
           const newCartList = payload
             .map((el: CatalogCardNesting) => {
-              if (authRequest.userCart.some(card => card._id === el._id)) {
+              if (userInfo.userCart.some(card => card._id === el._id)) {
                 return el;
               }
             })
@@ -55,14 +57,14 @@ const ModalCart = () => {
 
   const onRemoveCardFromCart = (id: string) => {
     dispatch(updateCardsOfCart(shopCartCards.filter(el => el._id !== id)));
-    if (authRequest && authRequest.token) {
+    if (userInfo && accS) {
       dispatch(
         editUserExtraInfoFx({
           user: {
-            ...authRequest,
-            userCart: authRequest.userCart.filter(el => el._id !== id),
+            ...userInfo,
+            userCart: userInfo.userCart.filter(el => el._id !== id),
           },
-          auth: authRequest.token,
+          auth: accS,
         }),
       );
     }

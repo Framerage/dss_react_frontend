@@ -19,12 +19,7 @@ import CatalogFilter from "components/catalogFilter";
 import {carrentCatalogFilter} from "store/modules/catalog/actions";
 import {useFiltredObj} from "hooks/useFilteredObj";
 import {CatalogCardNesting} from "typings/catalogCards";
-import {
-  selectAuthData,
-  selectEditUserExtraInfoResult,
-  selectEditUserExtraInfoResultError,
-  selectEditUserExtraInfoResultIsLoading,
-} from "store/modules/auth/selectors";
+import {selectUserData} from "store/modules/auth/selectors";
 
 import classes from "./catalog.module.css";
 import AppSearcher from "components/appSearcher/AppSearcher";
@@ -32,12 +27,15 @@ import {useFiltredCards} from "hooks/catalog/useFiltredCards";
 import {getUpdatedShopCartCards} from "store/modules/cart/selectors";
 import {updateCardsOfCart} from "store/modules/cart/actions";
 import {editUserExtraInfoFx} from "store/modules/auth/async-actions";
-const Catalog = () => {
+import Cookies from "js-cookie";
+
+const Catalog: React.FC = () => {
   const navigation = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
 
-  const authRequest = useSelector(selectAuthData);
+  const userInfo = useSelector(selectUserData);
 
+  const accS = Cookies.get("perAcTkn") || "";
   const cards = useSelector(catalogCardsData);
   const cardsIsLoading = useSelector(catalogCardsIsLoading);
   const cardsError = useSelector(catalogCardsError);
@@ -56,10 +54,10 @@ const Catalog = () => {
 
   useEffect(() => {
     dispatch(getCatalogCardsFx()).then(({payload}) => {
-      if (authRequest) {
+      if (userInfo && userInfo.success) {
         const newCartList = payload
           .map((el: CatalogCardNesting) => {
-            if (authRequest.userCart.some(card => card._id === el._id)) {
+            if (userInfo.userCart.some(card => card._id === el._id)) {
               return el;
             }
           })
@@ -95,7 +93,7 @@ const Catalog = () => {
 
   const addCardToShopCart = useCallback(
     (card: CatalogCardNesting) => {
-      if (!authRequest) {
+      if (!userInfo || (userInfo && !userInfo.success)) {
         if (!shopCartCards.length) {
           dispatch(updateCardsOfCart([card]));
           return;
@@ -109,11 +107,11 @@ const Catalog = () => {
         dispatch(updateCardsOfCart([...shopCartCards, card]));
         return;
       }
-      if (!authRequest.userCart.length) {
+      if (!userInfo.userCart.length) {
         dispatch(
           editUserExtraInfoFx({
-            user: {...authRequest, userCart: [card]},
-            auth: authRequest.token,
+            user: {...userInfo, userCart: [card]},
+            auth: accS,
           }),
         ).then(({payload}) =>
           dispatch(
@@ -124,14 +122,14 @@ const Catalog = () => {
         );
         return;
       }
-      if (authRequest.userCart.some(el => el._id === card._id)) {
+      if (userInfo.userCart.some(el => el._id === card._id)) {
         dispatch(
           editUserExtraInfoFx({
             user: {
-              ...authRequest,
-              userCart: authRequest.userCart.filter(el => el._id !== card._id),
+              ...userInfo,
+              userCart: userInfo.userCart.filter(el => el._id !== card._id),
             },
-            auth: authRequest.token,
+            auth: accS,
           }),
         ).then(({payload}) =>
           dispatch(
@@ -144,8 +142,8 @@ const Catalog = () => {
       }
       dispatch(
         editUserExtraInfoFx({
-          user: {...authRequest, userCart: [...authRequest.userCart, card]},
-          auth: authRequest.token,
+          user: {...userInfo, userCart: [...userInfo.userCart, card]},
+          auth: accS,
         }),
       ).then(({payload}) =>
         dispatch(
@@ -155,7 +153,7 @@ const Catalog = () => {
         ),
       );
     },
-    [shopCartCards, authRequest],
+    [shopCartCards, userInfo, accS],
   );
   const onSendLike = (
     catalogCard: CatalogCardNesting,
@@ -169,16 +167,16 @@ const Catalog = () => {
           likes: isCardLiked ? cardLikes - 1 : cardLikes + 1,
         }),
       );
-    if (authRequest && authRequest.token && catalogCard) {
+    if (userInfo && userInfo.success && accS && catalogCard) {
       dispatch(
         editUserExtraInfoFx({
           user: {
-            ...authRequest,
+            ...userInfo,
             userLikes: isCardLiked
-              ? authRequest.userLikes.filter(el => el !== catalogCard._id)
-              : [...authRequest.userLikes, catalogCard._id],
+              ? userInfo.userLikes.filter(el => el !== catalogCard._id)
+              : [...userInfo.userLikes, catalogCard._id],
           },
-          auth: authRequest.token,
+          auth: accS,
         }),
       );
     }
@@ -192,7 +190,7 @@ const Catalog = () => {
       <div className={classes.catalogContent}>
         <div className={classes.extraFunctional}>
           <AppSearcher onCreateSearchValue={onSetSearchValue} />
-          {authRequest && authRequest.role === "admin" && (
+          {userInfo && userInfo.success && userInfo.role === "admin" && (
             <Link
               to={APP_AUTH_ROUTES.creatingCard.link}
               className={classes.createBtn}
@@ -215,9 +213,11 @@ const Catalog = () => {
                       : false
                   }
                   onAddCardToCart={addCardToShopCart}
-                  isAuthDone={!!authRequest}
+                  isAuthDone={!!(userInfo && userInfo.success)}
                   isUserLikedCard={Boolean(
-                    authRequest && authRequest.userLikes.includes(card._id),
+                    userInfo &&
+                      userInfo.success &&
+                      userInfo.userLikes.includes(card._id),
                   )}
                   onLikeCard={onSendLike}
                 />

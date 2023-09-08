@@ -1,39 +1,39 @@
 import React from "react";
 import classes from "./personalPage.module.css";
 import {useSelector} from "react-redux";
-import {selectAuthData} from "store/modules/auth/selectors";
+import {selectUserData} from "store/modules/auth/selectors";
 import upFirstLetter from "helpers/upFirstLetter";
 const PersonalPage: React.FC = () => {
-  const authRequest = useSelector(selectAuthData);
+  const userInfo = useSelector(selectUserData);
 
-  console.log(authRequest && Object.keys(authRequest), "onfp");
+  console.log(userInfo && Object.keys(userInfo), "onfp");
   return (
     <div className={classes.personalPageContainer}>
-      {authRequest && (
+      {userInfo && (
         <div className={classes.previewContainer}>
           <div className={classes.personalItem}>
             <h3>{upFirstLetter("name")}</h3>
-            <span>{authRequest.name}</span>
+            <span>{userInfo.name}</span>
             <button>Edit</button>
           </div>
           <div className={classes.personalItem}>
             <h3>{upFirstLetter("email")}</h3>
-            <span>{authRequest.email}</span>
+            <span>{userInfo.email}</span>
             <button>Edit</button>
           </div>
           <div className={classes.personalItem}>
             <h3>{upFirstLetter("role")}</h3>
-            <span>{authRequest.role}</span>
+            <span>{userInfo.role}</span>
             <button>Edit</button>
           </div>
           <div className={classes.personalItem}>
             <h3>{upFirstLetter("createdAt")}</h3>
-            <span>{authRequest.createdAt}</span>
+            <span>{userInfo.createdAt}</span>
             <button>Edit</button>
           </div>
           <div className={classes.personalItem}>
             <h3>{upFirstLetter("persPromo")}</h3>
-            <span>{authRequest.persPromo}</span>
+            <span>{userInfo.persPromo}</span>
             <button>Edit</button>
           </div>
           <div className={classes.personalItem}>

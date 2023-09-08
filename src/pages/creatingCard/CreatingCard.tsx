@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import cn from "classnames";
 import {CatalogCardNesting, cardThemes} from "typings/catalogCards";
 import {useForm} from "react-hook-form";
@@ -6,7 +6,6 @@ import {generateFileData, setBase64Image} from "helpers/appHelpers";
 import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "store";
 import {createNewCatalogCardFx} from "store/modules/catalog/async-actions";
-import {selectAuthData} from "store/modules/auth/selectors";
 import {
   creatingCardData,
   creatingCardsIsLoading,
@@ -15,9 +14,9 @@ import {
 
 import classes from "./creatingCard.module.css";
 import {resetCreatingCardResult} from "store/modules/catalog/actions";
-const CreatingCard = () => {
+import Cookies from "js-cookie";
+const CreatingCard: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const authUser = useSelector(selectAuthData);
   const creatingResult = useSelector(creatingCardData);
   const creatingResultIsLoading = useSelector(creatingCardsIsLoading);
   const creatingResultError = useSelector(creatingCardError);
@@ -31,15 +30,16 @@ const CreatingCard = () => {
     {fileBody: string; fileName: string; id: number}[]
   >([]);
 
-  const {handleSubmit, register, formState, setValue} =
-    useForm<CatalogCardNesting>({
-      mode: "onSubmit",
-      reValidateMode: "onSubmit",
-      shouldFocusError: false,
-    });
+  const {handleSubmit, register, setValue} = useForm<CatalogCardNesting>({
+    mode: "onSubmit",
+    reValidateMode: "onSubmit",
+    shouldFocusError: false,
+  });
   const themes = Object.keys(cardThemes);
-  const onCreateCard = (data: CatalogCardNesting) => {
-    if (!authUser) {
+  const accS = Cookies.get("perAcTkn") || "";
+
+  const onCreateCard = useCallback((data: CatalogCardNesting) => {
+    if (!accS) {
       return;
     }
     const card = {
@@ -48,8 +48,9 @@ const CreatingCard = () => {
       fullDescrip: fullDescripValue,
       imgUrl: cardImagesUrls.map(file => file.fileBody),
     };
-    dispatch(createNewCatalogCardFx({card: card, auth: authUser.token || ""}));
-  };
+    dispatch(createNewCatalogCardFx({card: card, auth: accS || ""}));
+  }, []);
+
   const createImgString = async (fileList: FileList | null) => {
     setFileSizeError(false);
     if (!fileList) {
@@ -75,17 +76,21 @@ const CreatingCard = () => {
     ]);
   };
 
-  const onRemoveFile = (id: number) => {
-    setCardImagesUrls(() => {
-      const newFiles = cardImagesUrls.filter(file => file.id !== id);
-      return newFiles.map((file, index) => {
-        return {...file, id: index};
+  const onRemoveFile = useCallback(
+    (id: number) => {
+      setCardImagesUrls(() => {
+        const newFiles = cardImagesUrls.filter(file => file.id !== id);
+        return newFiles.map((file, index) => {
+          return {...file, id: index};
+        });
       });
-    });
-    if (choosedFileIndex) {
-      setChoosedFileIndex(choosedFileIndex - 1);
-    }
-  };
+      if (choosedFileIndex) {
+        setChoosedFileIndex(choosedFileIndex - 1);
+      }
+    },
+    [cardImagesUrls],
+  );
+
   const onChoosedFile = (id: number) => setChoosedFileIndex(id);
 
   useEffect(() => {

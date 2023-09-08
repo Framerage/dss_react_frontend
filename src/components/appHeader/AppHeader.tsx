@@ -5,10 +5,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "store";
 import {
   getUserAuth,
-  resetAuthRequest,
+  resetUserRequest,
   resetRegRequest,
 } from "store/modules/auth/actions";
-import {isUserAuth, selectAuthData} from "store/modules/auth/selectors";
+import {isUserAuth, selectUserData} from "store/modules/auth/selectors";
 import ShopCart from "assets/icons/cart-shopping-solid.svg";
 import classes from "./appHeader.module.css";
 import {isShoppingCartUse} from "store/modules/cart/actions";
@@ -18,16 +18,17 @@ const AppHeader: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
   const isAuth = useSelector(isUserAuth);
-  const authRequest = useSelector(selectAuthData);
+  const userInfo = useSelector(selectUserData);
 
-  const userBonuses = authRequest?.bonuses || 0;
-  const currentUser = authRequest?.name || "-";
+  const userBonuses = userInfo?.bonuses || 0;
+  const currentUser = userInfo?.name || "-";
 
   const onLogOut = () => {
-    dispatch(resetAuthRequest());
+    dispatch(resetUserRequest());
     dispatch(resetRegRequest());
     Cookies.remove("perAcTkn");
     dispatch(getUserAuth(false));
+    navigate(APP_GENERAL_ROUTES.login.link);
   };
   const onOpenShopCart = () => dispatch(isShoppingCartUse(true));
   return (

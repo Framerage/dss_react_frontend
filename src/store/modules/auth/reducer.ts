@@ -3,8 +3,9 @@ import {
   UserRegistrationFx,
   editUserExtraInfoFx,
   fetchUserInfo,
+  getAuthTokenFx,
 } from "./async-actions";
-import {getUserAuth, resetAuthRequest, resetRegRequest} from "./actions";
+import {getUserAuth, resetUserRequest, resetRegRequest} from "./actions";
 import {
   EditingUserExtraInfoResult,
   UserAuthorisation,
@@ -14,6 +15,10 @@ import {
 export interface AuthInitialState {
   userInfo: {
     data: UserAuthorisation | null;
+    isLoading: boolean;
+    error: null | string;
+  };
+  authorization: {
     isLoading: boolean;
     error: null | string;
   };
@@ -31,6 +36,10 @@ export interface AuthInitialState {
 }
 const authInitialState = {
   isUserAuth: false,
+  authorization: {
+    isLoading: false,
+    error: null,
+  },
   userInfo: {
     data: null,
     isLoading: false,
@@ -48,7 +57,24 @@ const authInitialState = {
   },
 };
 export const authReducer = createReducer<AuthInitialState>(authInitialState, {
-  [resetAuthRequest.type]: state => {
+  [getAuthTokenFx.fulfilled.type]: (state, action) => {
+    if (!action.payload?.success) {
+      state.authorization.error = action.payload?.message;
+      state.authorization.isLoading = false;
+      return;
+    }
+    state.authorization.isLoading = false;
+  },
+  [getAuthTokenFx.pending.type]: state => {
+    state.authorization.isLoading = true;
+    state.authorization.error = null;
+  },
+  [getAuthTokenFx.rejected.type]: state => {
+    state.authorization.error = "Error with auth";
+    state.authorization.isLoading = false;
+  },
+
+  [resetUserRequest.type]: state => {
     state.userInfo.data = null;
   },
   [resetRegRequest.type]: state => {
@@ -79,12 +105,6 @@ export const authReducer = createReducer<AuthInitialState>(authInitialState, {
   },
 
   [fetchUserInfo.fulfilled.type]: (state, {payload}) => {
-    if (!payload?.success) {
-      state.userInfo.data = null;
-      state.userInfo.error = payload.message;
-      state.userInfo.isLoading = false;
-      return;
-    }
     state.userInfo.data = payload;
     state.userInfo.isLoading = false;
   },
@@ -93,7 +113,7 @@ export const authReducer = createReducer<AuthInitialState>(authInitialState, {
     state.userInfo.error = null;
   },
   [fetchUserInfo.rejected.type]: (state, action) => {
-    state.userInfo.error = action;
+    state.userInfo.error = "Error with access";
     state.userInfo.isLoading = false;
   },
 
