@@ -35,7 +35,7 @@ const Catalog: React.FC = () => {
 
   const userInfo = useSelector(selectUserData);
 
-  const accS = Cookies.get("perAcTkn") || "";
+  const accS = Cookies.get("perAcTkn") ?? "";
   const cards = useSelector(catalogCardsData);
   const cardsIsLoading = useSelector(catalogCardsIsLoading);
   const cardsError = useSelector(catalogCardsError);
@@ -58,7 +58,7 @@ const Catalog: React.FC = () => {
         const newCartList = payload
           .map((el: CatalogCardNesting) => {
             if (userInfo.userCart.some(card => card._id === el._id)) {
-              return el;
+              return {...el, itemCount: 1};
             }
           })
           .filter((item: any) => item !== undefined);

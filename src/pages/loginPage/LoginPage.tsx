@@ -33,7 +33,7 @@ const LoginPage = () => {
   const authError = useSelector(selectAuthError);
 
   const saveCookieTkn = (string: string) => {
-    Cookies.set("perAcTkn", string, {expires: 1 / 24 / 12 / 5});
+    Cookies.set("perAcTkn", string, {expires: 1 / 24 / 2});
   };
 
   const {handleSubmit, register} = useForm<LoginFormData>({

@@ -80,16 +80,15 @@ const AppLayout: React.FC = () => {
         dispatch(fetchUserInfo(accTkn));
         return;
       }
+      if (userData && userData.success && accTkn) {
+        dispatch(getUserAuth(true));
+        return;
+      }
     }
     if (!accTkn) {
       dispatch(resetUserRequest());
       dispatch(getUserAuth(false));
     }
-    console.log(isAuth, "isAuth");
-
-    console.log(userData, "userData");
-
-    console.log(accTkn, "accTkn");
   }, [userData, accTkn, isAuth]);
   return (
     <div

@@ -9,6 +9,9 @@ export interface CatalogCardNesting {
   theme: string;
   price: number;
 }
+export interface ShopCartCardsForOrder extends CatalogCardNesting {
+  itemCount: number;
+}
 export interface CreatingCatalogCard extends CatalogCardNesting {
   success: boolean;
   message: string;

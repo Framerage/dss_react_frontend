@@ -4,7 +4,6 @@ import Catalog from "pages/catalog/Catalog";
 import ContactsPage from "pages/contactsPage/ContactsPage";
 import CreateOrder from "pages/createOrder/CreateOrder";
 import CreatingCard from "pages/creatingCard/CreatingCard";
-import ErrorPage from "pages/errorPage/ErrorPage";
 import LoginPage from "pages/loginPage/LoginPage";
 import MainPage from "pages/mainPage";
 import PersonalPage from "pages/personalPage/PersonalPage";

@@ -2,8 +2,8 @@
     width: 100%;
     display: flex;
     align-items: center;
-    position: relative;
     margin-left: 30px;
+    position: relative;
 }
 .searcherInput{
     width: 100%;
@@ -16,6 +16,7 @@
     color: black;
     padding: 5px 10px;
     animation: inputHidden 1.5s ease-in-out alternate;
+    border: 1px solid black;
 }
 @keyframes inputHidden{
     0%{
@@ -31,9 +32,8 @@
     height: 39px;
     padding: 5px;
     top: 0px;
-    left: 96.5%;
+    right: 0%;
     transition: 0.2s;
-    transform: translateX();
     border: 1px solid black;
     border-radius: 50%;
     background-color: #024d4d;
@@ -42,15 +42,18 @@
     justify-content: center;
     align-items: center;
     text-align: center;
-    animation: iconRotate 1.5s ease-in-out alternate
+    animation: iconRotate 1.5s ease-in-out alternate;
+    z-index:1;
 }
 @keyframes iconRotate{
     0%{
         left:0;
+        right: 100%;
         transform: rotate(0deg);
     }
     100%{
-        left: 96.5%;
+        left: 95%;
+        right: 0;
         transform: rotate(720deg);
     }
 }

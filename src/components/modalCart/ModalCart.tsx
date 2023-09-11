@@ -17,8 +17,12 @@ import {isShoppingCartUse, updateCardsOfCart} from "store/modules/cart/actions";
 import {editUserExtraInfoFx} from "store/modules/auth/async-actions";
 import {getCatalogCardsFx} from "store/modules/catalog/async-actions";
 import {CatalogCardNesting} from "typings/catalogCards";
-import {catalogCardsData} from "store/modules/catalog/selectors";
+import {
+  catalogCardsData,
+  catalogCardsIsLoading,
+} from "store/modules/catalog/selectors";
 import Cookies from "js-cookie";
+import PointLoader from "components/pointLoader";
 
 const ModalCart = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -26,34 +30,68 @@ const ModalCart = () => {
   const shopCartCards = useSelector(getUpdatedShopCartCards);
   const userInfo = useSelector(selectUserData);
   const catalogCards = useSelector(catalogCardsData);
+  const cardsIsLoading = useSelector(catalogCardsIsLoading);
   const errorMsg = !catalogCards ? "Open catalog, please" : "Empty cart";
   const accS = Cookies.get("perAcTkn");
 
+  const [totalPrice, setTotalPrice] = useState(() => {
+    if (!shopCartCards.length) {
+      return 0;
+    }
+    return shopCartCards.reduce((sum, el) => sum + el.price * el.itemCount, 0);
+  });
   useEffect(() => {
     isCartOpened &&
       !catalogCards &&
       dispatch(getCatalogCardsFx()).then(({payload}) => {
-        if (userInfo && userInfo.userCart) {
+        if (userInfo && userInfo.userCart && Array.isArray(payload)) {
           const newCartList = payload
             .map((el: CatalogCardNesting) => {
               if (userInfo.userCart.some(card => card._id === el._id)) {
-                return el;
+                return {...el, itemCount: 1};
               }
             })
             .filter((item: any) => item !== undefined);
           dispatch(updateCardsOfCart(newCartList));
         }
+        return;
       });
-  }, [isCartOpened, catalogCards]);
+    if (isCartOpened && catalogCards && userInfo) {
+      const newCartList = catalogCards
+        .map((el: CatalogCardNesting) => {
+          if (userInfo.userCart.some(card => card._id === el._id)) {
+            return {...el, itemCount: 1};
+          }
+        })
+        .filter((item: any) => item !== undefined);
+      dispatch(updateCardsOfCart(newCartList));
+    }
+  }, [isCartOpened, catalogCards, userInfo]);
+
+  const onChangeOrdersCount = (id: string, count: number) => {
+    dispatch(
+      updateCardsOfCart(
+        shopCartCards.map(el => {
+          if (el._id === id) {
+            return {...el, itemCount: count};
+          }
+          return el;
+        }),
+      ),
+    );
+    setTotalPrice(
+      shopCartCards.reduce((sum, el) => {
+        if (el._id === id) {
+          return sum + el.price * count;
+        }
+        return sum + el.price * el.itemCount;
+      }, 0),
+    );
+  };
+
   const onCloseCart = () => {
     dispatch(isShoppingCartUse(false));
   };
-  const totalPrice = useMemo(() => {
-    if (!shopCartCards?.length) {
-      return 0;
-    }
-    return shopCartCards.reduce((sum, el) => sum + el.price, 0);
-  }, [shopCartCards]);
 
   const onRemoveCardFromCart = (id: string) => {
     dispatch(updateCardsOfCart(shopCartCards.filter(el => el._id !== id)));
@@ -95,6 +133,7 @@ const ModalCart = () => {
                   key={card._id}
                   card={card}
                   onRemove={onRemoveCardFromCart}
+                  onChangeCount={onChangeOrdersCount}
                 />
               ))}
             </div>
@@ -110,11 +149,13 @@ const ModalCart = () => {
               Оформить заказ
             </Link>
           </div>
-        ) : (
+        ) : !cardsIsLoading ? (
           <div className={classes.emptyCart}>
             <img src={EmptyCartImg} alt="emptyCart" width={150} height={150} />
             {errorMsg}
           </div>
+        ) : (
+          <PointLoader scale={0.3} />
         )}
       </div>
     </div>
