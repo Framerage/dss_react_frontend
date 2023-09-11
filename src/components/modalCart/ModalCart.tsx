@@ -1,4 +1,4 @@
-import React, {useEffect, useMemo, useState} from "react";
+import React, {memo, useEffect, useState} from "react";
 
 import {useDispatch, useSelector} from "react-redux";
 import RemoveIcon from "assets/icons/btn-remove.svg";
@@ -24,7 +24,7 @@ import {
 import Cookies from "js-cookie";
 import PointLoader from "components/pointLoader";
 
-const ModalCart = () => {
+const ModalCart: React.FC = memo(() => {
   const dispatch = useDispatch<AppDispatch>();
   const isCartOpened = useSelector(isShopCartUse);
   const shopCartCards = useSelector(getUpdatedShopCartCards);
@@ -40,6 +40,17 @@ const ModalCart = () => {
     }
     return shopCartCards.reduce((sum, el) => sum + el.price * el.itemCount, 0);
   });
+
+  useEffect(() => {
+    if (!shopCartCards.length) {
+      setTotalPrice(0);
+      return;
+    }
+    setTotalPrice(() =>
+      shopCartCards.reduce((sum, el) => sum + el.price * el.itemCount, 0),
+    );
+  }, [shopCartCards]);
+
   useEffect(() => {
     isCartOpened &&
       !catalogCards &&
@@ -78,14 +89,6 @@ const ModalCart = () => {
           return el;
         }),
       ),
-    );
-    setTotalPrice(
-      shopCartCards.reduce((sum, el) => {
-        if (el._id === id) {
-          return sum + el.price * count;
-        }
-        return sum + el.price * el.itemCount;
-      }, 0),
     );
   };
 
@@ -160,5 +163,5 @@ const ModalCart = () => {
       </div>
     </div>
   );
-};
+});
 export default ModalCart;
