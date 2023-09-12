@@ -46,7 +46,23 @@ const CreateOrder = () => {
   ];
   return (
     <div className={classes.orderContainer}>
-      <OrderMenu menuItems={orderMenuItems} />
+      <div className={classes.menuContainer}>
+        <OrderMenu menuItems={orderMenuItems} />
+      </div>
+      <div className={classes.orderHelper}>
+        <span>
+          {" "}
+          Привет, друзья! Здесь вы можете предложить/описать свой дизайн
+          проекта, свою давнюю мечту, которую хотели бы воплотить, используя
+          наши возможности
+        </span>
+        <span>
+          {" "}
+          Привет, друзья! Здесь вы можете предложить/описать свой дизайн
+          проекта, свою давнюю мечту, которую хотели бы воплотить, используя
+          наши возможности
+        </span>
+      </div>
     </div>
   );
 };

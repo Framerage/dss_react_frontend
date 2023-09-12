@@ -34,7 +34,7 @@ const AppLayout: React.FC = () => {
       },
       {
         title: "Create own decor",
-        link: APP_AUTH_ROUTES.order.link,
+        link: APP_AUTH_ROUTES.customOrder.link,
       },
       {
         title: "About",
@@ -53,7 +53,7 @@ const AppLayout: React.FC = () => {
   const isCartOpened = useSelector(isShopCartUse);
   const isPopupOpen = useSelector(selectPopupImage);
 
-  //TODO: страница оформления заказа, дополнить бек, отправка сообщения на почту
+  //TODO: страница оформления заказа(добавить список товаров: имя, шт, цена и итоговая цена), дополнить бек, отправка сообщения на почту
   //TODO: личный кабинет с отображение сделанных заказов
   //TODO: админская секция/страница со статистикой просмотров/лайков, список заказов+история заказов выполненные/ в процессе/ на этапе обсуждения
   //TODO: страница создания собственного заказа

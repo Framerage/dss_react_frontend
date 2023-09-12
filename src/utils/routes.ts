@@ -6,6 +6,7 @@ import CreateOrder from "pages/createOrder/CreateOrder";
 import CreatingCard from "pages/creatingCard/CreatingCard";
 import LoginPage from "pages/loginPage/LoginPage";
 import MainPage from "pages/mainPage";
+import OrderPage from "pages/orderPage/OrderPage";
 import PersonalPage from "pages/personalPage/PersonalPage";
 import RegistrationPage from "pages/regPage/RegistrainPage";
 
@@ -34,7 +35,11 @@ export const APP_AUTH_ROUTES: RoutesType = {
   creatingCard: {link: FOR_GH_PAGES + "/create-card", component: CreatingCard},
   contacts: {link: FOR_GH_PAGES + "/contacts", component: ContactsPage},
   about: {link: FOR_GH_PAGES + "/about", component: AboutPage},
-  order: {link: FOR_GH_PAGES + "/create-order", component: CreateOrder},
+  customOrder: {
+    link: FOR_GH_PAGES + "/create-own-decor",
+    component: CreateOrder,
+  },
+  order: {link: FOR_GH_PAGES + "/order", component: OrderPage},
   personalPage: {link: FOR_GH_PAGES + "/personal-page", component: null},
   login: {link: FOR_GH_PAGES + "/auth/login", component: LoginPage},
   personPage: {link: FOR_GH_PAGES + "/my-account", component: PersonalPage},

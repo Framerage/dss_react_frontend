@@ -51,30 +51,31 @@ const ModalCart: React.FC = memo(() => {
     );
   }, [shopCartCards]);
 
+  const createCartList = (
+    arr: CatalogCardNesting[],
+    userCart: CatalogCardNesting[],
+  ) => {
+    return arr
+      .map((el: CatalogCardNesting) => {
+        if (userCart.some(card => card._id === el._id)) {
+          return {...el, itemCount: 1};
+        }
+        return undefined;
+      })
+      .filter((item: any) => item !== undefined);
+  };
   useEffect(() => {
     isCartOpened &&
       !catalogCards &&
       dispatch(getCatalogCardsFx()).then(({payload}) => {
         if (userInfo && userInfo.userCart && Array.isArray(payload)) {
-          const newCartList = payload
-            .map((el: CatalogCardNesting) => {
-              if (userInfo.userCart.some(card => card._id === el._id)) {
-                return {...el, itemCount: 1};
-              }
-            })
-            .filter((item: any) => item !== undefined);
+          const newCartList = createCartList(payload, userInfo.userCart);
           dispatch(updateCardsOfCart(newCartList));
         }
         return;
       });
-    if (isCartOpened && catalogCards && userInfo) {
-      const newCartList = catalogCards
-        .map((el: CatalogCardNesting) => {
-          if (userInfo.userCart.some(card => card._id === el._id)) {
-            return {...el, itemCount: 1};
-          }
-        })
-        .filter((item: any) => item !== undefined);
+    if (isCartOpened && catalogCards && userInfo && userInfo.userCart) {
+      const newCartList = createCartList(catalogCards, userInfo.userCart);
       dispatch(updateCardsOfCart(newCartList));
     }
   }, [isCartOpened, catalogCards, userInfo]);
@@ -144,9 +145,8 @@ const ModalCart: React.FC = memo(() => {
               Total:&nbsp;{totalPrice}&nbsp;rub
             </div>
             <Link
-              // to={APP_AUTH_ROUTES.order.link}
-              to={"#"}
-              // onClick={onClickOrder}
+              to={APP_AUTH_ROUTES.order.link}
+              onClick={onCloseCart}
               className={classes.createOrderBtn}
             >
               Оформить заказ

@@ -60,6 +60,7 @@ const Catalog: React.FC = () => {
             if (userInfo.userCart.some(card => card._id === el._id)) {
               return {...el, itemCount: 1};
             }
+            return undefined;
           })
           .filter((item: any) => item !== undefined);
         dispatch(updateCardsOfCart(newCartList));
@@ -181,6 +182,7 @@ const Catalog: React.FC = () => {
       );
     }
   };
+
   return (
     <div className={classes.catalogContainer}>
       <CatalogFilter

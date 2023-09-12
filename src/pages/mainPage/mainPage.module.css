@@ -6,7 +6,6 @@
     width: 100%;
     color: black;
     font-size: 20px;
-
 }
 .mainContent{
     width: 100%;
@@ -22,7 +21,7 @@
     min-height: 85vh;
 }
 .appPreviewBlocks{
-    max-width: 1440px;
+    max-width: 100%;
     display: flex;
     margin-left:150px;
     flex-direction: column;
