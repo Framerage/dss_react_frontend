@@ -13,6 +13,7 @@ import {createBrowserHistory} from "history";
 import {APP_GENERAL_ROUTES} from "utils/routes";
 
 import classes from "./regPage.module.css";
+import {EMAIL_PATTERN} from "constants/appConstants";
 interface RegFormData {
   email: string;
   pass: string;
@@ -20,29 +21,30 @@ interface RegFormData {
   regPromo: string;
   repeatPass: string;
 }
-const RegistrationPage = () => {
+const minNameLength = 3;
+const minPassLength = 6;
+const RegistrationPage: React.FC = () => {
   const navigate = useNavigate();
   const history = createBrowserHistory();
   const dispatch = useDispatch<AppDispatch>();
   const regResult = useSelector(selectRegistrData);
   const regIsLoading = useSelector(selectRegistrIsLoading);
   const regError = useSelector(selectRegistrError);
+  const [repeatPassEqual, setRepeatPassEqual] = useState(false);
+  const [regPromoCode, setRegPromoCode] = useState("");
 
   const {handleSubmit, register, formState} = useForm<RegFormData>({
     mode: "onSubmit",
     reValidateMode: "onSubmit",
     shouldFocusError: false,
   });
-  const minNameLength = 3;
-  const minPassLength = 6;
-  const emailPatternt = /[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$/;
+
   const namePatternError = formState.errors?.name?.type === "minLength";
   const passPatternError = formState.errors?.pass?.type === "minLength";
   const repeatpassPatternError =
     formState.errors?.repeatPass?.type === "minLength";
-  const [repeatPassEqual, setRepeatPassEqual] = useState(false);
   const emailPatternError = formState.errors?.email?.type === "pattern";
-  const [regPromoCode, setRegPromoCode] = useState("");
+
   const onRegistrationUser = (data: RegFormData) => {
     const {name, pass, email, regPromo} = data;
     if (data.repeatPass === pass) {
@@ -52,6 +54,7 @@ const RegistrationPage = () => {
     }
     setRepeatPassEqual(true);
   };
+
   useEffect(() => {
     const promo =
       history.location.search &&
@@ -61,6 +64,7 @@ const RegistrationPage = () => {
     }
     setRegPromoCode(promo[0]);
   }, [history]);
+
   useEffect(() => {
     if (!regResult) {
       return;
@@ -73,6 +77,7 @@ const RegistrationPage = () => {
     }
     navigate(APP_GENERAL_ROUTES.login.link);
   }, [regResult]);
+
   return (
     <form
       className={classes.formBlock}
@@ -97,7 +102,7 @@ const RegistrationPage = () => {
       <div className={classes.formItem}>
         <input
           type="text"
-          {...register("email", {pattern: emailPatternt})}
+          {...register("email", {pattern: EMAIL_PATTERN})}
           name="email"
           placeholder="Почта"
           className={classes.inputItem}

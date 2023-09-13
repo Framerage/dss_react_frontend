@@ -1,18 +1,17 @@
 .cardContainer{
-    width: 520px;
+    min-width: 400px;
+    max-width: 720px;
     height: 300px;
     border:6px groove teal;
     border-radius: 15px;
     background-color: #024d4d;
     padding: 8px;
-    margin-bottom: 16px;
-    margin-left: 32px;
+    margin: 0 16px 16px 0;
     display: flex;
     transition: 0.2s;
 }
-
 .cardPreview{
-    width: 294px;
+    width: 100%;
     height: 100%;
     display: flex;
     flex-direction: column;
@@ -44,7 +43,7 @@
     margin-left: 10px;
 }
 .cardInfo{
-    width: 208px;
+    width: 100%;
     height: 100%;
     font-weight: 600;
     letter-spacing: 2px;

@@ -54,7 +54,7 @@ const Catalog: React.FC = () => {
 
   useEffect(() => {
     dispatch(getCatalogCardsFx()).then(({payload}) => {
-      if (userInfo && userInfo.success) {
+      if (userInfo && userInfo.success && !shopCartCards.length) {
         const newCartList = payload
           .map((el: CatalogCardNesting) => {
             if (userInfo.userCart.some(card => card._id === el._id)) {

@@ -1,13 +1,39 @@
 .orderForm{
-    max-width: 600px;
+    min-width:400px;
+    width: 100%;
+    max-width: 800px;
+    max-height: 450px;
     margin: 0 auto;
     border:6px groove teal;
     background-color: #024d4d;
     border-radius: 15px;
+    margin-top: 50px;
+    overflow: auto;
+animation: scaled 1s ease-in-out;
+
+}
+@keyframes scaled {
+0% {
+  transform: scale(0);
+}
+100% {
+  transform: scale(1);
+}
+}
+.itemsContainer{
+    width: 100%;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.formItems{
+    max-width: 100%;
+    display: flex;
+    flex-direction: column;
 }
 .formItem{
     max-width: 100%;
-    height: 50px;
+    height: 40px;
     margin-top: 20px;
     display: flex;
     flex-direction: column;
@@ -28,4 +54,78 @@
     font-weight: 600;
     padding: 5px 10px;
     background-color: #013535
+}
+.productList{
+    max-width: 100%;
+    height: 100%;
+    min-height: 100px;
+    max-height: 220px;
+    border: 6px groove white;
+    background-color: #013535;
+    border-radius: 10px;
+    padding: 5px 10px;
+    margin: 10px 20px;
+    overflow: auto;
+}
+.listItem{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 10px;
+    border-bottom: 4px solid teal;
+    border-left: 2px solid teal;
+    border-bottom-left-radius: 10px;
+    padding: 0 0 0 5px ;
+    transition: 0.2s;
+}
+.listItem:hover{
+    border-bottom: 4px groove teal;
+    border-left: 2px groove teal;
+    background-color: teal;
+}
+.listItem>span{
+    min-width: 50px;
+    text-wrap: wrap;
+    font-size: 18px;
+    font-weight: 500;
+    color: white;
+    text-shadow: 0 0 5px black;
+}
+.listItem>.textName{
+    width: 100%;
+    max-width: 150px;
+}
+.completeItems{
+    width: 100%;
+    display: flex;
+    align-items: center;
+    padding: 0px 20px 10px 20px;
+}
+.completePrice{
+    width: 100%;
+    font-size: 16px;
+    font-weight: 600;
+    text-shadow: 0 0 5px black;
+    color: white;
+}
+.completeBtn{
+    width: 100px;
+    padding: 2px 5px;
+    font-size: 16px;
+    font-weight: 600;
+    text-shadow: 0 0 5px black;
+    color: white;
+    background-color: #013535;
+    border: 2px solid white;
+    border-radius: 10px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+.completeBtn:hover{
+    background-color: #294747;
+}
+.completeBtn:active{
+    background-color: #012323;
+    transform: scale(0.95);
 }

@@ -3,6 +3,7 @@
     padding: 10px;
     display: flex;
     flex-direction: column;
+    margin-top: 50px;
 }
 .cardContent{
     width: 100%;

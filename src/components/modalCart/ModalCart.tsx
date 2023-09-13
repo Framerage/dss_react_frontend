@@ -74,7 +74,13 @@ const ModalCart: React.FC = memo(() => {
         }
         return;
       });
-    if (isCartOpened && catalogCards && userInfo && userInfo.userCart) {
+    if (
+      isCartOpened &&
+      catalogCards &&
+      userInfo &&
+      userInfo.userCart &&
+      !shopCartCards.length
+    ) {
       const newCartList = createCartList(catalogCards, userInfo.userCart);
       dispatch(updateCardsOfCart(newCartList));
     }
