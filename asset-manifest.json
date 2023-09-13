@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/dss_react_frontend/static/css/main.303fba8f.css",
-    "main.js": "/dss_react_frontend/static/js/main.29a85a75.js",
+    "main.css": "/dss_react_frontend/static/css/main.32a8e75b.css",
+    "main.js": "/dss_react_frontend/static/js/main.b491c13f.js",
     "static/media/pic-frame.png": "/dss_react_frontend/static/media/pic-frame.f2f91b56b68ad86ae2c0.png",
     "static/media/bas-relief.jpg": "/dss_react_frontend/static/media/bas-relief.089ae646703c7e55fc8f.jpg",
     "static/media/furn2.jpg": "/dss_react_frontend/static/media/furn2.5e78a729e8a62bc86cde.jpg",
@@ -35,11 +35,11 @@
     "index.html": "/dss_react_frontend/index.html",
     "static/media/btn-remove.svg": "/dss_react_frontend/static/media/btn-remove.845f3635ea9172b44524338f95f29737.svg",
     "static/media/btn-plus.svg": "/dss_react_frontend/static/media/btn-plus.c4ad914c4a4c568589ae272f9f4b07bf.svg",
-    "main.303fba8f.css.map": "/dss_react_frontend/static/css/main.303fba8f.css.map",
-    "main.29a85a75.js.map": "/dss_react_frontend/static/js/main.29a85a75.js.map"
+    "main.32a8e75b.css.map": "/dss_react_frontend/static/css/main.32a8e75b.css.map",
+    "main.b491c13f.js.map": "/dss_react_frontend/static/js/main.b491c13f.js.map"
   },
   "entrypoints": [
-    "static/css/main.303fba8f.css",
-    "static/js/main.29a85a75.js"
+    "static/css/main.32a8e75b.css",
+    "static/js/main.b491c13f.js"
   ]
 }
