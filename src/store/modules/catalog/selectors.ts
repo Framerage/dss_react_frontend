@@ -45,3 +45,16 @@ export const creatingCardError = createSelector(
   selectAuthState,
   state => state.cardCreating.error,
 );
+
+export const selectCardDeleteRequest = createSelector(
+  selectAuthState,
+  state => state.cardRemoveRequest.data,
+);
+export const selectCardDeleteRequestIsLoading = createSelector(
+  selectAuthState,
+  state => state.cardRemoveRequest.isLoading,
+);
+export const selectCardDeleteRequestError = createSelector(
+  selectAuthState,
+  state => state.cardRemoveRequest.error,
+);

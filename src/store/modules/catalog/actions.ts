@@ -4,3 +4,4 @@ export const carrentCatalogFilter = createAction<string>(
   "CurrentCatalogFilter",
 );
 export const resetCreatingCardResult = createAction("ResetCreatingCardResult");
+export const resetCardRemovingResult = createAction("ResetCardRemovingResult");

@@ -1,5 +1,6 @@
 .cardContainer{
     min-width: 400px;
+    width: 100%;
     max-width: 720px;
     height: 300px;
     border:6px groove teal;

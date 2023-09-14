@@ -28,6 +28,18 @@
     text-shadow: 0 0 5px aqua,0 0 10px white, 0 0 15px aqua;
     margin:60px 0;
 }
+.deleteBtn{
+    width: 35px;
+    height: 35px;
+    background-color: black;
+    border: none;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: 0.2s;
+}
+.deleteBtn:active{
+transform: scale(0.9);
+}
 .lowerSize{
     font-size: 24px;
 }

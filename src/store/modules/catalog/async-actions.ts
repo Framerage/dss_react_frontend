@@ -1,6 +1,7 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
 import {
   createNewCatalogCard,
+  deleteCatalogCard,
   editCatalogCard,
   getCardFullDescrip,
   getCatalogCards,
@@ -22,4 +23,8 @@ export const createNewCatalogCardFx = createAsyncThunk(
 export const editCatalogCardFx = createAsyncThunk(
   "editCatalogCard",
   editCatalogCard,
+);
+export const removeCardFromCatalog = createAsyncThunk(
+  "removeCard",
+  deleteCatalogCard,
 );

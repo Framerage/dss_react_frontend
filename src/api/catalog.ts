@@ -44,3 +44,19 @@ export const editCatalogCard = async (card: CatalogCardNesting) => {
   }
   return response.data;
 };
+export const deleteCatalogCard = async ({
+  id,
+  auth,
+}: {
+  id: string;
+  auth: string;
+}) => {
+  const response = await instance.delete(`/cards/${id}`, {
+    headers: {Authorization: auth},
+  });
+  if (response.status !== 200) {
+    console.error(response, "resp");
+    return response.data;
+  }
+  return response.data;
+};

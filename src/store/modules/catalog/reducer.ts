@@ -4,9 +4,14 @@ import {
   editCatalogCardFx,
   getCardFullDescripFx,
   getCatalogCardsFx,
+  removeCardFromCatalog,
 } from "./async-actions";
 import {CatalogCardNesting, CreatingCatalogCard} from "typings/catalogCards";
-import {carrentCatalogFilter, resetCreatingCardResult} from "./actions";
+import {
+  carrentCatalogFilter,
+  resetCardRemovingResult,
+  resetCreatingCardResult,
+} from "./actions";
 
 export interface CatalogInitialState {
   catalogCards: {
@@ -25,6 +30,11 @@ export interface CatalogInitialState {
     error: null | string;
   };
   catalogFilter: string;
+  cardRemoveRequest: {
+    data: {success: Boolean; message: string; error: string} | null;
+    isLoading: boolean;
+    error: null | string;
+  };
 }
 const catalogInitialState: CatalogInitialState = {
   catalogCards: {
@@ -43,6 +53,11 @@ const catalogInitialState: CatalogInitialState = {
     isLoading: false,
     error: null,
   },
+  cardRemoveRequest: {
+    data: null,
+    isLoading: false,
+    error: null,
+  },
 };
 export const catalogReducer = createReducer(catalogInitialState, {
   [carrentCatalogFilter.type]: (state, action) => {
@@ -50,6 +65,9 @@ export const catalogReducer = createReducer(catalogInitialState, {
   },
   [resetCreatingCardResult.type]: state => {
     state.cardCreating.data = null;
+  },
+  [resetCardRemovingResult.type]: state => {
+    state.cardRemoveRequest.data = null;
   },
 
   [editCatalogCardFx.fulfilled.type]: (state, action) => {
@@ -126,5 +144,24 @@ export const catalogReducer = createReducer(catalogInitialState, {
   [getCatalogCardsFx.rejected.type]: state => {
     state.catalogCards.error = "Error with data";
     state.catalogCards.isLoading = false;
+  },
+
+  [removeCardFromCatalog.fulfilled.type]: (state, action) => {
+    if (action.payload?.error) {
+      state.cardRemoveRequest.error = action.payload.message;
+      state.cardRemoveRequest.isLoading = false;
+      return;
+    }
+    state.cardRemoveRequest.data = action.payload;
+    state.cardRemoveRequest.isLoading = false;
+  },
+
+  [removeCardFromCatalog.pending.type]: state => {
+    state.cardRemoveRequest.isLoading = true;
+    state.cardRemoveRequest.error = null;
+  },
+  [removeCardFromCatalog.rejected.type]: state => {
+    state.cardRemoveRequest.error = "Error with dekete card";
+    state.cardRemoveRequest.isLoading = false;
   },
 });
