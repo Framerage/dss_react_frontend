@@ -4,10 +4,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    filter: drop-shadow(0 5px 25px #00a2ff);
+    filter: drop-shadow(0 5px 25px var(--extra_app_color));
     padding-left: 50px;
     position: sticky;
-    /* top: 160px; */
     top: 120px;
   }
   .menuBlock {
@@ -30,7 +29,7 @@
     background-color: transparent;
   }
   .menuBlock::-webkit-scrollbar-thumb {
-    background-color: teal;
+    background-color: var(--main_app_color);
     border-radius: 5px;
   }
   
@@ -40,12 +39,12 @@
     color: black;
     width: 160px;
     height: 50px;
-    background: linear-gradient(30deg, black, white, black);
+    background: linear-gradient(30deg, var(--last_menu_color), var(--medium_menu_color), var(--last_menu_color));
     transition: 0.5s;
     margin-bottom: 10px;
     margin-left: 42px;
     cursor: pointer;
-    border: 1px solid grey;
+    border: 1px solid var(--medium_menu_color);
   }
   .menuItem::before {
     content: "";
@@ -54,11 +53,11 @@
     left: -32px;
     width: 30px;
     height: 100%;
-    background: linear-gradient(60deg, black, grey, black);
+    background: linear-gradient(60deg, var(--last_menu_color), var(--medium_menu_color), var(--last_menu_color));
     transform-origin: right;
     transform: skewY(45deg);
     transition: 0.5s;
-    border: 1px solid grey;
+    border: 1px solid var(--medium_menu_color);
   }
   .menuItem::after {
     content: "";
@@ -67,32 +66,32 @@
     right: 0;
     width: 100%;
     height: 30px;
-    background: linear-gradient(-60deg, black, grey, black);
+    background: linear-gradient(-60deg, var(--last_menu_color), var(--medium_menu_color), var(--last_menu_color));
     transform-origin: bottom;
     transform: skewX(45deg);
     transition: 0.5s;
-    border: 1px solid grey;
+    border: 1px solid var(--medium_menu_color);
   }
   .menuItem:hover {
     transform: translateX(50px);
   }
   .activeMenuItem{
     transform: translateX(50px);
-    background: linear-gradient(teal, teal);
+    background: linear-gradient(var(--main_app_color), var(--main_app_color));
     border: 0.5px solid black;
     opacity: 0.8;
   }
   .menuItem:hover,
   .menuItem:hover::before,
   .menuItem:hover::after {
-    background: linear-gradient(teal, teal);
+    background: linear-gradient(var(--main_app_color), var(--main_app_color));
     border: 0.5px solid black;
     opacity: 0.8;
   }
   .menuItem:active,
   .menuItem:active::before,
   .menuItem:active::after {
-    background: linear-gradient(#024d4d, #024d4d);
+    background: linear-gradient(var(--light_app_color), var(--light_app_color));
   }
   .itemLink {
     width: 100%;

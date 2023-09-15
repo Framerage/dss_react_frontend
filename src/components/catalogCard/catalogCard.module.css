@@ -3,9 +3,9 @@
     width: 100%;
     max-width: 720px;
     height: 300px;
-    border:6px groove teal;
+    border:6px groove var(--main_app_color);
     border-radius: 15px;
-    background-color: #024d4d;
+    background-color: var(--light_app_color);
     padding: 8px;
     margin: 0 16px 16px 0;
     display: flex;

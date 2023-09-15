@@ -1,9 +1,9 @@
 .formBlock {
   width: 500px;
   height: max-content;
-  border: 6px double #00fffa;
+  border: 6px double var(--exclusive_app_color);
   border-radius: 15px;
-  background-color: teal;
+  background-color: var(--main_app_color);
   display: flex;
   flex-direction: column;
   animation: scaled 1s ease-in-out;

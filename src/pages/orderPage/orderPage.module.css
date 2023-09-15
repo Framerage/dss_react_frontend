@@ -4,8 +4,8 @@
     max-width: 800px;
     max-height: 450px;
     margin: 0 auto;
-    border:6px groove teal;
-    background-color: #024d4d;
+    border:6px groove var(--main_app_color);
+    background-color: var(--light_app_color);
     border-radius: 15px;
     margin-top: 60px;
     overflow: auto;
@@ -67,7 +67,7 @@ animation: scaled 1s ease-in-out;
     font-size: 16px;
     font-weight: 600;
     padding: 5px 10px;
-    background-color: #013535
+    background-color: var(--dark_app_color)
 }
 .productList{
     max-width: 100%;
@@ -75,7 +75,7 @@ animation: scaled 1s ease-in-out;
     min-height: 100px;
     max-height: 220px;
     border: 6px groove white;
-    background-color: #013535;
+    background-color: var(--dark_app_color);
     border-radius: 10px;
     padding: 5px 10px;
     margin: 10px 20px;
@@ -87,16 +87,16 @@ animation: scaled 1s ease-in-out;
     align-items: center;
     justify-content: space-between;
     margin-bottom: 10px;
-    border-bottom: 4px solid teal;
-    border-left: 2px solid teal;
+    border-bottom: 4px solid var(--main_app_color);
+    border-left: 2px solid var(--main_app_color);
     border-bottom-left-radius: 10px;
     padding: 0 0 0 5px ;
     transition: 0.2s;
 }
 .listItem:hover{
-    border-bottom: 4px groove teal;
-    border-left: 2px groove teal;
-    background-color: teal;
+    border-bottom: 4px groove var(--main_app_color);
+    border-left: 2px groove var(--main_app_color);
+    background-color: var(--main_app_color);
 }
 .listItem>span{
     min-width: 50px;
@@ -130,16 +130,16 @@ animation: scaled 1s ease-in-out;
     font-weight: 600;
     text-shadow: 0 0 5px black;
     color: white;
-    background-color: #013535;
+    background-color: var(--dark_app_color);
     border: 2px solid white;
     border-radius: 10px;
     transition: 0.2s;
     cursor: pointer;
 }
 .completeBtn:hover{
-    background-color: #294747;
+    background-color: var(--light_app_color);
 }
 .completeBtn:active{
-    background-color: #012323;
+    background-color: var(--dark_app_color);
     transform: scale(0.95);
 }

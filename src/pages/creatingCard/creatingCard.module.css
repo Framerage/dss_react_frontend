@@ -20,7 +20,7 @@
     width: 700px;
     height: 400px;
     margin-left: 16px;
-    border: 5px groove teal;
+    border: 5px groove var(--main_app_color);
     border-radius: 10px;
     display: flex;
     align-items: center;
@@ -33,7 +33,7 @@
     min-height: 250px;
     max-height: 450px;
     border-radius: 10px;
-    border: 5px groove teal;
+    border: 5px groove var(--main_app_color);
 }
 .previewAddBlock{
     width: 350px;
@@ -112,7 +112,7 @@
     cursor: pointer;
 }
 .previewRemoveBtn:hover{
-    background-color: darkslategrey;
+    background-color: var(--dark_app_color);
     color: white;
 }
 .firstSectBotmBlock{
@@ -173,7 +173,7 @@
     min-height: 100px;
 }
 .selectOption{
-    background-color: darkslategrey;
+    background-color: var(--dark_app_color);
     font-size: 20px;
 }
 .submitBtn{

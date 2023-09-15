@@ -38,7 +38,7 @@
     transition: 0.5s;
   }
   .menuToggle:hover {
-    filter: drop-shadow(0 5px 10px #024d4d);
+    filter: drop-shadow(0 5px 10px var(--light_app_color));
   }
   .toggleImage {
     animation: pulse 2s alternate-reverse infinite;
@@ -78,7 +78,7 @@
   .itemText{
     width: max-content;
     text-decoration: none;
-    color: aqua;
+    color: var(--exclusive_app_color);
     text-shadow: 0 5px 10px black;
     font-size: 30px;
     font-weight: 600;
@@ -86,7 +86,7 @@
     z-index: 10;
   }
   .itemImg{
-    border: 6px groove teal;
+    border: 6px groove var(--main_app_color);
     border-radius: 10px;
     transition: 0.2s;
   }

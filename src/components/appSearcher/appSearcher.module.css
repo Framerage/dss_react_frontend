@@ -9,7 +9,7 @@
     height: 40px;
     border: 2px solid black;
     border-radius: 20px;
-    background: linear-gradient(30deg,grey,white,grey);
+    background: linear-gradient(30deg,var(--last_menu_color),var(--medium_menu_color),var(--last_menu_color));
     font-size: 16px;
     font-weight: 600;
     color: black;
@@ -35,7 +35,7 @@
     transition: 0.2s;
     border: 1px solid black;
     border-radius: 50%;
-    background-color: #024d4d;
+    background-color: var(--light_app_color);
     cursor: pointer;
     display: flex;
     justify-content: center;
@@ -64,7 +64,7 @@
     height: 40px;
     border: 2px solid black;
     border-radius: 20px;
-    background: linear-gradient(30deg,grey,white,grey);
+    background: linear-gradient(30deg,var(--last_menu_color),var(--medium_menu_color),var(--last_menu_color));
     font-size: 16px;
     font-weight: 600;
     color: black;

@@ -1,7 +1,8 @@
 import React from "react";
 import classes from "./pointLoader.module.css";
-const PointLoader = ({scale}: {scale?: number}) => {
-  const dots = Array(20).fill({color: "#024d4d"}, 0);
+import {LIGHT_MAIN_APP_COLOR} from "styles/defaultColors";
+const PointLoader: React.FC<{scale?: number}> = ({scale}) => {
+  const dots = Array(20).fill({color: LIGHT_MAIN_APP_COLOR}, 0);
 
   const itemStyle = (index: number) => {
     return {
