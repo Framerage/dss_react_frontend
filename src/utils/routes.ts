@@ -17,7 +17,7 @@ export const FOR_GH_PAGES = "";
 // export const FOR_GH_PAGES = "/dss_react_frontend";
 
 export const APP_GENERAL_ROUTES: RoutesType = {
-  main: {link: FOR_GH_PAGES, component: MainPage, index: true},
+  main: {link: FOR_GH_PAGES + "/", component: MainPage, index: true},
   catalog: {link: FOR_GH_PAGES + "/cards", component: Catalog},
   catalogCard: {link: FOR_GH_PAGES + "/cards/:id", component: CardFullDescrip},
   contacts: {link: FOR_GH_PAGES + "/contacts", component: ContactsPage},
@@ -40,7 +40,6 @@ export const APP_AUTH_ROUTES: RoutesType = {
     component: CreateOrder,
   },
   order: {link: FOR_GH_PAGES + "/order", component: OrderPage},
-  personalPage: {link: FOR_GH_PAGES + "/personal-page", component: null},
   login: {link: FOR_GH_PAGES + "/auth/login", component: LoginPage},
   personPage: {link: FOR_GH_PAGES + "/my-account", component: PersonalPage},
 };

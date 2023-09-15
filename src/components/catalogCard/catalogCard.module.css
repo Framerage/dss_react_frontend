@@ -56,6 +56,8 @@
     justify-content: space-between;
     box-sizing: border-box;
     padding: 0 5px;
+    overflow-y: auto;
+
 }
 .infoCardTitle{
     width: 100%;
@@ -85,9 +87,10 @@
 }
 .addBtnContainer{
     width: 100%;
-    height: 30px;
+    height: 40px;
     display: flex;
     justify-content: flex-end;
+    padding: 2px;
 }
 .addBtn{
     width: 25px;

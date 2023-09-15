@@ -14,7 +14,7 @@ const CardShopCart: React.FC<ShopCartCardProps> = ({
   onRemove,
   onChangeCount,
 }) => {
-  const [counter, setCounter] = useState(card.itemCount);
+  const [counter, setCounter] = useState(card.itemCount || 1);
   const handlerOnChangeCount = (count: number) => {
     setCounter(count);
     onChangeCount(card._id, count);

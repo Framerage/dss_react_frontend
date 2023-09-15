@@ -7,6 +7,9 @@
     align-items: center;
     justify-content: center;
     gap: 0 20px;
-    background-color: #024d4d;
+    background: linear-gradient(#00a2ff 1%,#024d4d);
+    border-top: 3px groove aqua;
+    position: sticky;
+    bottom: 0;
     z-index: 10000;
   }

@@ -54,7 +54,12 @@ const Catalog: React.FC = () => {
 
   useEffect(() => {
     dispatch(getCatalogCardsFx()).then(({payload}) => {
-      if (userInfo && userInfo.success && !shopCartCards.length) {
+      if (
+        userInfo &&
+        userInfo.success &&
+        !shopCartCards.length &&
+        Array.isArray(payload)
+      ) {
         const newCartList = payload
           .map((el: CatalogCardNesting) => {
             if (userInfo.userCart.some(card => card._id === el._id)) {
@@ -96,12 +101,18 @@ const Catalog: React.FC = () => {
     (card: CatalogCardNesting) => {
       if (!userInfo || (userInfo && !userInfo.success)) {
         if (!shopCartCards.length) {
-          dispatch(updateCardsOfCart([card]));
+          dispatch(updateCardsOfCart([{...card, itemCount: 1}]));
           return;
         }
         if (shopCartCards.some(el => el._id === card._id)) {
           dispatch(
-            updateCardsOfCart(shopCartCards.filter(el => el._id !== card._id)),
+            updateCardsOfCart(
+              shopCartCards
+                .filter(el => el._id !== card._id)
+                .map(item => {
+                  return {...item, itemCount: 1};
+                }),
+            ),
           );
           return;
         }
@@ -117,7 +128,11 @@ const Catalog: React.FC = () => {
         ).then(({payload}) =>
           dispatch(
             updateCardsOfCart(
-              payload.userCart ? payload.userCart : shopCartCards,
+              payload.userCart
+                ? payload.userCart.map((el: CatalogCardNesting) => {
+                    return {...el, itemCount: 1};
+                  })
+                : shopCartCards,
             ),
           ),
         );
@@ -135,7 +150,11 @@ const Catalog: React.FC = () => {
         ).then(({payload}) =>
           dispatch(
             updateCardsOfCart(
-              payload.userCart ? payload.userCart : shopCartCards,
+              payload.userCart
+                ? payload.userCart.map((el: CatalogCardNesting) => {
+                    return {...el, itemCount: 1};
+                  })
+                : shopCartCards,
             ),
           ),
         );
@@ -149,7 +168,11 @@ const Catalog: React.FC = () => {
       ).then(({payload}) =>
         dispatch(
           updateCardsOfCart(
-            payload.userCart ? payload.userCart : shopCartCards,
+            payload.userCart
+              ? payload.userCart.map((el: CatalogCardNesting) => {
+                  return {...el, itemCount: 1};
+                })
+              : shopCartCards,
           ),
         ),
       );

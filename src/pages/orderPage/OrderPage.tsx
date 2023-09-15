@@ -1,13 +1,29 @@
-import React, {useCallback} from "react";
-import classes from "./orderPage.module.css";
+import React, {useCallback, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
-import {getUpdatedShopCartCards} from "store/modules/cart/selectors";
-import {selectUserData} from "store/modules/auth/selectors";
+
 import {useForm} from "react-hook-form";
+import {useNavigate} from "react-router-dom";
+import {APP_AUTH_ROUTES} from "utils/routes";
 import {EMAIL_PATTERN, PHONE_NUM_PATTERN} from "constants/appConstants";
+import Cookies from "js-cookie";
 import {AppDispatch} from "store";
 import {fetchToCreateOrderRequest} from "store/modules/order/async-actions";
-import Cookies from "js-cookie";
+import {
+  selectOrderCreating,
+  selectOrderCreatingError,
+  selectOrderCreatingIsLoading,
+} from "store/modules/order/selectors";
+import {getUpdatedShopCartCards} from "store/modules/cart/selectors";
+import {selectUserData} from "store/modules/auth/selectors";
+import {resetOrderCreatingResult} from "store/modules/order/actions";
+
+import {updateCardsOfCart} from "store/modules/cart/actions";
+import {
+  editUserExtraInfoFx,
+  fetchUserInfo,
+} from "store/modules/auth/async-actions";
+import classes from "./orderPage.module.css";
+
 interface OrderFormData {
   email: string;
   name: string;
@@ -15,7 +31,11 @@ interface OrderFormData {
   city: string;
 }
 const OrderPage: React.FC = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch<AppDispatch>();
+  const orderRequest = useSelector(selectOrderCreating);
+  const orderRequestIsLoading = useSelector(selectOrderCreatingIsLoading);
+  const orderRequestError = useSelector(selectOrderCreatingError);
   const {handleSubmit, register, formState} = useForm<OrderFormData>({
     mode: "onSubmit",
     reValidateMode: "onSubmit",
@@ -26,6 +46,7 @@ const OrderPage: React.FC = () => {
   const telNumberPatternError = formState.errors?.phoneNum?.type === "pattern";
   const minLengthPhoneNumberError =
     formState.errors?.phoneNum?.type === "minLength";
+
   const cartList = useSelector(getUpdatedShopCartCards);
   const curUser = useSelector(selectUserData);
   const totalPrice = cartList.reduce(
@@ -33,73 +54,117 @@ const OrderPage: React.FC = () => {
     0,
   );
   const accS = Cookies.get("perAcTkn");
+
+  useEffect(() => {
+    if (!orderRequest) {
+      return;
+    }
+    if (orderRequest.success) {
+      accS &&
+        curUser &&
+        dispatch(
+          editUserExtraInfoFx({
+            user: {
+              ...curUser,
+              userCart: [],
+            },
+            auth: accS,
+          }),
+        )
+          .then(() => {
+            accS && dispatch(fetchUserInfo(accS));
+          })
+          .catch(() => {
+            accS && dispatch(fetchUserInfo(accS));
+          });
+      setTimeout(() => {
+        dispatch(resetOrderCreatingResult());
+        dispatch(updateCardsOfCart([]));
+        navigate(APP_AUTH_ROUTES.catalog.link);
+      }, 5000);
+    }
+  }, [orderRequest]);
+
   const onSendOrder = useCallback(
     (data: OrderFormData) => {
       const resultOrder = {...data, userCart: cartList, totalPrice: totalPrice};
-      console.log({...resultOrder}, "data form");
       accS &&
         dispatch(fetchToCreateOrderRequest({order: resultOrder, auth: accS}));
     },
-    [accS],
+    [accS, totalPrice, cartList],
   );
 
   return (
     <form className={classes.orderForm} onSubmit={handleSubmit(onSendOrder)}>
-      <div className={classes.itemsContainer}>
-        <div className={classes.formItems}>
-          <div className={classes.formItem}>
-            <input
-              type="text"
-              {...register("name")}
-              defaultValue={curUser?.name}
-              name="name"
-              placeholder="Ваше имя/ник на сайте"
-              required
-            />
-          </div>
-          <div className={classes.formItem}>
-            <input
-              type="text"
-              {...register("email", {pattern: EMAIL_PATTERN})}
-              defaultValue={curUser?.email}
-              name="email"
-              placeholder="Ваша почта"
-              required
-            />
-            {emailPatternError && <span>Неверный формат</span>}
-          </div>
+      {orderRequest ? (
+        <div className={classes.resultMessages}>
+          {orderRequest.success ? (
+            <span>{orderRequest.message}</span>
+          ) : (
+            <span style={{color: "red"}}>
+              {orderRequest.message}
+              <br />
+              {orderRequestError}
+            </span>
+          )}
         </div>
+      ) : (
+        <div className={classes.itemsContainer}>
+          <div className={classes.formItems}>
+            <div className={classes.formItem}>
+              <input
+                type="text"
+                {...register("name")}
+                defaultValue={curUser?.name}
+                name="name"
+                placeholder="Ваше имя/ник на сайте"
+                required
+              />
+            </div>
+            <div className={classes.formItem}>
+              <input
+                type="text"
+                {...register("email", {pattern: EMAIL_PATTERN})}
+                defaultValue={curUser?.email}
+                name="email"
+                placeholder="Ваша почта"
+                required
+              />
+              {emailPatternError && <span>Неверный формат</span>}
+            </div>
+          </div>
 
-        <div className={classes.formItems}>
-          <div className={classes.formItem}>
-            <input
-              type="tel"
-              {...register("phoneNum", {
-                pattern: PHONE_NUM_PATTERN,
-                minLength: 12,
-              })}
-              name="phoneNum"
-              placeholder="+71234567890"
-              required
-            />
-            {(telNumberPatternError || minLengthPhoneNumberError) && (
-              <span>
-                {minLengthPhoneNumberError
-                  ? "Минимальное количество символов 12"
-                  : "Неверный формат"}
-              </span>
-            )}
-          </div>
-          <div className={classes.formItem}>
-            <input
-              type="text"
-              {...register("city")}
-              name="city"
-              placeholder="Ваш город"
-            />
+          <div className={classes.formItems}>
+            <div className={classes.formItem}>
+              <input
+                type="tel"
+                {...register("phoneNum", {
+                  pattern: PHONE_NUM_PATTERN,
+                  minLength: 12,
+                })}
+                name="phoneNum"
+                placeholder="+71234567890"
+                required
+              />
+              {(telNumberPatternError || minLengthPhoneNumberError) && (
+                <span>
+                  {minLengthPhoneNumberError
+                    ? "Минимальное количество символов 12"
+                    : "Неверный формат"}
+                </span>
+              )}
+            </div>
+            <div className={classes.formItem}>
+              <input
+                type="text"
+                {...register("city")}
+                name="city"
+                placeholder="Ваш город"
+              />
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
       <div className={classes.productList}>
         {cartList.map(item => (
@@ -115,7 +180,9 @@ const OrderPage: React.FC = () => {
         <div className={classes.completePrice}>
           Total:&nbsp;{totalPrice}&nbsp;rub
         </div>
-        <button className={classes.completeBtn}>Complete</button>
+        <button className={classes.completeBtn}>
+          {orderRequestIsLoading ? "Loading ..." : "Complete"}
+        </button>
       </div>
     </form>
   );
