@@ -14,6 +14,8 @@ import classes from "./appHeader.module.css";
 import {isShoppingCartUse} from "store/modules/cart/actions";
 import Arrow from "assets/icons/backArrow.svg";
 import Cookies from "js-cookie";
+import cn from "classnames";
+import {createBrowserHistory} from "history";
 const AppHeader: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const navigate = useNavigate();
@@ -22,6 +24,8 @@ const AppHeader: React.FC = () => {
 
   const userBonuses = userInfo?.bonuses || 0;
   const currentUser = userInfo?.name || "-";
+
+  const history = createBrowserHistory();
 
   const onLogOut = () => {
     dispatch(resetUserRequest());
@@ -32,7 +36,11 @@ const AppHeader: React.FC = () => {
   };
   const onOpenShopCart = () => dispatch(isShoppingCartUse(true));
   return (
-    <header className={classes.headerContainer}>
+    <header
+      className={cn(classes.headerContainer, {
+        [classes.headerBG]: history.location.pathname === "/cards",
+      })}
+    >
       <Link to={APP_AUTH_ROUTES.main.link} className={classes.headerLogo}>
         <div className={classes.firstLogo}>Decor</div>
         <div className={classes.secondLogo}>spirit</div>

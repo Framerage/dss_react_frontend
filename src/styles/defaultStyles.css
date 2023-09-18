@@ -1,14 +1,17 @@
 :root{
-  /* --main_app_color:teal; */
-  --main_app_color:darkorange;
-  /* --light_app_color:#024d4d; */
-  --light_app_color:orange;
-  /* --dark_app_color:#013535; */
-  --dark_app_color:orangered;
-  /* --exclusive_app_color:aqua; */
-  --exclusive_app_color:#fc791e;
-  /* --extra_app_color:#00a2ff; */
-  --extra_app_color:#fb474e;
+  --main_app_color:teal;
+  /* --main_app_color:darkorange; */
+  /* --main_app_color:greenyellow; */
+  --light_app_color:#024d4d;
+  /* --light_app_color:orange; */
+  --dark_app_color:#013535;
+  /* --dark_app_color:orangered; */
+  /* --dark_app_color:green; */
+  --exclusive_app_color:aqua;
+  /* --exclusive_app_color:#fc791e; */
+  --extra_app_color:#00a2ff;
+  /* --extra_app_color:#fb474e; */
+  /* --extra_app_color:greenyellow; */
   --last_menu_color:black;
   --medium_menu_color:lightgrey;
   --center_menu_color:white;

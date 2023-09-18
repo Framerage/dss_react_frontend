@@ -3,7 +3,7 @@
   height: 250px;
   border: 6px double var(--exclusive_app_color);
   border-radius: 15px;
-  background-color: var(--main_app_color);
+  background-color: var(--dark_app_color);
   display: flex;
   flex-direction: column;
   animation: scaled 1s ease-in-out;

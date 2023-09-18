@@ -83,16 +83,22 @@ const Catalog: React.FC = () => {
     {title: "Relief pictures", link: "reliefPics"},
   ];
 
-  const onSetSearchValue = (value: string) => {
-    if (value && choosedFilter) {
-      dispatch(carrentCatalogFilter(""));
-    }
-    setSearchValue(value);
-  };
+  const onSetSearchValue = useCallback(
+    (value: string) => {
+      if (value && choosedFilter) {
+        dispatch(carrentCatalogFilter(""));
+      }
+      setSearchValue(value);
+    },
+    [choosedFilter],
+  );
 
-  const onGetCardDescrip = useCallback((cardId: string) => {
-    navigation(FOR_GH_PAGES + APP_AUTH_ROUTES.catalog.link + "/" + cardId);
-  }, []);
+  const onGetCardDescrip = useCallback(
+    (cardId: string) => {
+      navigation(FOR_GH_PAGES + APP_AUTH_ROUTES.catalog.link + "/" + cardId);
+    },
+    [APP_AUTH_ROUTES.catalog.link],
+  );
 
   const onGetCurrentFilter = (theme: string) =>
     dispatch(carrentCatalogFilter(theme));
