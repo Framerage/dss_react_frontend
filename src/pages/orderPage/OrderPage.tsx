@@ -93,7 +93,6 @@ const OrderPage: React.FC = () => {
     },
     [accS, totalPrice, cartList],
   );
-
   return (
     <form className={classes.orderForm} onSubmit={handleSubmit(onSendOrder)}>
       {orderRequest ? (

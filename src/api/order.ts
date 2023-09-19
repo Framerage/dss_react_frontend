@@ -8,14 +8,10 @@ export const createOrderRequest = async ({
   order: OrderCreatingRequest;
   auth: string;
 }) => {
-  const response = await instance.post(
-    "order",
-    {...order},
-    {headers: {Authorization: auth}},
-  );
-  if (response.status !== 200) {
-    console.error(response, "resp");
-    return response.data;
-  }
-  return response.data;
+  return instance
+    .post("order", {...order}, {headers: {Authorization: auth}})
+    .then(res => res.data)
+    .catch(err => {
+      return {...err.response.data, status: err.response.status};
+    });
 };

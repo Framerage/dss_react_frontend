@@ -23,9 +23,21 @@ export const orderReducer = createReducer<OrderRequestsState>(
       state.orderCreating.data = null;
       state.orderCreating.error = null;
     },
-    [fetchToCreateOrderRequest.fulfilled.type]: (state, {payload}) => {
-      state.orderCreating.data = payload;
+    [fetchToCreateOrderRequest.fulfilled.type]: (state, action) => {
+      state.orderCreating.data = action.payload;
       state.orderCreating.isLoading = false;
+      state.orderCreating.error =
+        action.payload?.status === 500
+          ? "Please, try again laiter. Server is not responding"
+          : null;
+    },
+    [fetchToCreateOrderRequest.pending.type]: state => {
+      state.orderCreating.isLoading = true;
+    },
+    [fetchToCreateOrderRequest.rejected.type]: (state, action) => {
+      state.orderCreating.data = action.payload;
+      state.orderCreating.isLoading = false;
+      state.orderCreating.error = action.payload?.message;
     },
   },
 );
