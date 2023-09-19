@@ -72,7 +72,14 @@ const AppHeader: React.FC = () => {
             Bonuses:&nbsp;
             <i className={classes.bonusesValue}>{userBonuses}</i>
           </div>
-          <span className={classes.currentUser}>&nbsp;{currentUser}</span>
+          <Link
+            to={APP_AUTH_ROUTES.personPage.link}
+            className={classes.userLink}
+          >
+            <span className={classes.currentUser}>&nbsp;{currentUser}</span>
+            <div className={classes.userBorder}></div>
+          </Link>
+
           <button
             type="button"
             className={classes.exitBtn}

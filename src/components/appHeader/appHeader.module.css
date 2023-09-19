@@ -108,10 +108,27 @@
   filter:drop-shadow(0 0px 10px var(--exclusive_app_color))
 
 }
+.userLink{
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+}
 .currentUser{
+  text-decoration: none;
+  color: white;
   font-size: 24px;
   filter:drop-shadow(0 0px 10px var(--exclusive_app_color))
 
+}
+.userBorder{
+  width: 0;
+  height: 2px;
+  background-color: var(--main_app_color);
+  transition: 0.5s;
+  margin-top: 4px;
+}
+.userLink:hover>.userBorder{
+  width:100%
 }
 .exitBtn{
   cursor: pointer;

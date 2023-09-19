@@ -1,0 +1,6 @@
+.ordersContainer{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    border: 3px solid green;
+}
