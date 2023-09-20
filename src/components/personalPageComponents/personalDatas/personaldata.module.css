@@ -1,6 +1,7 @@
-.ordersContainer{
+.datasContainer{
     width: 100%;
+    padding: 10px;
     display: flex;
     flex-direction: column;
-    padding: 10px;
+    gap: 15px;
 }

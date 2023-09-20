@@ -21,3 +21,7 @@ export interface OrderRequestResult {
   createdAt: string;
   updatedAt: string;
 }
+export interface AllOrders {
+  orders: OrderRequestResult[];
+  success: boolean;
+}

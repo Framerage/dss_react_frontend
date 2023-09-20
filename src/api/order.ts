@@ -9,7 +9,41 @@ export const createOrderRequest = async ({
   auth: string;
 }) => {
   return instance
-    .post("order", {...order}, {headers: {Authorization: auth}})
+    .post("create-order", {...order}, {headers: {Authorization: auth}})
+    .then(res => res.data)
+    .catch(err => {
+      return {...err.response.data, status: err.response.status};
+    });
+};
+export const getAllOrders = async ({
+  auth,
+  email,
+}: {
+  auth: string;
+  email: string;
+}) => {
+  return instance
+    .post(
+      "/orders",
+      {email: email},
+      {
+        headers: {Authorization: auth},
+      },
+    )
+    .then(res => res.data)
+    .catch(err => {
+      return {...err.response.data, status: err.response.status};
+    });
+};
+export const getUserOrders = ({auth, email}: {auth: string; email: string}) => {
+  return instance
+    .post(
+      "/user-orders",
+      {email: email},
+      {
+        headers: {Authorization: auth},
+      },
+    )
     .then(res => res.data)
     .catch(err => {
       return {...err.response.data, status: err.response.status};

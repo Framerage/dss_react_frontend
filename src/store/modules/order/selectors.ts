@@ -15,3 +15,16 @@ export const selectOrderCreatingError = createSelector(
   selectOrder,
   state => state.orderCreating.error,
 );
+
+export const selectAllOrders = createSelector(
+  selectOrder,
+  state => state.allOrders.data,
+);
+export const selectAllOrdersIsLoading = createSelector(
+  selectOrder,
+  state => state.allOrders.isLoading,
+);
+export const selectAllOrdersError = createSelector(
+  selectOrder,
+  state => state.allOrders.error,
+);

@@ -1,0 +1,13 @@
+.orderCardContainer{
+    width: 50%;
+    display: flex;
+    flex-direction: column;
+}
+.cardItem{
+    width: 100%;
+    max-height: 70px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    border: 1px solid red;
+}
