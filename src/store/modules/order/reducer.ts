@@ -69,7 +69,8 @@ export const orderReducer = createReducer<OrderRequestsState>(
     [fetchAllOrders.rejected.type]: (state, action) => {
       state.allOrders.data = action.payload;
       state.allOrders.isLoading = false;
-      state.allOrders.error = action.payload?.message;
+      state.allOrders.error =
+        action.payload?.message || "Error with getting orders";
     },
 
     [fetchUserOrders.fulfilled.type]: (state, action) => {
@@ -87,7 +88,8 @@ export const orderReducer = createReducer<OrderRequestsState>(
     [fetchUserOrders.rejected.type]: (state, action) => {
       state.allOrders.data = action.payload;
       state.allOrders.isLoading = false;
-      state.allOrders.error = action.payload?.message;
+      state.allOrders.error =
+        action.payload?.message || "Error with getting orders";
     },
   },
 );

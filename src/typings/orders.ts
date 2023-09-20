@@ -20,6 +20,8 @@ export interface OrderRequestResult {
   _id: string;
   createdAt: string;
   updatedAt: string;
+  orderStatus: string;
+  promo: string;
 }
 export interface AllOrders {
   orders: OrderRequestResult[];

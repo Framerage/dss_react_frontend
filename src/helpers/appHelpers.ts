@@ -23,3 +23,7 @@ export const generateFileData = async ({
 };
 export const setBase64Image = (imageFormat: string, imageSrc: string) =>
   `data:image/${imageFormat};base64, ${imageSrc}`;
+
+export const formatDateToLocale = (date: string) => {
+  return new Date(date).toLocaleString();
+};

@@ -1,4 +1,4 @@
-import React, {useCallback, useState} from "react";
+import React, {useState} from "react";
 import classes from "./personalPage.module.css";
 import {useSelector} from "react-redux";
 import {selectUserData} from "store/modules/auth/selectors";
@@ -41,13 +41,7 @@ const PersonalPage: React.FC = () => {
   const [choosedMenuItem, setChoosedMenuItem] = useState(menuItems[0].name);
   const onChooseMenuItem = (itemName: string) => setChoosedMenuItem(itemName);
   const renderChoosedInfo = (choosedInfo: string) => {
-    let element: JSX.Element | null = null;
-    menuItems.map(el => {
-      if (el.name === choosedInfo) {
-        element = el.component;
-      }
-    });
-    return element;
+    return menuItems.filter(el => el.name === choosedInfo)[0].component;
   };
   return (
     <div className={classes.personalPageContainer}>

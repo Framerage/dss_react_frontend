@@ -1,7 +1,12 @@
 .orderCardContainer{
-    width: 50%;
+    width: 100%;
     display: flex;
-    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px 5px;
+    border-bottom: 4px groove var(--exclusive_app_color);
+    border-left: 4px groove var(--exclusive_app_color);
+    border-radius: 0 0 0 10px;
+    margin-bottom: 10px;
 }
 .cardItem{
     width: 100%;
@@ -9,5 +14,11 @@
     display: flex;
     flex-direction: column;
     justify-content: center;
-    border: 1px solid red;
+    gap: 5px;
+}
+.itemText{
+    font-size: 16px;
+    font-weight: 500;
+    color: white;
+    text-shadow: 0 0 5px black;
 }

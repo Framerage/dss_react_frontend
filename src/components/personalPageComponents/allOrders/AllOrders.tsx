@@ -27,7 +27,7 @@ const AllOrders: React.FC<OrdersProps> = ({markRole}) => {
   const curUser = useSelector(selectUserData);
   const accS = Cookies.get("perAcTkn");
 
-  console.log(allOrders, "allOrders");
+  console.log(ordersError, "ordersError");
   useEffect(() => {
     if (curUser && curUser.success && accS) {
       curUser.role === "admin" && markRole === curUser.role
@@ -45,7 +45,7 @@ const AllOrders: React.FC<OrdersProps> = ({markRole}) => {
             ))
           ) : (
             <span>
-              {(allOrders && allOrders.orders.length) || !allOrders?.success
+              {!allOrders?.orders?.length || !allOrders?.success
                 ? ordersError
                 : "Empty list"}
             </span>
