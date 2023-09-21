@@ -2,10 +2,11 @@
     width: 100%;
     display: flex;
     align-items: flex-start;
-    padding: 10px 5px;
+    padding: 10px;
+    background-color: var(--dark_app_color);
     border-bottom: 4px groove var(--exclusive_app_color);
     border-left: 4px groove var(--exclusive_app_color);
-    border-radius: 0 0 0 10px;
+    border-radius: 0 10px 0 10px;
     margin-bottom: 10px;
 }
 .cardItem{

@@ -38,7 +38,8 @@ const AppHeader: React.FC = () => {
   return (
     <header
       className={cn(classes.headerContainer, {
-        [classes.headerBG]: history.location.pathname === "/cards",
+        [classes.headerBG]:
+          history.location.pathname === APP_AUTH_ROUTES.catalog.link,
       })}
     >
       <Link to={APP_AUTH_ROUTES.main.link} className={classes.headerLogo}>

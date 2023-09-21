@@ -46,20 +46,32 @@ const PersonalPage: React.FC = () => {
   return (
     <div className={classes.personalPageContainer}>
       <div className={classes.persPageMenu}>
-        {menuItems.map(
-          item =>
-            userInfo &&
-            item.role.includes(userInfo.role) && (
-              <div
-                key={item.name}
-                className={cn(classes.menuItem, {
-                  [classes.activeItem]: choosedMenuItem === item.name,
-                })}
-                onClick={() => onChooseMenuItem(item.name)}
-              >
-                {item.title}
-              </div>
-            ),
+        <div className={classes.menuItems}>
+          {menuItems.map(
+            item =>
+              userInfo &&
+              item.role.includes(userInfo.role) && (
+                <div
+                  key={item.name}
+                  className={cn(classes.menuItem, {
+                    [classes.activeItem]: choosedMenuItem === item.name,
+                  })}
+                  onClick={() => onChooseMenuItem(item.name)}
+                >
+                  {item.title}
+                </div>
+              ),
+          )}
+        </div>
+        {(choosedMenuItem === "persOrders" ||
+          choosedMenuItem === "adminOrders") && (
+          <select
+            defaultValue="Sort by date"
+            className={cn(classes.selectMenuItem)}
+          >
+            <option value="Sort by date">Sort by date</option>
+            <option value="Sort by name">Sort by name</option>
+          </select>
         )}
       </div>
 
