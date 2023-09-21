@@ -11,6 +11,7 @@ import {AppDispatch} from "store";
 import {
   fetchAllOrders,
   fetchUserOrders,
+  removeChoosedOrder,
 } from "store/modules/order/async-actions";
 import Cookies from "js-cookie";
 import {selectUserData} from "store/modules/auth/selectors";
@@ -34,19 +35,45 @@ const AllOrders: React.FC<OrdersProps> = ({markRole}) => {
         : dispatch(fetchUserOrders({auth: accS, email: curUser.email}));
     }
   }, [markRole]);
+
+  const onDeleteOrder = (e: React.MouseEvent<HTMLElement>, orderId: string) => {
+    e.stopPropagation();
+    const check = window.prompt("Are you sure want to delete? Enter pass");
+    check === process.env.REACT_APP_ADM_PSS &&
+      curUser &&
+      allOrders &&
+      allOrders.orders.length &&
+      accS &&
+      dispatch(removeChoosedOrder({id: orderId, auth: accS})).then(
+        ({payload}) => {
+          if (!payload) {
+            return;
+          }
+          if (payload.success) {
+            window.alert("Заказ успешно удален");
+            dispatch(fetchAllOrders({auth: accS, email: curUser.email}));
+            return;
+          }
+          window.alert("Не удалось удалить заказ");
+        },
+      );
+  };
   return (
     <div className={classes.ordersContainer}>
       {!ordersIsLoading ? (
         <div className={classes.ordersList}>
           {allOrders && allOrders.success && allOrders.orders.length ? (
             allOrders.orders.map(order => (
-              <OrderCard key={order._id} order={order} />
+              <OrderCard
+                key={order._id}
+                order={order}
+                markRole={markRole}
+                onRemoveOrder={onDeleteOrder}
+              />
             ))
           ) : (
             <div className={classes.errorText}>
-              {!allOrders?.orders?.length || !allOrders?.success
-                ? ordersError
-                : "Empty list"}
+              {!allOrders?.success ? ordersError : "Empty list"}
             </div>
           )}
         </div>

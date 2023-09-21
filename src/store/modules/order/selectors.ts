@@ -28,3 +28,16 @@ export const selectAllOrdersError = createSelector(
   selectOrder,
   state => state.allOrders.error,
 );
+
+export const selectRemovingOrderResult = createSelector(
+  selectOrder,
+  state => state.removingOrder.data,
+);
+export const selectRemovingOrderResultIsLoading = createSelector(
+  selectOrder,
+  state => state.removingOrder.isLoading,
+);
+export const selectRemovingOrderResultError = createSelector(
+  selectOrder,
+  state => state.removingOrder.error,
+);

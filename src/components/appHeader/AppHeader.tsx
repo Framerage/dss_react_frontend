@@ -11,7 +11,7 @@ import {
 import {isUserAuth, selectUserData} from "store/modules/auth/selectors";
 import ShopCart from "assets/icons/cart-shopping-solid.svg";
 import classes from "./appHeader.module.css";
-import {isShoppingCartUse} from "store/modules/cart/actions";
+import {isShoppingCartUse, updateCardsOfCart} from "store/modules/cart/actions";
 import Arrow from "assets/icons/backArrow.svg";
 import Cookies from "js-cookie";
 import cn from "classnames";
@@ -30,6 +30,7 @@ const AppHeader: React.FC = () => {
   const onLogOut = () => {
     dispatch(resetUserRequest());
     dispatch(resetRegRequest());
+    dispatch(updateCardsOfCart([]));
     Cookies.remove("perAcTkn");
     dispatch(getUserAuth(false));
     navigate(APP_GENERAL_ROUTES.login.link);

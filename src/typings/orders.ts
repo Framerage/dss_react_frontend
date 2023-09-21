@@ -27,3 +27,8 @@ export interface AllOrders {
   orders: OrderRequestResult[];
   success: boolean;
 }
+export enum OrderStatuses {
+  job = "in process",
+  complete = "complete",
+  canceled = "canceled",
+}

@@ -1,5 +1,10 @@
 import {createAsyncThunk} from "@reduxjs/toolkit";
-import {createOrderRequest, getAllOrders, getUserOrders} from "api/order";
+import {
+  createOrderRequest,
+  deleteOrder,
+  getAllOrders,
+  getUserOrders,
+} from "api/order";
 
 export const fetchToCreateOrderRequest = createAsyncThunk(
   "CreateOrderRequest",
@@ -9,4 +14,8 @@ export const fetchAllOrders = createAsyncThunk("FetchAllOrders", getAllOrders);
 export const fetchUserOrders = createAsyncThunk(
   "FetchUserOrders",
   getUserOrders,
+);
+export const removeChoosedOrder = createAsyncThunk(
+  "RemoveChoosedOrder",
+  deleteOrder,
 );

@@ -35,7 +35,13 @@ export const getAllOrders = async ({
       return {...err.response.data, status: err.response.status};
     });
 };
-export const getUserOrders = ({auth, email}: {auth: string; email: string}) => {
+export const getUserOrders = async ({
+  auth,
+  email,
+}: {
+  auth: string;
+  email: string;
+}) => {
   return instance
     .post(
       "/user-orders",
@@ -44,6 +50,15 @@ export const getUserOrders = ({auth, email}: {auth: string; email: string}) => {
         headers: {Authorization: auth},
       },
     )
+    .then(res => res.data)
+    .catch(err => {
+      return {...err.response.data, status: err.response.status};
+    });
+};
+
+export const deleteOrder = async ({id, auth}: {id: string; auth: string}) => {
+  return instance
+    .delete(`/orders/${id}`, {headers: {Authorization: auth}})
     .then(res => res.data)
     .catch(err => {
       return {...err.response.data, status: err.response.status};

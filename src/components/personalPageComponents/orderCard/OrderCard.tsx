@@ -1,14 +1,30 @@
-import React from "react";
+import React, {useState} from "react";
 import classes from "./orderCard.module.css";
-import {OrderRequestResult} from "typings/orders";
+import {OrderRequestResult, OrderStatuses} from "typings/orders";
 import {formatDateToLocale} from "helpers/appHelpers";
 import DeleteIcon from "assets/icons/btn-remove.svg";
+import cn from "classnames";
 interface OrderCardProps {
   order: OrderRequestResult;
+  markRole: string;
+  onRemoveOrder: (e: React.MouseEvent<HTMLElement>, orderId: string) => void;
 }
-const OrderCard: React.FC<OrderCardProps> = ({order}) => {
+const OrderCard: React.FC<OrderCardProps> = ({
+  order,
+  markRole,
+  onRemoveOrder,
+}) => {
+  const [selectValue, setSelectValue] = useState(order.orderStatus);
+  const isOrderCanceled = order.orderStatus === OrderStatuses.canceled;
+  const isOrderComplete = order.orderStatus === OrderStatuses.complete;
   return (
-    <div key={order._id} className={classes.orderCardContainer}>
+    <div
+      key={order._id}
+      className={cn(classes.orderCardContainer, {
+        [classes.canceledOrder]: isOrderCanceled,
+        [classes.completedOrder]: isOrderComplete,
+      })}
+    >
       <div className={classes.cardItem}>
         <span className={classes.itemText}>Заказчик:&nbsp;{order.name}</span>
         <span className={classes.itemText}>Email:&nbsp;{order.email}</span>
@@ -40,11 +56,40 @@ const OrderCard: React.FC<OrderCardProps> = ({order}) => {
         )}
       </div>
       <div className={classes.cardItem}>
-        <span className={classes.itemText}>
-          Статус заказа:&nbsp;{order.orderStatus}
-        </span>
+        {markRole === "admin" ? (
+          <>
+            <span className={classes.itemText}>Статус заказа:&nbsp;</span>
+            <select
+              value={selectValue}
+              onChange={e => setSelectValue(e.target.value)}
+              className={classes.statusSlt}
+            >
+              <option value={OrderStatuses.job}>{OrderStatuses.job}</option>
+              <option value={OrderStatuses.canceled}>
+                {OrderStatuses.canceled}
+              </option>
+              <option value={OrderStatuses.complete}>
+                {OrderStatuses.complete}
+              </option>
+            </select>
+            <button className={classes.saveBtn}>save</button>
+          </>
+        ) : (
+          <span className={classes.itemText}>
+            Статус заказа:&nbsp;{order.orderStatus}
+          </span>
+        )}
       </div>
-      <img src={DeleteIcon} alt="deleteBtn" width={25} height={25} />
+      {markRole === "admin" && (
+        <img
+          src={DeleteIcon}
+          alt="deleteBtn"
+          width={25}
+          height={25}
+          className={classes.removeOrderBtn}
+          onClick={e => onRemoveOrder(e, order._id)}
+        />
+      )}
     </div>
   );
 };

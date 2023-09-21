@@ -8,6 +8,14 @@
     border-left: 4px groove var(--exclusive_app_color);
     border-radius: 0 10px 0 10px;
     margin-bottom: 10px;
+    gap: 10px;
+}
+.canceledOrder{
+    opacity: 0.5;
+}
+.completedOrder{
+    background:linear-gradient(30deg,black,var(--extra_app_color),black) ;
+    opacity: 0.5;
 }
 .cardItem{
     width: 100%;
@@ -22,4 +30,27 @@
     font-weight: 500;
     color: white;
     text-shadow: 0 0 5px black;
+}
+.statusSlt{
+    max-width: 120px;
+    background-color: var(--main_app_color);
+    color: white;
+    text-shadow: 0 0 5px black;
+    font-size: 14px;
+    font-weight: 600;
+    border: 4px groove var(--medium_menu_color);
+    border-radius: 5px;
+    cursor: pointer;
+}
+.removeOrderBtn{
+    width: 25px;
+    height: 25px;
+    transition: 0.2s;
+    cursor: pointer;
+}
+.removeOrderBtn:hover{
+    transform: scale(1.1);
+}
+.removeOrderBtn:active{
+    transform: scale(0.9);
 }

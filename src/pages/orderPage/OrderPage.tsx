@@ -179,7 +179,10 @@ const OrderPage: React.FC = () => {
         <div className={classes.completePrice}>
           Total:&nbsp;{totalPrice}&nbsp;rub
         </div>
-        <button className={classes.completeBtn}>
+        <button
+          className={classes.completeBtn}
+          disabled={orderRequestIsLoading || !!orderRequest?.success}
+        >
           {orderRequestIsLoading ? "Loading ..." : "Complete"}
         </button>
       </div>
