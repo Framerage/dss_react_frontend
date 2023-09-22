@@ -3,9 +3,8 @@ import {
   fetchAllOrders,
   fetchToCreateOrderRequest,
   fetchUserOrders,
-  removeChoosedOrder,
 } from "./async-actions";
-import {AllOrders, OrderRequestResult} from "typings/orders";
+import {Orders, OrderRequestResult} from "typings/orders";
 import {resetOrderCreatingResult} from "./actions";
 interface OrderRequestsState {
   orderCreating: {
@@ -14,12 +13,7 @@ interface OrderRequestsState {
     error: string | null;
   };
   allOrders: {
-    data: AllOrders | null;
-    isLoading: boolean;
-    error: string | null;
-  };
-  removingOrder: {
-    data: {status: number; success: boolean; message: string} | null;
+    data: Orders | null;
     isLoading: boolean;
     error: string | null;
   };
@@ -31,11 +25,6 @@ const initialOrderState = {
     error: null,
   },
   allOrders: {
-    data: null,
-    isLoading: false,
-    error: null,
-  },
-  removingOrder: {
     data: null,
     isLoading: false,
     error: null,
@@ -101,25 +90,6 @@ export const orderReducer = createReducer<OrderRequestsState>(
       state.allOrders.isLoading = false;
       state.allOrders.error =
         action.payload?.message || "Error with getting orders";
-    },
-
-    [removeChoosedOrder.fulfilled.type]: (state, action) => {
-      state.removingOrder.data = action.payload;
-      state.removingOrder.isLoading = false;
-      state.removingOrder.error =
-        action.payload?.status === 500
-          ? "Please, try again laiter. Server is not responding"
-          : null;
-    },
-    [removeChoosedOrder.pending.type]: state => {
-      state.removingOrder.isLoading = true;
-      state.removingOrder.error = null;
-    },
-    [removeChoosedOrder.rejected.type]: (state, action) => {
-      state.removingOrder.data = action.payload;
-      state.removingOrder.isLoading = false;
-      state.removingOrder.error =
-        action.payload?.message || "Error with remove";
     },
   },
 );

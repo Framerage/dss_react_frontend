@@ -1,4 +1,4 @@
-import {OrderCreatingRequest} from "typings/orders";
+import {OrderCreatingRequest, OrderRequestResult} from "typings/orders";
 import instance from "./api";
 
 export const createOrderRequest = async ({
@@ -59,6 +59,20 @@ export const getUserOrders = async ({
 export const deleteOrder = async ({id, auth}: {id: string; auth: string}) => {
   return instance
     .delete(`/orders/${id}`, {headers: {Authorization: auth}})
+    .then(res => res.data)
+    .catch(err => {
+      return {...err.response.data, status: err.response.status};
+    });
+};
+export const editOrderCard = async ({
+  order,
+  auth,
+}: {
+  order: OrderRequestResult;
+  auth: string;
+}) => {
+  return instance
+    .patch(`/orders/${order._id}`, order, {headers: {Authorization: auth}})
     .then(res => res.data)
     .catch(err => {
       return {...err.response.data, status: err.response.status};

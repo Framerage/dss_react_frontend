@@ -15,6 +15,8 @@
   --last_menu_color:black;
   --medium_menu_color:lightgrey;
   --center_menu_color:white;
+  --success_order_color:greenyellow;
+  --cancel_order_color:orangered
 }
 * {
   margin: 0;

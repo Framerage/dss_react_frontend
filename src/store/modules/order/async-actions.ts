@@ -2,6 +2,7 @@ import {createAsyncThunk} from "@reduxjs/toolkit";
 import {
   createOrderRequest,
   deleteOrder,
+  editOrderCard,
   getAllOrders,
   getUserOrders,
 } from "api/order";
@@ -18,4 +19,8 @@ export const fetchUserOrders = createAsyncThunk(
 export const removeChoosedOrder = createAsyncThunk(
   "RemoveChoosedOrder",
   deleteOrder,
+);
+export const editChoosedOrder = createAsyncThunk(
+  "EditChoosedOrder",
+  editOrderCard,
 );

@@ -3,7 +3,7 @@
     display: flex;
     align-items: flex-start;
     padding: 10px;
-    background-color: var(--dark_app_color);
+    background:linear-gradient(30deg,black,var(--dark_app_color),black) ;
     border-bottom: 4px groove var(--exclusive_app_color);
     border-left: 4px groove var(--exclusive_app_color);
     border-radius: 0 10px 0 10px;
@@ -12,9 +12,10 @@
 }
 .canceledOrder{
     opacity: 0.5;
+    background:linear-gradient(30deg,black,var(--cancel_order_color),black) ;
 }
 .completedOrder{
-    background:linear-gradient(30deg,black,var(--extra_app_color),black) ;
+    background:linear-gradient(30deg,black,var(--success_order_color),black) ;
     opacity: 0.5;
 }
 .cardItem{
@@ -31,8 +32,9 @@
     color: white;
     text-shadow: 0 0 5px black;
 }
-.statusSlt{
+.statusSlt,.saveBtn{
     max-width: 120px;
+    height: 25px;
     background-color: var(--main_app_color);
     color: white;
     text-shadow: 0 0 5px black;
@@ -41,16 +43,22 @@
     border: 4px groove var(--medium_menu_color);
     border-radius: 5px;
     cursor: pointer;
+    transition: 0.2s;
 }
+
 .removeOrderBtn{
     width: 25px;
     height: 25px;
     transition: 0.2s;
     cursor: pointer;
 }
+.saveBtn:hover{
+    transform: scale(1.05);
+
+}
 .removeOrderBtn:hover{
     transform: scale(1.1);
 }
-.removeOrderBtn:active{
+.removeOrderBtn:active,.saveBtn:active{
     transform: scale(0.9);
 }

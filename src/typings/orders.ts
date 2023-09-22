@@ -23,7 +23,7 @@ export interface OrderRequestResult {
   orderStatus: string;
   promo: string;
 }
-export interface AllOrders {
+export interface Orders {
   orders: OrderRequestResult[];
   success: boolean;
 }

@@ -20,12 +20,6 @@ const menuItems = [
     role: ["user", "admin"],
   },
   {
-    name: "persTests",
-    title: "Мои тесты",
-    component: null,
-    role: ["user", "admin"],
-  },
-  {
     name: "adminOrders",
     title: "Все заказы",
     component: <AllOrders markRole="admin" />,

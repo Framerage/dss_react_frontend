@@ -1,4 +1,4 @@
-import React, {useEffect} from "react";
+import React, {useCallback, useEffect} from "react";
 import classes from "./allOrders.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -9,6 +9,7 @@ import {
 import PointLoader from "components/pointLoader";
 import {AppDispatch} from "store";
 import {
+  editChoosedOrder,
   fetchAllOrders,
   fetchUserOrders,
   removeChoosedOrder,
@@ -16,6 +17,7 @@ import {
 import Cookies from "js-cookie";
 import {selectUserData} from "store/modules/auth/selectors";
 import OrderCard from "../orderCard";
+import {OrderRequestResult, OrderStatuses} from "typings/orders";
 interface OrdersProps {
   markRole: string;
 }
@@ -36,28 +38,47 @@ const AllOrders: React.FC<OrdersProps> = ({markRole}) => {
     }
   }, [markRole]);
 
-  const onDeleteOrder = (e: React.MouseEvent<HTMLElement>, orderId: string) => {
-    e.stopPropagation();
-    const check = window.prompt("Are you sure want to delete? Enter pass");
-    check === process.env.REACT_APP_ADM_PSS &&
+  const onDeleteOrder = useCallback(
+    (e: React.MouseEvent<HTMLElement>, orderId: string) => {
+      e.stopPropagation();
+      const check = window.prompt("Are you sure want to delete? Enter pass");
+      check === process.env.REACT_APP_ADM_PSS &&
+        curUser &&
+        allOrders &&
+        allOrders.orders.length &&
+        accS &&
+        dispatch(removeChoosedOrder({id: orderId, auth: accS})).then(
+          ({payload}) => {
+            if (!payload) {
+              return;
+            }
+            if (payload.success) {
+              window.alert("Заказ успешно удален");
+              dispatch(fetchAllOrders({auth: accS, email: curUser.email}));
+              return;
+            }
+            window.alert("Не удалось удалить заказ");
+          },
+        );
+    },
+    [],
+  );
+  const onSaveChangesByOrderCard = useCallback(
+    (order: OrderRequestResult, status: OrderStatuses) => {
       curUser &&
-      allOrders &&
-      allOrders.orders.length &&
-      accS &&
-      dispatch(removeChoosedOrder({id: orderId, auth: accS})).then(
-        ({payload}) => {
-          if (!payload) {
-            return;
-          }
-          if (payload.success) {
-            window.alert("Заказ успешно удален");
+        accS &&
+        dispatch(
+          editChoosedOrder({
+            order: {...order, orderStatus: status},
+            auth: accS,
+          }),
+        ).then(res => {
+          res.payload?.success &&
             dispatch(fetchAllOrders({auth: accS, email: curUser.email}));
-            return;
-          }
-          window.alert("Не удалось удалить заказ");
-        },
-      );
-  };
+        });
+    },
+    [],
+  );
   return (
     <div className={classes.ordersContainer}>
       {!ordersIsLoading ? (
@@ -69,6 +90,7 @@ const AllOrders: React.FC<OrdersProps> = ({markRole}) => {
                 order={order}
                 markRole={markRole}
                 onRemoveOrder={onDeleteOrder}
+                onSaveOrder={onSaveChangesByOrderCard}
               />
             ))
           ) : (
