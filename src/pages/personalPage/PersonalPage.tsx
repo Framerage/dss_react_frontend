@@ -1,11 +1,17 @@
 import React, {useState} from "react";
 import classes from "./personalPage.module.css";
-import {useSelector} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {selectUserData} from "store/modules/auth/selectors";
 import cn from "classnames";
-import AllOrders from "components/personalPageComponents/allOrders/AllOrders";
-import PersonalDatas from "components/personalPageComponents/personalDatas/PersonalDatas";
-
+import AllOrders from "components/personalPageComponents/allOrders";
+import PersonalDatas from "components/personalPageComponents/personalDatas";
+import ArrowIcon from "assets/icons/arrow.svg";
+import {selectOrderSortCondition} from "store/modules/order/selectors";
+import {AppDispatch} from "store";
+import {
+  chooseOrderKeyForSort,
+  chooseOrdersSortCondition,
+} from "store/modules/order/actions";
 const menuItems = [
   {
     name: "persData",
@@ -28,7 +34,9 @@ const menuItems = [
   {name: "statistic", title: "Статистика", component: null, role: "admin"},
 ];
 const PersonalPage: React.FC = () => {
+  const dispatch = useDispatch<AppDispatch>();
   const userInfo = useSelector(selectUserData);
+  const sortCondition = useSelector(selectOrderSortCondition);
 
   // console.log(userInfo && Object.keys(userInfo), "onfp");
 
@@ -37,6 +45,8 @@ const PersonalPage: React.FC = () => {
   const renderChoosedInfo = (choosedInfo: string) => {
     return menuItems.filter(el => el.name === choosedInfo)[0].component;
   };
+  const onChangeSortCondition = () =>
+    dispatch(chooseOrdersSortCondition(!sortCondition));
   return (
     <div className={classes.personalPageContainer}>
       <div className={classes.persPageMenu}>
@@ -59,13 +69,29 @@ const PersonalPage: React.FC = () => {
         </div>
         {(choosedMenuItem === "persOrders" ||
           choosedMenuItem === "adminOrders") && (
-          <select
-            defaultValue="Sort by date"
-            className={cn(classes.selectMenuItem)}
-          >
-            <option value="Sort by date">Sort by date</option>
-            <option value="Sort by name">Sort by name</option>
-          </select>
+          <>
+            <div
+              className={cn(classes.menuItem, classes.arrowItem)}
+              onClick={onChangeSortCondition}
+            >
+              <img
+                src={ArrowIcon}
+                alt="arrow"
+                className={cn(classes.sortArrow, {
+                  [classes.sortArrowUp]: sortCondition,
+                })}
+              />
+            </div>
+            <select
+              defaultValue="createdAt"
+              className={cn(classes.selectMenuItem)}
+              onChange={e => dispatch(chooseOrderKeyForSort(e.target.value))}
+            >
+              <option value="createdAt">Sort by date</option>
+              <option value="name">Sort by name</option>
+              <option value="orderStatus">Sort by status</option>
+            </select>
+          </>
         )}
       </div>
 

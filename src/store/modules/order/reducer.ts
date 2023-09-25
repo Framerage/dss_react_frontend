@@ -5,8 +5,14 @@ import {
   fetchUserOrders,
 } from "./async-actions";
 import {Orders, OrderRequestResult} from "typings/orders";
-import {resetOrderCreatingResult} from "./actions";
+import {
+  chooseOrdersSortCondition,
+  chooseOrderKeyForSort,
+  resetOrderCreatingResult,
+} from "./actions";
 interface OrderRequestsState {
+  orderSortCondition: boolean;
+  orderKeyForSort: string;
   orderCreating: {
     data: OrderRequestResult | null;
     isLoading: boolean;
@@ -19,6 +25,8 @@ interface OrderRequestsState {
   };
 }
 const initialOrderState = {
+  orderSortCondition: true,
+  orderKeyForSort: "",
   orderCreating: {
     data: null,
     isLoading: false,
@@ -36,6 +44,12 @@ export const orderReducer = createReducer<OrderRequestsState>(
     [resetOrderCreatingResult.type]: state => {
       state.orderCreating.data = null;
       state.orderCreating.error = null;
+    },
+    [chooseOrdersSortCondition.type]: (state, {payload}) => {
+      state.orderSortCondition = payload;
+    },
+    [chooseOrderKeyForSort.type]: (state, {payload}) => {
+      state.orderKeyForSort = payload;
     },
     [fetchToCreateOrderRequest.fulfilled.type]: (state, action) => {
       state.orderCreating.data = action.payload;

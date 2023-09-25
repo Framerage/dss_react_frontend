@@ -9,6 +9,7 @@
     border-radius: 0 10px 0 10px;
     margin-bottom: 10px;
     gap: 10px;
+    overflow: auto;
 }
 .canceledOrder{
     opacity: 0.5;

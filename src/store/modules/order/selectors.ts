@@ -3,6 +3,14 @@ import {selectRoot} from "../rootSelectors";
 
 const selectOrder = createSelector(selectRoot, root => root.orderReducer);
 
+export const selectOrderSortCondition = createSelector(
+  selectOrder,
+  state => state.orderSortCondition,
+);
+export const selectOrderKeySort = createSelector(
+  selectOrder,
+  state => state.orderKeyForSort,
+);
 export const selectOrderCreating = createSelector(
   selectOrder,
   state => state.orderCreating.data,

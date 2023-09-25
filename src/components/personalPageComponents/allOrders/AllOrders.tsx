@@ -5,6 +5,8 @@ import {
   selectAllOrders,
   selectAllOrdersError,
   selectAllOrdersIsLoading,
+  selectOrderKeySort,
+  selectOrderSortCondition,
 } from "store/modules/order/selectors";
 import PointLoader from "components/pointLoader";
 import {AppDispatch} from "store";
@@ -18,6 +20,8 @@ import Cookies from "js-cookie";
 import {selectUserData} from "store/modules/auth/selectors";
 import OrderCard from "../orderCard";
 import {OrderRequestResult, OrderStatuses} from "typings/orders";
+import {useSortedObj} from "hooks/useSortedObj";
+import {SortTypes} from "typings/generalTypes";
 interface OrdersProps {
   markRole: string;
 }
@@ -27,9 +31,17 @@ const AllOrders: React.FC<OrdersProps> = ({markRole}) => {
   const ordersIsLoading = useSelector(selectAllOrdersIsLoading);
   const ordersError = useSelector(selectAllOrdersError);
 
+  const sortCondition = useSelector(selectOrderSortCondition);
+  const choosedOrderKey = useSelector(selectOrderKeySort);
+
   const curUser = useSelector(selectUserData);
   const accS = Cookies.get("perAcTkn");
 
+  const sortedOrders = useSortedObj<OrderRequestResult>(
+    allOrders?.orders || [],
+    choosedOrderKey as keyof OrderRequestResult,
+    sortCondition ? SortTypes.ABC : SortTypes.CBA,
+  );
   useEffect(() => {
     if (curUser && curUser.success && accS) {
       curUser.role === "admin" && markRole === curUser.role
@@ -45,7 +57,7 @@ const AllOrders: React.FC<OrdersProps> = ({markRole}) => {
       check === process.env.REACT_APP_ADM_PSS &&
         curUser &&
         allOrders &&
-        allOrders.orders.length &&
+        sortedOrders.length &&
         accS &&
         dispatch(removeChoosedOrder({id: orderId, auth: accS})).then(
           ({payload}) => {
@@ -83,8 +95,8 @@ const AllOrders: React.FC<OrdersProps> = ({markRole}) => {
     <div className={classes.ordersContainer}>
       {!ordersIsLoading ? (
         <div className={classes.ordersList}>
-          {allOrders && allOrders.success && allOrders.orders.length ? (
-            allOrders.orders.map(order => (
+          {allOrders && allOrders.success && sortedOrders.length ? (
+            sortedOrders.map(order => (
               <OrderCard
                 key={order._id}
                 order={order}
