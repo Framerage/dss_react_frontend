@@ -57,7 +57,7 @@ const AllOrders: React.FC<OrdersProps> = ({markRole}) => {
       check === process.env.REACT_APP_ADM_PSS &&
         curUser &&
         allOrders &&
-        sortedOrders.length &&
+        allOrders.orders.length &&
         accS &&
         dispatch(removeChoosedOrder({id: orderId, auth: accS})).then(
           ({payload}) => {
