@@ -54,13 +54,14 @@ const AllOrders: React.FC<OrdersProps> = ({markRole}) => {
     (e: React.MouseEvent<HTMLElement>, orderId: string) => {
       e.stopPropagation();
       const check = window.prompt("Are you sure want to delete? Enter pass");
-      check === process.env.REACT_APP_ADM_PSS &&
+      if (
+        check === process.env.REACT_APP_ADM_PSS &&
         curUser &&
-        allOrders &&
-        allOrders.orders.length &&
-        accS &&
-        dispatch(removeChoosedOrder({id: orderId, auth: accS})).then(
-          ({payload}) => {
+        sortedOrders.length &&
+        accS
+      ) {
+        dispatch(removeChoosedOrder({id: orderId, auth: accS}))
+          .then(({payload}) => {
             if (!payload) {
               return;
             }
@@ -70,10 +71,15 @@ const AllOrders: React.FC<OrdersProps> = ({markRole}) => {
               return;
             }
             window.alert("Не удалось удалить заказ");
-          },
-        );
+          })
+          .catch(() => {
+            window.alert("Ошибка соединения");
+          });
+        return;
+      }
+      window.alert("Какая-то ошибка");
     },
-    [],
+    [allOrders, accS, curUser],
   );
   const onSaveChangesByOrderCard = useCallback(
     (order: OrderRequestResult, status: OrderStatuses) => {
@@ -89,7 +95,7 @@ const AllOrders: React.FC<OrdersProps> = ({markRole}) => {
             dispatch(fetchAllOrders({auth: accS, email: curUser.email}));
         });
     },
-    [],
+    [curUser, accS],
   );
   return (
     <div className={classes.ordersContainer}>
