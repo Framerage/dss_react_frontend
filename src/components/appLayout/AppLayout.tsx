@@ -53,7 +53,6 @@ const AppLayout: React.FC = () => {
   const isCartOpened = useSelector(isShopCartUse);
   const isPopupOpen = useSelector(selectPopupImage);
 
-  //TODO: удалить других юзеров
   //TODO: настроить счетчик заказов
   //TODO: админская секция/страница со статистикой просмотров/лайков, список заказов+история заказов выполненные/ в процессе/ на этапе обсуждения
   //TODO: хелпер для русского оформления названия темы

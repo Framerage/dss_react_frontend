@@ -26,7 +26,7 @@ interface OrderRequestsState {
 }
 const initialOrderState = {
   orderSortCondition: true,
-  orderKeyForSort: "",
+  orderKeyForSort: "createdAt",
   orderCreating: {
     data: null,
     isLoading: false,

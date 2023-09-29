@@ -15,6 +15,7 @@
 .menuItems{
     width: 100%;
     max-height: 90px;
+    min-height: 30px;
     display: flex;
     align-items: flex-end;
     overflow-x: auto;
@@ -22,6 +23,7 @@
 .menuItem{
     max-width: 150px;
     max-height: 50px;
+    min-height: 25px;
     background:linear-gradient(30deg,var(--last_menu_color),var(--medium_menu_color),var(--last_menu_color)) ;
     display: flex;
     align-items: center;

@@ -32,16 +32,18 @@ const AllOrders: React.FC<OrdersProps> = ({markRole}) => {
   const ordersError = useSelector(selectAllOrdersError);
 
   const sortCondition = useSelector(selectOrderSortCondition);
+
   const choosedOrderKey = useSelector(selectOrderKeySort);
 
   const curUser = useSelector(selectUserData);
   const accS = Cookies.get("perAcTkn");
 
   const sortedOrders = useSortedObj<OrderRequestResult>(
-    allOrders?.orders || [],
+    allOrders && allOrders.orders.length ? allOrders.orders : [],
     choosedOrderKey as keyof OrderRequestResult,
     sortCondition ? SortTypes.ABC : SortTypes.CBA,
   );
+
   useEffect(() => {
     if (curUser && curUser.success && accS) {
       curUser.role === "admin" && markRole === curUser.role
