@@ -93,12 +93,9 @@ const Catalog: React.FC = () => {
     [choosedFilter],
   );
 
-  const onGetCardDescrip = useCallback(
-    (cardId: string) => {
-      navigation(FOR_GH_PAGES + APP_AUTH_ROUTES.catalog.link + "/" + cardId);
-    },
-    [APP_AUTH_ROUTES.catalog.link],
-  );
+  const onGetCardDescrip = useCallback((cardId: string) => {
+    navigation(APP_AUTH_ROUTES.catalog.link + "/" + cardId);
+  }, []);
 
   const onGetCurrentFilter = (theme: string) =>
     dispatch(carrentCatalogFilter(theme));
