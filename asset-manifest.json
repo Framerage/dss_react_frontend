@@ -1,7 +1,7 @@
 {
   "files": {
     "main.css": "/dss_react_frontend/static/css/main.5e65e3cd.css",
-    "main.js": "/dss_react_frontend/static/js/main.6db29a6e.js",
+    "main.js": "/dss_react_frontend/static/js/main.67d84917.js",
     "static/css/384.7a1b1273.chunk.css": "/dss_react_frontend/static/css/384.7a1b1273.chunk.css",
     "static/js/384.68f08998.chunk.js": "/dss_react_frontend/static/js/384.68f08998.chunk.js",
     "static/media/bas-relief.jpg": "/dss_react_frontend/static/media/bas-relief.089ae646703c7e55fc8f.jpg",
@@ -38,12 +38,12 @@
     "static/media/btn-plus.svg": "/dss_react_frontend/static/media/btn-plus.c4ad914c4a4c568589ae272f9f4b07bf.svg",
     "static/media/arrow.svg": "/dss_react_frontend/static/media/arrow.7fb3400bf0365090a3a17774aff83de2.svg",
     "main.5e65e3cd.css.map": "/dss_react_frontend/static/css/main.5e65e3cd.css.map",
-    "main.6db29a6e.js.map": "/dss_react_frontend/static/js/main.6db29a6e.js.map",
+    "main.67d84917.js.map": "/dss_react_frontend/static/js/main.67d84917.js.map",
     "384.7a1b1273.chunk.css.map": "/dss_react_frontend/static/css/384.7a1b1273.chunk.css.map",
     "384.68f08998.chunk.js.map": "/dss_react_frontend/static/js/384.68f08998.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.5e65e3cd.css",
-    "static/js/main.6db29a6e.js"
+    "static/js/main.67d84917.js"
   ]
 }
