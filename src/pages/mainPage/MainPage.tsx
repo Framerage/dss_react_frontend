@@ -61,7 +61,7 @@ const previewContent = [
   },
 ];
 const MainPage: React.FC = () => {
-  console.log("test5");
+  console.log("test4 ");
   return (
     <div className={classes.mainContainer}>
       <div className={classes.mainContent}>
