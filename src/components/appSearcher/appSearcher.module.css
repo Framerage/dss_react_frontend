@@ -12,7 +12,8 @@
     background: linear-gradient(30deg,var(--last_menu_color),var(--medium_menu_color),var(--last_menu_color));
     font-size: 16px;
     font-weight: 600;
-    color: black;
+    color: white;
+    text-shadow: 0 0 5px black;
     padding: 5px 10px;
     animation: inputHidden 1.5s ease-in-out alternate;
     border: 1px solid black;

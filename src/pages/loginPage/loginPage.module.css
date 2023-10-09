@@ -1,6 +1,6 @@
 .formBlock {
   width: 500px;
-  height: 250px;
+  height: 260px;
   border: 6px double var(--exclusive_app_color);
   border-radius: 15px;
   background-color: var(--dark_app_color);
@@ -49,9 +49,10 @@
   transform: scale(0.98);
 }
 .errorReqText{
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 600;
   color: darkred;
+  text-shadow: 0 0 5px white;
   width: 100%;
   text-align: center;
   padding: 5px 0;

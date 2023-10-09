@@ -5,19 +5,19 @@ import ContactsPage from "pages/contactsPage/ContactsPage";
 import CreateOrder from "pages/createOrder/CreateOrder";
 import CreatingCard from "pages/creatingCard/CreatingCard";
 import LoginPage from "pages/loginPage/LoginPage";
-import MainPage from "pages/mainPage";
+import SuspenseMainPage from "pages/mainPage/SuspenseMainPage";
 import OrderPage from "pages/orderPage/OrderPage";
 import PersonalPage from "pages/personalPage/PersonalPage";
 import RegistrationPage from "pages/regPage/RegistrainPage";
+import React from "react";
 
 interface RoutesType {
   [key: string]: {component: React.FC | null; link: string; index?: boolean};
 }
 export const FOR_GH_PAGES = "";
 // export const FOR_GH_PAGES = "/dss_react_frontend";
-
 export const APP_GENERAL_ROUTES: RoutesType = {
-  main: {link: FOR_GH_PAGES + "/", component: MainPage, index: true},
+  main: {link: FOR_GH_PAGES + "/", component: SuspenseMainPage, index: true},
   catalog: {link: FOR_GH_PAGES + "/cards", component: Catalog},
   catalogCard: {link: FOR_GH_PAGES + "/cards/:id", component: CardFullDescrip},
   contacts: {link: FOR_GH_PAGES + "/contacts", component: ContactsPage},
@@ -29,7 +29,7 @@ export const APP_GENERAL_ROUTES: RoutesType = {
   },
 };
 export const APP_AUTH_ROUTES: RoutesType = {
-  main: {link: FOR_GH_PAGES, component: MainPage, index: true},
+  main: {link: FOR_GH_PAGES, component: SuspenseMainPage, index: true},
   catalog: {link: FOR_GH_PAGES + "/cards", component: Catalog},
   catalogCard: {link: FOR_GH_PAGES + "/cards/:id", component: CardFullDescrip},
   creatingCard: {link: FOR_GH_PAGES + "/create-card", component: CreatingCard},

@@ -259,7 +259,7 @@ const Catalog: React.FC = () => {
               </div>
             )
           ) : (
-            <PointLoader scale={0.3} />
+            <PointLoader scale={0.2} />
           )}
         </div>
       </div>

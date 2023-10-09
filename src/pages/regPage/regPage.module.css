@@ -58,15 +58,18 @@
 }
 .submitBtn {
   width: 100px;
-  height: 25px;
+  height: 30px;
   border: 3px solid black;
   border-radius: 5px;
   background-color: white;
   margin: 0 auto;
   font-size: 16px;
-  text-align: center;
   transition: 0.2s;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 5px;
 }
 .submitBtn:hover {
   background-color: grey;
@@ -76,6 +79,6 @@
   font-size: 24px;
   font-weight: 700;
   color: darkred;
-  text-shadow: 0 5px 10px black;
+  text-shadow: 0 0px 5px white;
   margin: 10px auto;
 }
