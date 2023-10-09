@@ -1,6 +1,5 @@
 import React from "react";
-import CardDecorFrame from "assets/images/pic-frame.png";
-import CardMirrowFrame from "assets/images/mirrow-frame.png";
+import SvgFrame from "assets/images/svgFrame.svg";
 import PreviewCard from "components/previewCard/PreviewCard";
 import PreviewMainBlock from "components/previewMainBlock/PreviewMainBlock";
 
@@ -25,19 +24,19 @@ import {
 } from "components/previewMainBlock/constants";
 const previewCards = [
   {
-    img: CardDecorFrame,
-    text: "Home comfort, simple, usefull and interesting furniture ",
+    img: SvgFrame,
+    text: "Home comfort, usefull and interesting furniture ",
     link: "art-furniture",
   },
 
   {
-    img: CardMirrowFrame,
+    img: SvgFrame,
     text: "Creative neon decors, DIY, neon lamps",
     link: "art-neon",
     isCircle: true,
   },
   {
-    img: CardDecorFrame,
+    img: SvgFrame,
     text: "Creative 3D models",
     link: "art-printers",
   },

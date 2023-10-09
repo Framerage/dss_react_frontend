@@ -14,6 +14,7 @@
     cursor: pointer;
     text-decoration: none;
     margin-top: 100px;
+    filter: drop-shadow(0 5px 10px var(--exclusive_app_color));
 }
 .previewFrame{
     width: 100%;
