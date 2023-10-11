@@ -97,10 +97,6 @@ const Catalog: React.FC = React.memo(() => {
     setSearchValue(value);
   }, []);
 
-  const onGetCardDescrip = useCallback((cardId: string) => {
-    window.open(APP_AUTH_ROUTES.catalog.link + "/" + cardId, "_self");
-  }, []);
-
   const onGetCurrentFilter = useCallback(
     (theme: string) => dispatch(currentCatalogFilter(theme)),
     [],
@@ -243,7 +239,6 @@ const Catalog: React.FC = React.memo(() => {
                 <CatalogCard
                   key={card._id}
                   card={card}
-                  onClickCard={onGetCardDescrip}
                   isCardAdded={
                     shopCartCards?.length > 0
                       ? shopCartCards.some(el => el._id.includes(card._id))

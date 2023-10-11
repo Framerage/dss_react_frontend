@@ -1,4 +1,6 @@
 import React, {useState} from "react";
+import {Link} from "react-router-dom";
+import {APP_AUTH_ROUTES} from "utils/routes";
 import {CatalogCardNesting} from "typings/catalogCards";
 import ImageSlider from "components/imageSlider/ImageSlider";
 import PlusIcon from "assets/icons/btn-plus.svg";
@@ -7,9 +9,9 @@ import Unliked from "assets/icons/heart.svg";
 import Liked from "assets/icons/fillHeart.svg";
 import {useCheckCardTheme} from "hooks/catalog/useCheckCardTheme";
 import classes from "./catalogCard.module.css";
+
 interface CardProps {
   card?: CatalogCardNesting;
-  onClickCard?: (id: string) => void;
   isCardAdded: boolean;
   isAuthDone: boolean;
   onAddCardToCart: (card: CatalogCardNesting) => void;
@@ -23,7 +25,6 @@ interface CardProps {
 const CatalogCard: React.FC<CardProps> = React.memo(
   ({
     card,
-    onClickCard,
     isCardAdded,
     onAddCardToCart,
     isAuthDone,
@@ -81,14 +82,12 @@ const CatalogCard: React.FC<CardProps> = React.memo(
           </div>
         </div>
         <div className={classes.cardInfo}>
-          <div
+          <Link
+            to={APP_AUTH_ROUTES.catalog.link + "/" + card?._id}
             className={classes.infoCardTitle}
-            onClick={() => {
-              onClickCard && card && onClickCard(card._id);
-            }}
           >
             {card?.title}
-          </div>
+          </Link>
           <div className={classes.infoCardTheme}>
             Theme:&nbsp;
             <br />
