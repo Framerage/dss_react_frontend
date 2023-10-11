@@ -13,3 +13,11 @@
     bottom: 0;
     z-index: 10000; */
   }
+  .sharedLink{
+    text-decoration: none;
+    transition: 0.2s;
+    cursor: pointer;
+  }
+  .sharedLink:hover{
+    transform: scale(1.1);
+  }

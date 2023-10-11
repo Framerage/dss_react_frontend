@@ -1,60 +1,67 @@
 import {createSelector} from "@reduxjs/toolkit";
 import {selectRoot} from "../rootSelectors";
 
-const selectAuthState = createSelector(selectRoot, root => root.catalogReducer);
+const selectCatalogState = createSelector(
+  selectRoot,
+  root => root.catalogReducer,
+);
 export const choosedCatalogFilter = createSelector(
-  selectAuthState,
+  selectCatalogState,
   state => state.catalogFilter,
 );
 
+export const selectCatalogStatus = createSelector(
+  selectCatalogState,
+  state => state.isCatalogOpen,
+);
 export const catalogCardsData = createSelector(
-  selectAuthState,
+  selectCatalogState,
   state => state.catalogCards.data,
 );
 export const catalogCardsIsLoading = createSelector(
-  selectAuthState,
+  selectCatalogState,
   state => state.catalogCards.isLoading,
 );
 export const catalogCardsError = createSelector(
-  selectAuthState,
+  selectCatalogState,
   state => state.catalogCards.error,
 );
 
 export const catalogCardDescrip = createSelector(
-  selectAuthState,
+  selectCatalogState,
   state => state.catalogCardDescrip.data,
 );
 export const catalogCardDescripIsLoading = createSelector(
-  selectAuthState,
+  selectCatalogState,
   state => state.catalogCardDescrip.isLoading,
 );
 export const catalogCardDescripError = createSelector(
-  selectAuthState,
+  selectCatalogState,
   state => state.catalogCardDescrip.error,
 );
 
 export const creatingCardData = createSelector(
-  selectAuthState,
+  selectCatalogState,
   state => state.cardCreating.data,
 );
 export const creatingCardsIsLoading = createSelector(
-  selectAuthState,
+  selectCatalogState,
   state => state.cardCreating.isLoading,
 );
 export const creatingCardError = createSelector(
-  selectAuthState,
+  selectCatalogState,
   state => state.cardCreating.error,
 );
 
 export const selectCardDeleteRequest = createSelector(
-  selectAuthState,
+  selectCatalogState,
   state => state.cardRemoveRequest.data,
 );
 export const selectCardDeleteRequestIsLoading = createSelector(
-  selectAuthState,
+  selectCatalogState,
   state => state.cardRemoveRequest.isLoading,
 );
 export const selectCardDeleteRequestError = createSelector(
-  selectAuthState,
+  selectCatalogState,
   state => state.cardRemoveRequest.error,
 );

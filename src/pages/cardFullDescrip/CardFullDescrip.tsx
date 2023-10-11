@@ -1,7 +1,15 @@
 import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import Unliked from "assets/icons/heart.svg";
+import Liked from "assets/icons/fillHeart.svg";
+import DeleteIcon from "assets/icons/btn-remove.svg";
+import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES} from "utils/routes";
+import PointLoader from "components/pointLoader/PointLoader";
+import ImageSlider from "components/imageSlider/ImageSlider";
+import {useCheckCardTheme} from "hooks/catalog/useCheckCardTheme";
+
 import {AppDispatch} from "store";
+import {useDispatch, useSelector} from "react-redux";
 import {
   catalogCardDescrip,
   catalogCardDescripError,
@@ -15,21 +23,15 @@ import {
   getCardFullDescripFx,
   removeCardFromCatalog,
 } from "store/modules/catalog/async-actions";
-import PointLoader from "components/pointLoader/PointLoader";
-import ImageSlider from "components/imageSlider/ImageSlider";
-import {useCheckCardTheme} from "hooks/catalog/useCheckCardTheme";
-import cn from "classnames";
-import Unliked from "assets/icons/heart.svg";
-import Liked from "assets/icons/fillHeart.svg";
-import classes from "./cardFullDescrip.module.css";
 import {selectUserData} from "store/modules/auth/selectors";
 import {editUserExtraInfoFx} from "store/modules/auth/async-actions";
-import Cookies from "js-cookie";
-import DeleteIcon from "assets/icons/btn-remove.svg";
 import {resetCardRemovingResult} from "store/modules/catalog/actions";
-import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES} from "utils/routes";
 
-const CardFullDescrip = () => {
+import Cookies from "js-cookie";
+import cn from "classnames";
+import classes from "./cardFullDescrip.module.css";
+
+const CardFullDescrip: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const pathParam = useParams<{id: string}>();
   const navigate = useNavigate();
@@ -47,29 +49,33 @@ const CardFullDescrip = () => {
 
   const cardTheme = useCheckCardTheme(cardDescrip);
 
-  const [isCardLiked, setIsCardLiked] = useState(false);
+  const [isCardLiked, setIsCardLiked] = useState(
+    Boolean(
+      userInfo && cardDescrip && userInfo.userLikes.includes(cardDescrip._id),
+    ),
+  );
   const [cardLikes, setCardLikes] = useState(
     cardDescrip && cardDescrip.likes ? cardDescrip.likes : 0,
   );
 
   useEffect(() => {
-    if (cardDescrip) {
-      setIsCardLiked(
-        Boolean(
-          userInfo &&
-            cardDescrip &&
-            userInfo.userLikes.includes(cardDescrip._id),
-        ),
-      );
-      setCardLikes(cardDescrip.likes || 0);
+    if (pathParam.id && cardDescrip) {
       if (cardDescrip._id === pathParam.id) {
+        setIsCardLiked(
+          Boolean(
+            userInfo &&
+              cardDescrip &&
+              userInfo.userLikes.includes(cardDescrip._id),
+          ),
+        );
+        setCardLikes(cardDescrip.likes || 0);
         return;
       }
-      pathParam.id && dispatch(getCardFullDescripFx(pathParam.id));
+      dispatch(getCardFullDescripFx(pathParam.id));
       return;
     }
     pathParam.id && dispatch(getCardFullDescripFx(pathParam.id));
-  }, [cardDescrip]);
+  }, [cardDescrip, userInfo, pathParam]);
 
   useEffect(() => {
     if (removeRequest && removeRequest.success) {
@@ -79,6 +85,7 @@ const CardFullDescrip = () => {
       );
     }
   }, [removeRequest]);
+
   const onSendLike = () => {
     cardDescrip &&
       dispatch(
@@ -119,10 +126,11 @@ const CardFullDescrip = () => {
   const onDeleteCard = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     const check = window.prompt("Are you sure want to delete? Enter pass");
-    check === process.env.REACT_APP_ADM_PSS &&
-      cardDescrip &&
-      accS &&
+    if (check === process.env.REACT_APP_ADM_PSS && cardDescrip && accS) {
       dispatch(removeCardFromCatalog({id: cardDescrip._id, auth: accS}));
+      return;
+    }
+    window.alert("Удаление не удалось");
   };
   return (
     <>
@@ -152,6 +160,7 @@ const CardFullDescrip = () => {
                 className={classes.deleteBtn}
               >
                 <img src={DeleteIcon} alt="delBtn" />
+                {removeRequestIsLoading && "loading..."}
               </button>
             </div>
             <div className={classes.cardExtraContent}>

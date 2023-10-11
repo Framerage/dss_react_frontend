@@ -1,17 +1,18 @@
 import React, {useState} from "react";
-import classes from "./personalPage.module.css";
-import {useDispatch, useSelector} from "react-redux";
-import {selectUserData} from "store/modules/auth/selectors";
-import cn from "classnames";
 import AllOrders from "components/personalPageComponents/allOrders";
 import PersonalDatas from "components/personalPageComponents/personalDatas";
 import ArrowIcon from "assets/icons/arrow.svg";
-import {selectOrderSortCondition} from "store/modules/order/selectors";
 import {AppDispatch} from "store";
+import {useDispatch, useSelector} from "react-redux";
+import {selectUserData} from "store/modules/auth/selectors";
+import {selectOrderSortCondition} from "store/modules/order/selectors";
 import {
   chooseOrderKeyForSort,
   chooseOrdersSortCondition,
 } from "store/modules/order/actions";
+import cn from "classnames";
+import classes from "./personalPage.module.css";
+
 const menuItems = [
   {
     name: "persData",
@@ -33,12 +34,15 @@ const menuItems = [
   },
   {name: "statistic", title: "Статистика", component: null, role: "admin"},
 ];
+
 const PersonalPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const userInfo = useSelector(selectUserData);
   const sortCondition = useSelector(selectOrderSortCondition);
 
   // console.log(userInfo && Object.keys(userInfo), "onfp");
+  //TODO: check оформление информации юзера
+  //TODO: check раскомпановка верстки!! опитимизация селектора
 
   const [choosedMenuItem, setChoosedMenuItem] = useState(menuItems[0].name);
   const onChooseMenuItem = (itemName: string) => setChoosedMenuItem(itemName);

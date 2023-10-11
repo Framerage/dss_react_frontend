@@ -2,7 +2,11 @@ import React from "react";
 import SvgFrame from "assets/images/svgFrame.svg";
 import PreviewCard from "components/previewCard/PreviewCard";
 import PreviewMainBlock from "components/previewMainBlock/PreviewMainBlock";
-
+import {
+  FURNITURE_HISTORY,
+  NEON_HISTORY,
+  VOL_PRINTERS_HISTORY,
+} from "components/previewMainBlock/constants";
 import PrintHisImg1 from "assets/images/printerHistory/print1.jpg";
 import PrintHisImg3 from "assets/images/printerHistory/print3.jpg";
 
@@ -17,11 +21,7 @@ import FurnHisImg4 from "assets/images/furnitureHistory/furn4.jpg";
 import FurnHisImg5 from "assets/images/furnitureHistory/furn5.jpg";
 
 import classes from "./mainPage.module.css";
-import {
-  FURNITURE_HISTORY,
-  NEON_HISTORY,
-  VOL_PRINTERS_HISTORY,
-} from "components/previewMainBlock/constants";
+
 const previewCards = [
   {
     img: SvgFrame,

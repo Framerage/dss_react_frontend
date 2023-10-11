@@ -1,12 +1,11 @@
 import React, {useState} from "react";
-import cn from "classnames";
 import defaultImg from "assets/images/defaultCardImg.png";
-
-import classes from "./imageSlider.module.css";
-import {setBase64Image} from "helpers/appHelpers";
-import {setPopupImage} from "store/modules/popup/actions";
-import {useDispatch} from "react-redux";
 import {AppDispatch} from "store";
+import {useDispatch} from "react-redux";
+import {setPopupImage} from "store/modules/popup/actions";
+import {setBase64Image} from "helpers/appHelpers";
+import cn from "classnames";
+import classes from "./imageSlider.module.css";
 interface ImageSliderProps {
   images: string[];
   componentScale?: number;
@@ -22,6 +21,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
   const dispatch = useDispatch<AppDispatch>();
   const [choosedImg, setChoosedImg] = useState(0);
   const [isImgScaled, setIsImageScaled] = useState(false);
+
   const onScaleImg = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
     setIsImageScaled(!isImgScaled);

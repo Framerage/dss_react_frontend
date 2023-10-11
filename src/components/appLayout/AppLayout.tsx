@@ -1,23 +1,26 @@
 import React, {useEffect, useMemo} from "react";
-import classes from "./appLayout.module.css";
-import AppHeader from "../appHeader/AppHeader";
 import {Route, Routes} from "react-router-dom";
 import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES} from "utils/routes";
+
+import AppHeader from "components/appHeader";
 import AppMenu from "components/appMenu";
+import ModalCart from "components/modalCart";
+import AppPopup from "components/AppPopup";
+import AppFooter from "components/appFooter";
+import LoginPage from "pages/loginPage";
+import ErrorPage from "pages/errorPage";
+
+import {AppDispatch} from "store";
 import {useDispatch, useSelector} from "react-redux";
 import {isUserAuth, selectUserData} from "store/modules/auth/selectors";
-import ModalCart from "components/modalCart/ModalCart";
 import {isShopCartUse} from "store/modules/cart/selectors";
-import AppPopup from "components/AppPopup/AppPopup";
 import {selectPopupImage} from "store/modules/popup/selectors";
-import AppFooter from "components/appFooter/AppFooter";
-import LoginPage from "pages/loginPage/LoginPage";
-import ErrorPage from "pages/errorPage";
-import {AppDispatch} from "store";
-import Cookies from "js-cookie";
 import {getUserAuth, resetUserRequest} from "store/modules/auth/actions";
 import {fetchUserInfo} from "store/modules/auth/async-actions";
 
+import Cookies from "js-cookie";
+
+import classes from "./appLayout.module.css";
 const AppLayout: React.FC = () => {
   const userData = useSelector(selectUserData);
   const isAuth = useSelector(isUserAuth);
@@ -50,18 +53,21 @@ const AppLayout: React.FC = () => {
       },
     ];
   }, [isAuth]);
+
   const isCartOpened = useSelector(isShopCartUse);
   const isPopupOpen = useSelector(selectPopupImage);
 
+  //TODO: добавить debounse в модалке на указание количества товаров
+  //TODO: popup открывать на текущем скроле
+  //TODO: оптимизация главной
   //TODO: настроить счетчик заказов
-  //TODO: админская секция/страница со статистикой просмотров/лайков, список заказов+история заказов выполненные/ в процессе/ на этапе обсуждения
+  //TODO: добавить сохранение БД в файлы на серве (резервн сохранение данных)
+  //TODO: админская секция/страница со статистикой просмотров/лайков
   //TODO: хелпер для русского оформления названия темы
   //TODO: страница заказа, добавить оплату
   //TODO: страница создания собственного заказа
   //TODO: подумать об использовании промокода при регистрации для акций и бонусов(проверку делать на бэке и возвращать текущее/расчитанное кол-во бонусов)
-  //TODO: сохранять корзину в локалсторейдж или на бд?
   //TODO: дополнить футер навигацией?
-  //TODO: разоабраться с размерами контента в карточках на главной, подумать о снижении веса картинок в проекте, либо об их замене на свг или более дешевые
   //TODO: адаптив для всех страниц
   //TODO:  добавить ли рефреш токен?
   //TODO:  придумать текст about

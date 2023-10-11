@@ -1,6 +1,8 @@
 import React, {useEffect, useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {APP_GENERAL_ROUTES} from "utils/routes";
+import {EMAIL_PATTERN} from "constants/appConstants";
 import {AppDispatch} from "store";
+import {useDispatch, useSelector} from "react-redux";
 import {
   selectRegistrData,
   selectRegistrError,
@@ -10,10 +12,8 @@ import {UserRegistrationFx} from "store/modules/auth/async-actions";
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
 import {createBrowserHistory} from "history";
-import {APP_GENERAL_ROUTES} from "utils/routes";
 
 import classes from "./regPage.module.css";
-import {EMAIL_PATTERN} from "constants/appConstants";
 interface RegFormData {
   email: string;
   pass: string;

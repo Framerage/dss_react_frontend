@@ -1,5 +1,4 @@
 import React, {useCallback, useEffect, useState} from "react";
-import cn from "classnames";
 import {CatalogCardNesting, cardThemes} from "typings/catalogCards";
 import {useForm} from "react-hook-form";
 import {generateFileData, setBase64Image} from "helpers/appHelpers";
@@ -11,10 +10,12 @@ import {
   creatingCardsIsLoading,
   creatingCardError,
 } from "store/modules/catalog/selectors";
-
-import classes from "./creatingCard.module.css";
 import {resetCreatingCardResult} from "store/modules/catalog/actions";
+
 import Cookies from "js-cookie";
+import cn from "classnames";
+import classes from "./creatingCard.module.css";
+
 const CreatingCard: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const creatingResult = useSelector(creatingCardData);

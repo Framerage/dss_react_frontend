@@ -1,10 +1,11 @@
 import React from "react";
-import {useLocation} from "react-router-dom";
-import classes from "./appFooter.module.css";
 
 import VkIcon from "assets/icons/vk.svg";
 import WhatsappIcon from "assets/icons/whatsapp.svg";
 import TelegramIcon from "assets/icons/telegram.svg";
+import {APP_DOMEN} from "constants/appConstants";
+import classes from "./appFooter.module.css";
+
 const sharedContacts = [
   {
     name: "Telegram",
@@ -22,24 +23,22 @@ const sharedContacts = [
     img: VkIcon,
   },
 ];
-//TODO: check убрать при деплое на реальный серв
-const domen = "framerage.github.io";
 const AppFooter: React.FC = () => {
-  const router = useLocation();
-  const currentPath = domen + router.pathname;
-
+  const onOpenBlankWithCurPath = (link: string) => {
+    window.open(link + APP_DOMEN + window.location.pathname, "_blank");
+  };
   return (
     <div className={classes.footerContainer}>
       Share in:
-      {sharedContacts.map(link => (
+      {sharedContacts.map(shared => (
         <a
-          key={link.name}
-          href={link.link + currentPath}
-          title={link.name}
-          target="_blank"
+          key={shared.name}
+          title={shared.name}
           rel="noopener noreferrer"
+          onClick={() => onOpenBlankWithCurPath(shared.link)}
+          className={classes.sharedLink}
         >
-          <img src={link.img} alt="footerLink" width={35} height={35} />
+          <img src={shared.img} alt="footerLink" width={35} height={35} />
         </a>
       ))}
     </div>

@@ -8,24 +8,27 @@ import {
 } from "./async-actions";
 import {CatalogCardNesting, CreatingCatalogCard} from "typings/catalogCards";
 import {
-  carrentCatalogFilter,
+  currentCatalogFilter,
   resetCardRemovingResult,
   resetCreatingCardResult,
+  saveCatalogStatus,
 } from "./actions";
+import {Prettify} from "typings/generalTypes";
 
 export interface CatalogInitialState {
+  isCatalogOpen: boolean;
   catalogCards: {
-    data: CatalogCardNesting[] | null;
+    data: Prettify<CatalogCardNesting>[] | null;
     isLoading: boolean;
     error: null | string;
   };
   catalogCardDescrip: {
-    data: CatalogCardNesting | null;
+    data: Prettify<CatalogCardNesting> | null;
     isLoading: boolean;
     error: null | string;
   };
   cardCreating: {
-    data: CreatingCatalogCard | null;
+    data: Prettify<CreatingCatalogCard> | null;
     isLoading: boolean;
     error: null | string;
   };
@@ -37,6 +40,7 @@ export interface CatalogInitialState {
   };
 }
 const catalogInitialState: CatalogInitialState = {
+  isCatalogOpen: false,
   catalogCards: {
     data: null,
     isLoading: false,
@@ -60,7 +64,10 @@ const catalogInitialState: CatalogInitialState = {
   },
 };
 export const catalogReducer = createReducer(catalogInitialState, {
-  [carrentCatalogFilter.type]: (state, action) => {
+  [saveCatalogStatus.type]: (state, {payload}) => {
+    state.isCatalogOpen = payload;
+  },
+  [currentCatalogFilter.type]: (state, action) => {
     state.catalogFilter = action.payload;
   },
   [resetCreatingCardResult.type]: state => {

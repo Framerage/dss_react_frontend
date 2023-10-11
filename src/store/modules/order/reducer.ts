@@ -10,11 +10,12 @@ import {
   chooseOrderKeyForSort,
   resetOrderCreatingResult,
 } from "./actions";
+import {Prettify} from "typings/generalTypes";
 interface OrderRequestsState {
   orderSortCondition: boolean;
   orderKeyForSort: string;
   orderCreating: {
-    data: OrderRequestResult | null;
+    data: Prettify<OrderRequestResult> | null;
     isLoading: boolean;
     error: string | null;
   };

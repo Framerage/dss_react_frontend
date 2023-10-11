@@ -1,10 +1,11 @@
 import {createReducer} from "@reduxjs/toolkit";
 import {isShoppingCartUse, updateCardsOfCart} from "./actions";
 import {ShopCartCardsForOrder} from "typings/catalogCards";
+import {Prettify} from "typings/generalTypes";
 
 interface ShoppingCartInitioalState {
   isShopCartUsing: boolean;
-  shopCartCards: ShopCartCardsForOrder[];
+  shopCartCards: Prettify<ShopCartCardsForOrder>[];
 }
 const shopCartInitioalState: ShoppingCartInitioalState = {
   isShopCartUsing: false,

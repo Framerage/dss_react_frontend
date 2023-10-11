@@ -9,41 +9,40 @@ interface CatalogFilterProps {
   filterItems: VolumMenuProps[];
   onChooseFilter: (theme: string) => void;
 }
-const CatalogFilter: React.FC<CatalogFilterProps> = ({
-  filterItems,
-  onChooseFilter,
-}) => {
-  const choosedFilter = useSelector(choosedCatalogFilter);
+const CatalogFilter: React.FC<CatalogFilterProps> = React.memo(
+  ({filterItems, onChooseFilter}) => {
+    const choosedFilter = useSelector(choosedCatalogFilter);
 
-  const itemsCount = filterItems ? filterItems.length : 0;
+    const itemsCount = filterItems ? filterItems.length : 0;
 
-  const itemZindex = (index: number) => {
-    return {
-      zIndex: itemsCount - index,
+    const itemZindex = (index: number) => {
+      return {
+        zIndex: itemsCount - index,
+      };
     };
-  };
-  return (
-    <div className={classes.menu3dContainer}>
-      <ul className={classes.menuBlock}>
-        {filterItems &&
-          filterItems.map((item, index) => (
-            <button
-              key={item.title + index}
-              onClick={() => {
-                onChooseFilter(item.link);
-              }}
-              className={cn(classes.menuItem, {
-                [classes.activeMenuItem]: choosedFilter === item.link,
-              })}
-              style={itemZindex(index)}
-            >
-              <span className={classes.itemLink} style={item.style}>
-                {item.title}
-              </span>
-            </button>
-          ))}
-      </ul>
-    </div>
-  );
-};
+    return (
+      <div className={classes.menu3dContainer}>
+        <ul className={classes.menuBlock}>
+          {filterItems &&
+            filterItems.map((item, index) => (
+              <button
+                key={item.title + index}
+                onClick={() => {
+                  onChooseFilter(item.link);
+                }}
+                className={cn(classes.menuItem, {
+                  [classes.activeMenuItem]: choosedFilter === item.link,
+                })}
+                style={itemZindex(index)}
+              >
+                <span className={classes.itemLink} style={item.style}>
+                  {item.title}
+                </span>
+              </button>
+            ))}
+        </ul>
+      </div>
+    );
+  },
+);
 export default CatalogFilter;

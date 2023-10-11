@@ -3,7 +3,7 @@ import {SortTypes} from "typings/generalTypes";
 import {checkColumnBySort} from "./hooksHelpers";
 
 /**
- * @param obj объект/список заявок, который мы сортируем,
+ * @param obj объект/список, который мы сортируем,
  * @param columnKey - выбранный столбец по которому сортируется,
  * @param condition - вид сортировки от меньшего к большему/ от большего к меньшему
  * @returns script version

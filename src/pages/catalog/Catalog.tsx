@@ -1,7 +1,14 @@
 import React, {useCallback, useEffect, useState} from "react";
 import CatalogCard from "components/catalogCard/CatalogCard";
-import {Link, useNavigate} from "react-router-dom";
-import {APP_AUTH_ROUTES, FOR_GH_PAGES} from "utils/routes";
+import PointLoader from "components/pointLoader/PointLoader";
+import AppSearcher from "components/appSearcher/AppSearcher";
+import CatalogFilter from "components/catalogFilter";
+
+import {Link} from "react-router-dom";
+import {APP_AUTH_ROUTES} from "utils/routes";
+import {CatalogCardNesting} from "typings/catalogCards";
+
+import {AppDispatch} from "store";
 import {useDispatch, useSelector} from "react-redux";
 import {
   catalogCardsData,
@@ -9,28 +16,34 @@ import {
   catalogCardsIsLoading,
   choosedCatalogFilter,
 } from "store/modules/catalog/selectors";
-import PointLoader from "components/pointLoader/PointLoader";
-import {AppDispatch} from "store";
 import {
   editCatalogCardFx,
   getCatalogCardsFx,
 } from "store/modules/catalog/async-actions";
-import CatalogFilter from "components/catalogFilter";
-import {carrentCatalogFilter} from "store/modules/catalog/actions";
-import {useFiltredObj} from "hooks/useFilteredObj";
-import {CatalogCardNesting} from "typings/catalogCards";
+import {
+  currentCatalogFilter,
+  saveCatalogStatus,
+} from "store/modules/catalog/actions";
 import {selectUserData} from "store/modules/auth/selectors";
-
-import classes from "./catalog.module.css";
-import AppSearcher from "components/appSearcher/AppSearcher";
-import {useFiltredCards} from "hooks/catalog/useFiltredCards";
 import {getUpdatedShopCartCards} from "store/modules/cart/selectors";
 import {updateCardsOfCart} from "store/modules/cart/actions";
 import {editUserExtraInfoFx} from "store/modules/auth/async-actions";
-import Cookies from "js-cookie";
 
-const Catalog: React.FC = () => {
-  const navigation = useNavigate();
+import {useFiltredObj} from "hooks/useFilteredObj";
+import {useFiltredCards} from "hooks/catalog/useFiltredCards";
+import Cookies from "js-cookie";
+import classes from "./catalog.module.css";
+
+const catalogFilterItems = [
+  {title: "All", link: ""},
+  {title: "Neon decor", link: "neon"},
+  {title: "Wood cutting ", link: "plywood"},
+  {title: "Laser engraving", link: "laserEngr"},
+  {title: "Furniture", link: "furniture"},
+  {title: "3D-printer", link: "volPrinter"},
+  {title: "Relief pictures", link: "reliefPics"},
+];
+const Catalog: React.FC = React.memo(() => {
   const dispatch = useDispatch<AppDispatch>();
 
   const userInfo = useSelector(selectUserData);
@@ -53,6 +66,7 @@ const Catalog: React.FC = () => {
   const filtredCardsBySearch = useFiltredCards(filtredCards, searchValue);
 
   useEffect(() => {
+    dispatch(saveCatalogStatus(true));
     dispatch(getCatalogCardsFx()).then(({payload}) => {
       if (
         userInfo &&
@@ -71,34 +85,26 @@ const Catalog: React.FC = () => {
         dispatch(updateCardsOfCart(newCartList));
       }
     });
+    return () => {
+      dispatch(saveCatalogStatus(false));
+    };
   }, []);
 
-  const catalogFilterItems = [
-    {title: "All", link: ""},
-    {title: "Neon decor", link: "neon"},
-    {title: "Wood cutting ", link: "plywood"},
-    {title: "Laser engraving", link: "laserEngr"},
-    {title: "Furniture", link: "furniture"},
-    {title: "3D-printer", link: "volPrinter"},
-    {title: "Relief pictures", link: "reliefPics"},
-  ];
-
-  const onSetSearchValue = useCallback(
-    (value: string) => {
-      if (value && choosedFilter) {
-        dispatch(carrentCatalogFilter(""));
-      }
-      setSearchValue(value);
-    },
-    [choosedFilter],
-  );
+  const onSetSearchValue = useCallback((value: string) => {
+    if (value) {
+      dispatch(currentCatalogFilter(""));
+    }
+    setSearchValue(value);
+  }, []);
 
   const onGetCardDescrip = useCallback((cardId: string) => {
-    navigation(APP_AUTH_ROUTES.catalog.link + "/" + cardId);
+    window.open(APP_AUTH_ROUTES.catalog.link + "/" + cardId, "_self");
   }, []);
 
-  const onGetCurrentFilter = (theme: string) =>
-    dispatch(carrentCatalogFilter(theme));
+  const onGetCurrentFilter = useCallback(
+    (theme: string) => dispatch(currentCatalogFilter(theme)),
+    [],
+  );
 
   const addCardToShopCart = useCallback(
     (card: CatalogCardNesting) => {
@@ -128,7 +134,7 @@ const Catalog: React.FC = () => {
             user: {...userInfo, userCart: [card]},
             auth: accS,
           }),
-        ).then(({payload}) =>
+        ).then(({payload}) => {
           dispatch(
             updateCardsOfCart(
               payload.userCart
@@ -137,8 +143,9 @@ const Catalog: React.FC = () => {
                   })
                 : shopCartCards,
             ),
-          ),
-        );
+          );
+        });
+
         return;
       }
       if (userInfo.userCart.some(el => el._id === card._id)) {
@@ -150,7 +157,7 @@ const Catalog: React.FC = () => {
             },
             auth: accS,
           }),
-        ).then(({payload}) =>
+        ).then(({payload}) => {
           dispatch(
             updateCardsOfCart(
               payload.userCart
@@ -159,8 +166,8 @@ const Catalog: React.FC = () => {
                   })
                 : shopCartCards,
             ),
-          ),
-        );
+          );
+        });
         return;
       }
       dispatch(
@@ -168,7 +175,7 @@ const Catalog: React.FC = () => {
           user: {...userInfo, userCart: [...userInfo.userCart, card]},
           auth: accS,
         }),
-      ).then(({payload}) =>
+      ).then(({payload}) => {
         dispatch(
           updateCardsOfCart(
             payload.userCart
@@ -177,38 +184,40 @@ const Catalog: React.FC = () => {
                 })
               : shopCartCards,
           ),
-        ),
-      );
+        );
+      });
     },
     [shopCartCards, userInfo, accS],
   );
-  const onSendLike = (
-    catalogCard: CatalogCardNesting,
-    isCardLiked: boolean,
-    cardLikes: number,
-  ) => {
-    catalogCard &&
-      dispatch(
-        editCatalogCardFx({
-          ...catalogCard,
-          likes: isCardLiked ? cardLikes - 1 : cardLikes + 1,
-        }),
-      );
-    if (userInfo && userInfo.success && accS && catalogCard) {
-      dispatch(
-        editUserExtraInfoFx({
-          user: {
-            ...userInfo,
-            userLikes: isCardLiked
-              ? userInfo.userLikes.filter(el => el !== catalogCard._id)
-              : [...userInfo.userLikes, catalogCard._id],
-          },
-          auth: accS,
-        }),
-      );
-    }
-  };
-
+  const onSendLike = useCallback(
+    (
+      catalogCard: CatalogCardNesting,
+      isCardLiked: boolean,
+      cardLikes: number,
+    ) => {
+      catalogCard &&
+        dispatch(
+          editCatalogCardFx({
+            ...catalogCard,
+            likes: isCardLiked ? cardLikes - 1 : cardLikes + 1,
+          }),
+        );
+      if (userInfo && userInfo.success && accS && catalogCard) {
+        dispatch(
+          editUserExtraInfoFx({
+            user: {
+              ...userInfo,
+              userLikes: isCardLiked
+                ? userInfo.userLikes.filter(el => el !== catalogCard._id)
+                : [...userInfo.userLikes, catalogCard._id],
+            },
+            auth: accS,
+          }),
+        );
+      }
+    },
+    [userInfo, accS],
+  );
   return (
     <div className={classes.catalogContainer}>
       <CatalogFilter
@@ -262,5 +271,5 @@ const Catalog: React.FC = () => {
       </div>
     </div>
   );
-};
+});
 export default Catalog;

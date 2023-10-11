@@ -1,12 +1,12 @@
 import SuspenseWrapper from "components/suspenseWrapper";
 import React from "react";
-const MainPage = React.lazy(() => import("./MainPage"));
+const Content = React.lazy(() => import("./ErrorPage"));
 
-const SuspenseMainPage = () => {
+const SuspenseErrorPage = () => {
   return (
     <SuspenseWrapper>
-      <MainPage />
+      <Content />
     </SuspenseWrapper>
   );
 };
-export default SuspenseMainPage;
+export default SuspenseErrorPage;

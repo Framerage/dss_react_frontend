@@ -1,13 +1,13 @@
-import React, {memo, useEffect, useState} from "react";
-
-import {useDispatch, useSelector} from "react-redux";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
+import {Link} from "react-router-dom";
+import CardShopCart from "components/cardShopCart";
+import PointLoader from "components/pointLoader";
+import {APP_AUTH_ROUTES} from "utils/routes";
 import RemoveIcon from "assets/icons/btn-remove.svg";
 import EmptyCartImg from "assets/icons/emptyIcon.svg";
-import {Link} from "react-router-dom";
-import {APP_AUTH_ROUTES} from "utils/routes";
-import CardShopCart from "components/cardShopCart";
-import classes from "./modalCart.module.css";
+
 import {AppDispatch} from "store";
+import {useDispatch, useSelector} from "react-redux";
 import {
   getUpdatedShopCartCards,
   isShopCartUse,
@@ -16,15 +16,16 @@ import {selectUserData} from "store/modules/auth/selectors";
 import {isShoppingCartUse, updateCardsOfCart} from "store/modules/cart/actions";
 import {editUserExtraInfoFx} from "store/modules/auth/async-actions";
 import {getCatalogCardsFx} from "store/modules/catalog/async-actions";
-import {CatalogCardNesting} from "typings/catalogCards";
 import {
   catalogCardsData,
   catalogCardsIsLoading,
 } from "store/modules/catalog/selectors";
-import Cookies from "js-cookie";
-import PointLoader from "components/pointLoader";
 
-const ModalCart: React.FC = memo(() => {
+import {CatalogCardNesting} from "typings/catalogCards";
+import Cookies from "js-cookie";
+import classes from "./modalCart.module.css";
+
+const ModalCart: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const isCartOpened = useSelector(isShopCartUse);
   const shopCartCards = useSelector(getUpdatedShopCartCards);
@@ -34,6 +35,12 @@ const ModalCart: React.FC = memo(() => {
   const errorMsg = !catalogCards ? "Open catalog, please" : "Empty cart";
   const accS = Cookies.get("perAcTkn");
 
+  const hashCartCards = useMemo(() => {
+    if (!shopCartCards || !shopCartCards?.length) {
+      return [];
+    }
+    return shopCartCards;
+  }, [shopCartCards]);
   const [totalPrice, setTotalPrice] = useState(() => {
     if (!shopCartCards.length) {
       return 0;
@@ -86,37 +93,43 @@ const ModalCart: React.FC = memo(() => {
     }
   }, [isCartOpened, catalogCards, userInfo]);
 
-  const onChangeOrdersCount = (id: string, count: number) => {
-    dispatch(
-      updateCardsOfCart(
-        shopCartCards.map(el => {
-          if (el._id === id) {
-            return {...el, itemCount: count};
-          }
-          return el;
-        }),
-      ),
-    );
-  };
-
-  const onCloseCart = () => {
-    dispatch(isShoppingCartUse(false));
-  };
-
-  const onRemoveCardFromCart = (id: string) => {
-    dispatch(updateCardsOfCart(shopCartCards.filter(el => el._id !== id)));
-    if (userInfo && accS) {
+  const onChangeOrdersCount = useCallback(
+    (id: string, count: number) => {
       dispatch(
-        editUserExtraInfoFx({
-          user: {
-            ...userInfo,
-            userCart: userInfo.userCart.filter(el => el._id !== id),
-          },
-          auth: accS,
-        }),
+        updateCardsOfCart(
+          shopCartCards.map(el => {
+            if (el._id === id) {
+              return {...el, itemCount: count};
+            }
+            return el;
+          }),
+        ),
       );
-    }
-  };
+    },
+    [shopCartCards],
+  );
+
+  const onCloseCart = useCallback(() => {
+    dispatch(isShoppingCartUse(false));
+  }, []);
+
+  const onRemoveCardFromCart = useCallback(
+    (id: string) => {
+      dispatch(updateCardsOfCart(shopCartCards.filter(el => el._id !== id)));
+      if (userInfo && accS) {
+        dispatch(
+          editUserExtraInfoFx({
+            user: {
+              ...userInfo,
+              userCart: userInfo.userCart.filter(el => el._id !== id),
+            },
+            auth: accS,
+          }),
+        );
+      }
+    },
+    [userInfo, accS, shopCartCards],
+  );
 
   return (
     <div
@@ -135,10 +148,10 @@ const ModalCart: React.FC = memo(() => {
           />
         </h2>
 
-        {shopCartCards && shopCartCards.length > 0 ? (
+        {hashCartCards && hashCartCards.length > 0 ? (
           <div className={classes.shopCartItems}>
             <div className={classes.items}>
-              {shopCartCards.map(card => (
+              {hashCartCards.map(card => (
                 <CardShopCart
                   key={card._id}
                   card={card}
@@ -169,5 +182,5 @@ const ModalCart: React.FC = memo(() => {
       </div>
     </div>
   );
-});
+};
 export default ModalCart;

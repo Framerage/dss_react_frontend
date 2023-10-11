@@ -1,31 +1,31 @@
 import React from "react";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES} from "utils/routes";
-import {useDispatch, useSelector} from "react-redux";
 import {AppDispatch} from "store";
+import {useDispatch, useSelector} from "react-redux";
 import {
   getUserAuth,
   resetUserRequest,
   resetRegRequest,
 } from "store/modules/auth/actions";
 import {isUserAuth, selectUserData} from "store/modules/auth/selectors";
-import ShopCart from "assets/icons/cart-shopping-solid.svg";
-import classes from "./appHeader.module.css";
 import {isShoppingCartUse, updateCardsOfCart} from "store/modules/cart/actions";
+import {selectCatalogStatus} from "store/modules/catalog/selectors";
+
 import Arrow from "assets/icons/backArrow.svg";
+import ShopCart from "assets/icons/cart-shopping-solid.svg";
+
 import Cookies from "js-cookie";
 import cn from "classnames";
-import {createBrowserHistory} from "history";
+import classes from "./appHeader.module.css";
+
 const AppHeader: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
-  const navigate = useNavigate();
   const isAuth = useSelector(isUserAuth);
   const userInfo = useSelector(selectUserData);
-
+  const isCatalogOpen = useSelector(selectCatalogStatus);
   const userBonuses = userInfo?.bonuses || 0;
   const currentUser = userInfo?.name || "-";
-
-  const history = createBrowserHistory();
 
   const onLogOut = () => {
     dispatch(resetUserRequest());
@@ -33,14 +33,12 @@ const AppHeader: React.FC = () => {
     dispatch(updateCardsOfCart([]));
     Cookies.remove("perAcTkn");
     dispatch(getUserAuth(false));
-    navigate(APP_GENERAL_ROUTES.login.link);
   };
   const onOpenShopCart = () => dispatch(isShoppingCartUse(true));
   return (
     <header
       className={cn(classes.headerContainer, {
-        [classes.headerBG]:
-          history.location.pathname === APP_AUTH_ROUTES.catalog.link,
+        [classes.headerBG]: isCatalogOpen,
       })}
     >
       <Link to={APP_AUTH_ROUTES.main.link} className={classes.headerLogo}>
@@ -48,7 +46,10 @@ const AppHeader: React.FC = () => {
         <div className={classes.secondLogo}>spirit</div>
         <div className={classes.botBorder}></div>
       </Link>
-      <div onClick={() => navigate(-1)} className={classes.goBackArrow}>
+      <div
+        onClick={() => window.history.go(-1)}
+        className={classes.goBackArrow}
+      >
         <img
           src={Arrow}
           alt="back"
@@ -82,8 +83,8 @@ const AppHeader: React.FC = () => {
             <div className={classes.userBorder}></div>
           </Link>
 
-          <button
-            type="button"
+          <Link
+            to={APP_GENERAL_ROUTES.login.link}
             className={classes.exitBtn}
             onClick={onLogOut}
           />

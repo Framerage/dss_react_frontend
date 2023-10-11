@@ -1,5 +1,6 @@
 import React, {useEffect} from "react";
 import {createBrowserHistory} from "history";
+import {useNavigate} from "react-router-dom";
 import {AppDispatch} from "store";
 import {useDispatch, useSelector} from "react-redux";
 import {fetchUserInfo, getAuthTokenFx} from "store/modules/auth/async-actions";
@@ -15,13 +16,12 @@ import {useForm} from "react-hook-form";
 import {APP_AUTH_ROUTES} from "utils/routes";
 
 import classes from "./loginPage.module.css";
-import {useNavigate} from "react-router-dom";
 import Cookies from "js-cookie";
 interface LoginFormData {
   email: string;
   pass: string;
 }
-const LoginPage = () => {
+const LoginPage: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
   const history = createBrowserHistory();
   const navigate = useNavigate();
