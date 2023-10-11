@@ -63,6 +63,9 @@
 
 }
 .infoCardTitle{
+    text-decoration: none;
+    color: black;
+    text-shadow: 0 0 5px white;
     width: 100%;
     font-size: 30px;
     cursor: pointer;

@@ -32,6 +32,7 @@ const CardShopCart: React.FC<ShopCartCardProps> = React.memo(
             <div className={classes.orderCounter}>
               <input
                 type="number"
+                id="cardCounter"
                 min={1}
                 max={20}
                 value={counter}
