@@ -1,14 +1,12 @@
 {
-  "name": "dss_react_frontend",
+  "name": "dss-react",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "@reduxjs/toolkit": "^1.9.5",
-    "@testing-library/jest-dom": "^5.14.1",
+    "@reduxjs/toolkit": "^1.9.7",
     "@testing-library/react": "^13.0.0",
     "@testing-library/user-event": "^13.2.1",
-    "@types/jest": "^27.0.1",
-    "@types/js-cookie": "^3.0.3",
+    "@types/js-cookie": "^3.0.5",
     "@types/node": "^16.7.13",
     "@types/react": "^18.0.0",
     "@types/react-dom": "^18.0.0",
@@ -25,8 +23,24 @@
     "react-redux": "^8.1.1",
     "react-router-dom": "^6.14.1",
     "react-scripts": "5.0.1",
-    "redux": "^4.2.1",
-    "web-vitals": "^2.1.0"
+    "redux": "^4.2.1"
+  },
+  "devDependencies": {
+    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@types/jest": "^27.0.1",
+    "@typescript-eslint/eslint-plugin": "5.62.0",
+    "@typescript-eslint/parser": "5.62.0",
+    "eslint": "^8.52.0",
+    "eslint-config-prettier": "^9.0.0",
+    "eslint-plugin-prettier": "^5.0.1",
+    "eslint-plugin-react": "^7.33.2",
+    "eslint-plugin-typescript": "^0.14.0",
+    "gh-pages": "^6.0.0",
+    "husky": "^8.0.3",
+    "jest": "^29.6.3",
+    "prettier": "^3.0.3",
+    "typescript": "^5.2.2"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -37,9 +51,6 @@
     "predeploy": "yarn build",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
-  },
-  "eslintConfig": {
-    "extends": "react-app"
   },
   "browserslist": {
     "production": [
@@ -52,20 +63,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "devDependencies": {
-    "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-    "@typescript-eslint/eslint-plugin": "^6.8.0",
-    "@typescript-eslint/parser": "^6.8.0",
-    "babel-eslint": "^10.1.0",
-    "eslint": "^8.51.0",
-    "eslint-config-prettier": "^9.0.0",
-    "eslint-config-react": "^1.1.7",
-    "eslint-plugin-prettier": "^5.0.1",
-    "eslint-plugin-react": "^7.33.2",
-    "gh-pages": "^6.0.0",
-    "jest": "^29.6.3",
-    "prettier": "^3.0.3",
-    "typescript": "^5.2.2"
   }
 }

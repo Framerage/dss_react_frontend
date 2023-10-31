@@ -4,5 +4,5 @@
         "src/**/*.ts",
         "src/**/*.js",
     "test/**/*.ts",
-    "typings/**/*.ts",],
+    "typings/**/*.ts",".eslintrc.js"],
 }

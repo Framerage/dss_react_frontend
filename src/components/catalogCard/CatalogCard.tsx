@@ -15,7 +15,7 @@ interface CardProps {
   isCardAdded: boolean;
   isAuthDone: boolean;
   onAddCardToCart: (card: CatalogCardNesting) => void;
-  isUserLikedCard: Boolean;
+  isUserLikedCard: boolean;
   onLikeCard: (
     card: CatalogCardNesting,
     isCardLiked: boolean,

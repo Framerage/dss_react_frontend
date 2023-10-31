@@ -34,7 +34,7 @@ export interface CatalogInitialState {
   };
   catalogFilter: string;
   cardRemoveRequest: {
-    data: {success: Boolean; message: string; error: string} | null;
+    data: {success: boolean; message: string; error: string} | null;
     isLoading: boolean;
     error: null | string;
   };
