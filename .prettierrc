@@ -10,5 +10,6 @@
   "bracketSpacing": false,
   "jsxSingleQuote": false,
   "jsSingleQuote": false,
-  "jsxBracketSameLine": false
+  "jsxBracketSameLine": false,
+  "endOfLine": "auto"
 }

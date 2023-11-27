@@ -57,7 +57,6 @@ const AppLayout: React.FC = () => {
   const isCartOpened = useSelector(isShopCartUse);
   const isPopupOpen = useSelector(selectPopupImage);
 
-  //TODO: добавить debounse в модалке на указание количества товаров
   //TODO: popup открывать на текущем скроле
   //TODO: оптимизация главной
   //TODO: настроить счетчик заказов

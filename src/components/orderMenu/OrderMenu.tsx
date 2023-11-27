@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import menuLogo from "assets/images/decor-logo.png";
 import cn from "classnames";
@@ -6,8 +6,14 @@ import classes from "./orderMenu.module.css";
 interface OrderMenuProps {
   menuItems: {name: string; image: string; link: string}[];
 }
+const hintBrowserStyle = {
+  willChange: "transform, translate, transform-origin,opacity",
+};
+const removeHintStyle = {willChange: "auto"};
 const OrderMenu: React.FC<OrderMenuProps> = ({menuItems}) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [currentNavStyle, setCurrentNavStyle] = useState(hintBrowserStyle);
+
   const onUseMenu = () => setIsMenuOpen(!isMenuOpen);
 
   const itemsAmount = menuItems.length;
@@ -26,8 +32,19 @@ const OrderMenu: React.FC<OrderMenuProps> = ({menuItems}) => {
       transform: `rotate(calc(360deg / ${-itemsAmount} * ${elem + 2}))`,
     };
   };
+
+  useEffect(() => {
+    return () => {
+      setCurrentNavStyle(removeHintStyle);
+    };
+  }, []);
+
   return (
-    <nav className={classes.navContainer}>
+    <nav
+      className={classes.navContainer}
+      id="nav-container"
+      style={currentNavStyle}
+    >
       <div
         className={cn(classes.menuToggle, {
           [classes.activeToggle]: isMenuOpen,

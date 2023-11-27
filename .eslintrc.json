@@ -39,7 +39,6 @@
         "react/prop-types":"off",
         "react/no-unescaped-entities":"off",
         "no-var":"error",
-        "prettier/prettier": "error",
         "quotes": [
             2,
             "double",
@@ -78,7 +77,13 @@
     "react-hooks/exhaustive-deps": "off",
     "indent": "off",
     "no-extra-boolean-cast": "off",
-    "@typescript-eslint/ban-types":"warn"
+    "@typescript-eslint/ban-types":"warn",
+    "prettier/prettier": [
+      "error",
+      {
+        "endOfLine": "auto"
+      }
+    ]
 
     }
 }

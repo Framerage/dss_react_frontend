@@ -69,7 +69,7 @@ const ModalCart: React.FC = () => {
         }
         return undefined;
       })
-      .filter((item: any) => item !== undefined);
+      .filter((item: CatalogCardNesting | undefined) => item !== undefined);
   };
   useEffect(() => {
     isCartOpened &&

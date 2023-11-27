@@ -154,14 +154,16 @@ const CardFullDescrip: React.FC = () => {
                   Descrip:&nbsp;{cardDescrip.descrip || "-"}
                 </div>
               </div>
-              <button
-                onClick={e => onDeleteCard(e)}
-                title="Delete card"
-                className={classes.deleteBtn}
-              >
-                <img src={DeleteIcon} alt="delBtn" />
-                {removeRequestIsLoading && "loading..."}
-              </button>
+              {userInfo && accS && (
+                <button
+                  onClick={e => onDeleteCard(e)}
+                  title="Delete card"
+                  className={classes.deleteBtn}
+                >
+                  <img src={DeleteIcon} alt="delBtn" />
+                  {removeRequestIsLoading && "loading..."}
+                </button>
+              )}
             </div>
             <div className={classes.cardExtraContent}>
               <div className={classes.extraContItem}>

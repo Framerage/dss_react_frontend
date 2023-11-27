@@ -39,18 +39,22 @@ const CreatingCard: React.FC = () => {
   const themes = Object.keys(cardThemes);
   const accS = Cookies.get("perAcTkn") || "";
 
-  const onCreateCard = useCallback((data: CatalogCardNesting) => {
-    if (!accS) {
-      return;
-    }
-    const card = {
-      ...data,
-      price: Number(data.price),
-      fullDescrip: fullDescripValue,
-      imgUrl: cardImagesUrls.map(file => file.fileBody),
-    };
-    dispatch(createNewCatalogCardFx({card: card, auth: accS || ""}));
-  }, []);
+  const onCreateCard = useCallback(
+    (data: CatalogCardNesting) => {
+      if (!accS) {
+        return;
+      }
+      const images = cardImagesUrls.map(file => file.fileBody);
+      const card = {
+        ...data,
+        price: Number(data.price),
+        fullDescrip: fullDescripValue,
+        imgUrl: images,
+      };
+      dispatch(createNewCatalogCardFx({card: card, auth: accS || ""}));
+    },
+    [cardImagesUrls, fullDescripValue],
+  );
 
   const createImgString = async (fileList: FileList | null) => {
     setFileSizeError(false);
@@ -166,7 +170,7 @@ const CreatingCard: React.FC = () => {
               <img
                 src={setBase64Image(
                   "",
-                  cardImagesUrls[choosedFileIndex].fileBody,
+                  cardImagesUrls[choosedFileIndex]?.fileBody,
                 )}
                 alt="cardImg"
                 className={classes.previewImg}

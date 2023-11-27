@@ -1,8 +1,8 @@
-import React, {useState} from "react";
+import React, {useRef, useState} from "react";
 import defaultImg from "assets/images/defaultCardImg.png";
 import {AppDispatch} from "store";
 import {useDispatch} from "react-redux";
-import {setPopupImage} from "store/modules/popup/actions";
+import {setImgCoord, setPopupImage} from "store/modules/popup/actions";
 import {setBase64Image} from "helpers/appHelpers";
 import cn from "classnames";
 import classes from "./imageSlider.module.css";
@@ -21,6 +21,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
   const dispatch = useDispatch<AppDispatch>();
   const [choosedImg, setChoosedImg] = useState(0);
   const [isImgScaled, setIsImageScaled] = useState(false);
+  const imgRef = useRef<HTMLDivElement | null>(null);
 
   const onScaleImg = (e: React.MouseEvent<HTMLElement>) => {
     e.stopPropagation();
@@ -30,6 +31,10 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
         isImgFile ? images[choosedImg] : setBase64Image("", images[choosedImg]),
       ),
     );
+    setTimeout(() => {
+      imgRef.current &&
+        dispatch(setImgCoord(imgRef.current.getBoundingClientRect().y));
+    }, 500);
   };
   const onChooseImg = (e: React.MouseEvent<HTMLElement>, index: number) => {
     e.stopPropagation();
@@ -42,7 +47,7 @@ const ImageSlider: React.FC<ImageSliderProps> = ({
         transform: componentScale ? `scale(${componentScale})` : "scale(1)",
       }}
     >
-      <div className={classes.imageContainer}>
+      <div className={classes.imageContainer} ref={imgRef}>
         <div
           className={classes.imgArrow}
           onClick={() => choosedImg !== 0 && setChoosedImg(choosedImg - 1)}

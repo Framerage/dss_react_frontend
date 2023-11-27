@@ -2,7 +2,10 @@ import React, {useRef, useState, useEffect} from "react";
 import {useOnClickOutside} from "hooks/useClickOutside";
 import {AppDispatch} from "store";
 import {useDispatch, useSelector} from "react-redux";
-import {selectPopupImage} from "store/modules/popup/selectors";
+import {
+  selectImageCoord,
+  selectPopupImage,
+} from "store/modules/popup/selectors";
 import {resetPopupImage} from "store/modules/popup/actions";
 
 import cn from "classnames";
@@ -11,16 +14,21 @@ const AppPopup: React.FC = React.memo(() => {
   const dispatch = useDispatch<AppDispatch>();
   const popupRef = useRef<HTMLDivElement | null>(null);
   const scaledImage = useSelector(selectPopupImage);
+  const scaledImgCoord = useSelector(selectImageCoord);
+  console.log(scaledImgCoord, "scaledImgCoord");
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const onClosePopup = () => {
     dispatch(resetPopupImage());
     setIsPopupOpen(false);
+    //TODO: доделать попачик
+    // window.(scaledImgCoord);
   };
   useOnClickOutside(popupRef, onClosePopup);
 
   useEffect(() => {
     !!scaledImage && setIsPopupOpen(true);
   }, [scaledImage]);
+
   return (
     <div
       className={cn(classes.popupContainer, {
