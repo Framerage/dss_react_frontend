@@ -81,7 +81,7 @@ const Catalog: React.FC = React.memo(() => {
             }
             return undefined;
           })
-          .filter((item: any) => item !== undefined);
+          .filter((item: CatalogCardNesting | undefined) => item !== undefined);
         dispatch(updateCardsOfCart(newCartList));
       }
     });
