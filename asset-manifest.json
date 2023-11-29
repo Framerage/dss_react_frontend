@@ -1,7 +1,7 @@
 {
   "files": {
-    "main.css": "/dss_react_frontend/static/css/main.53a8d182.css",
-    "main.js": "/dss_react_frontend/static/js/main.7e3badb2.js",
+    "main.css": "/dss_react_frontend/static/css/main.731baa59.css",
+    "main.js": "/dss_react_frontend/static/js/main.139ab2be.js",
     "static/css/384.7a1b1273.chunk.css": "/dss_react_frontend/static/css/384.7a1b1273.chunk.css",
     "static/js/384.90facfbb.chunk.js": "/dss_react_frontend/static/js/384.90facfbb.chunk.js",
     "static/css/775.76ad56fa.chunk.css": "/dss_react_frontend/static/css/775.76ad56fa.chunk.css",
@@ -39,15 +39,15 @@
     "static/media/btn-remove.svg": "/dss_react_frontend/static/media/btn-remove.845f3635ea9172b44524338f95f29737.svg",
     "static/media/btn-plus.svg": "/dss_react_frontend/static/media/btn-plus.c4ad914c4a4c568589ae272f9f4b07bf.svg",
     "static/media/arrow.svg": "/dss_react_frontend/static/media/arrow.7fb3400bf0365090a3a17774aff83de2.svg",
-    "main.53a8d182.css.map": "/dss_react_frontend/static/css/main.53a8d182.css.map",
-    "main.7e3badb2.js.map": "/dss_react_frontend/static/js/main.7e3badb2.js.map",
+    "main.731baa59.css.map": "/dss_react_frontend/static/css/main.731baa59.css.map",
+    "main.139ab2be.js.map": "/dss_react_frontend/static/js/main.139ab2be.js.map",
     "384.7a1b1273.chunk.css.map": "/dss_react_frontend/static/css/384.7a1b1273.chunk.css.map",
     "384.90facfbb.chunk.js.map": "/dss_react_frontend/static/js/384.90facfbb.chunk.js.map",
     "775.76ad56fa.chunk.css.map": "/dss_react_frontend/static/css/775.76ad56fa.chunk.css.map",
     "775.6884c29f.chunk.js.map": "/dss_react_frontend/static/js/775.6884c29f.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.53a8d182.css",
-    "static/js/main.7e3badb2.js"
+    "static/css/main.731baa59.css",
+    "static/js/main.139ab2be.js"
   ]
 }
