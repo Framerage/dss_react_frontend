@@ -18,7 +18,7 @@
         {
           "files": ["**/*.ts", "**/*.js", "**/*.tsx", "**/*.jsx"],
           "parserOptions": {
-            "project": ["**/tsconfig.json"]
+            "project": ["**/tsconfig.json","**/.stylelintrc.json"]
           }
         }
       ],
@@ -29,7 +29,7 @@
         },
         "ecmaVersion": "latest",
         "sourceType": "module",
-        "project": "**/tsconfig.json",
+        "project": ["**/tsconfig.json","**/.stylelintrc.json"],
         "tsconfigRootDir": "./"
       },
     "plugins": [ "react","@typescript-eslint", "prettier"],

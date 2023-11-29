@@ -5,15 +5,18 @@ import ImageSlider from "components/imageSlider/ImageSlider";
 
 import {useDebounce} from "hooks/useDebounce";
 import classes from "./cardShopCart.module.css";
+import {useDispatch} from "react-redux";
+import {AppDispatch} from "store";
+import {updateCardCountOfCart} from "store/modules/cart/actions";
 
 interface ShopCartCardProps {
   card: ShopCartCardsForOrder;
   onRemove: (id: string) => void;
-  onChangeCount: (id: string, count: number) => void;
 }
 const CardShopCart: React.FC<ShopCartCardProps> = React.memo(
-  ({card, onRemove, onChangeCount}) => {
+  ({card, onRemove}) => {
     console.log("render modal cart", card._id);
+    const dispatch = useDispatch<AppDispatch>();
     const [counter, setCounter] = useState(card.itemCount || 1);
     const {debouncedValue, isValueLoading} = useDebounce<typeof counter>(
       counter,
@@ -23,8 +26,25 @@ const CardShopCart: React.FC<ShopCartCardProps> = React.memo(
       setCounter(count);
     };
 
+    // const onChangeOrdersCount = useCallback(
+    //   (id: string, count: number) => {
+    //     dispatch(
+    //       updateCardsOfCart(
+    //         shopCartCards.map(el => {
+    //           if (el._id === id) {
+    //             return {...el, itemCount: count};
+    //           }
+    //           return el;
+    //         }),
+    //       ),
+    //     );
+    //   },
+    //   [shopCartCards],
+    // );
     useEffect(() => {
-      onChangeCount(card._id, debouncedValue);
+      dispatch(
+        updateCardCountOfCart({cardId: card._id, count: debouncedValue}),
+      );
     }, [debouncedValue]);
 
     return (

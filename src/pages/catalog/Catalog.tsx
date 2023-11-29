@@ -67,24 +67,7 @@ const Catalog: React.FC = React.memo(() => {
 
   useEffect(() => {
     dispatch(saveCatalogStatus(true));
-    dispatch(getCatalogCardsFx()).then(({payload}) => {
-      if (
-        userInfo &&
-        userInfo.success &&
-        !shopCartCards.length &&
-        Array.isArray(payload)
-      ) {
-        const newCartList = payload
-          .map((el: CatalogCardNesting) => {
-            if (userInfo.userCart.some(card => card._id === el._id)) {
-              return {...el, itemCount: 1};
-            }
-            return undefined;
-          })
-          .filter((item: CatalogCardNesting | undefined) => item !== undefined);
-        dispatch(updateCardsOfCart(newCartList));
-      }
-    });
+    dispatch(getCatalogCardsFx());
     return () => {
       dispatch(saveCatalogStatus(false));
     };

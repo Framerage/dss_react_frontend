@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect, useMemo, useState} from "react";
+import React, {useCallback, useEffect, useState} from "react";
 import {Link} from "react-router-dom";
 import CardShopCart from "components/cardShopCart";
 import PointLoader from "components/pointLoader";
@@ -25,7 +25,7 @@ import {CatalogCardNesting} from "typings/catalogCards";
 import Cookies from "js-cookie";
 import classes from "./modalCart.module.css";
 
-const ModalCart: React.FC = () => {
+const ModalCart: React.FC = React.memo(() => {
   const dispatch = useDispatch<AppDispatch>();
   const isCartOpened = useSelector(isShopCartUse);
   const shopCartCards = useSelector(getUpdatedShopCartCards);
@@ -35,12 +35,6 @@ const ModalCart: React.FC = () => {
   const errorMsg = !catalogCards ? "Open catalog, please" : "Empty cart";
   const accS = Cookies.get("perAcTkn");
 
-  const hashCartCards = useMemo(() => {
-    if (!shopCartCards || !shopCartCards?.length) {
-      return [];
-    }
-    return shopCartCards;
-  }, [shopCartCards]);
   const [totalPrice, setTotalPrice] = useState(() => {
     if (!shopCartCards.length) {
       return 0;
@@ -93,22 +87,6 @@ const ModalCart: React.FC = () => {
     }
   }, [isCartOpened, catalogCards, userInfo]);
 
-  const onChangeOrdersCount = useCallback(
-    (id: string, count: number) => {
-      dispatch(
-        updateCardsOfCart(
-          shopCartCards.map(el => {
-            if (el._id === id) {
-              return {...el, itemCount: count};
-            }
-            return el;
-          }),
-        ),
-      );
-    },
-    [shopCartCards],
-  );
-
   const onCloseCart = useCallback(() => {
     dispatch(isShoppingCartUse(false));
   }, []);
@@ -148,15 +126,14 @@ const ModalCart: React.FC = () => {
           />
         </h2>
 
-        {hashCartCards && hashCartCards.length > 0 ? (
+        {shopCartCards && shopCartCards.length > 0 ? (
           <div className={classes.shopCartItems}>
             <div className={classes.items}>
-              {hashCartCards.map(card => (
+              {shopCartCards.map(card => (
                 <CardShopCart
                   key={card._id}
                   card={card}
                   onRemove={onRemoveCardFromCart}
-                  onChangeCount={onChangeOrdersCount}
                 />
               ))}
             </div>
@@ -182,5 +159,5 @@ const ModalCart: React.FC = () => {
       </div>
     </div>
   );
-};
+});
 export default ModalCart;

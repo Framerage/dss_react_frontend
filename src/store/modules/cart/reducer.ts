@@ -1,5 +1,9 @@
 import {createReducer} from "@reduxjs/toolkit";
-import {isShoppingCartUse, updateCardsOfCart} from "./actions";
+import {
+  isShoppingCartUse,
+  updateCardCountOfCart,
+  updateCardsOfCart,
+} from "./actions";
 import {ShopCartCardsForOrder} from "typings/catalogCards";
 import {Prettify} from "typings/generalTypes";
 
@@ -13,6 +17,14 @@ const shopCartInitioalState: ShoppingCartInitioalState = {
 };
 
 export const shopCartReducer = createReducer(shopCartInitioalState, {
+  [updateCardCountOfCart.type]: (state, {payload}) => {
+    state.shopCartCards = state.shopCartCards.map(el => {
+      if (el._id === payload.cardId) {
+        return {...el, itemCount: payload.count};
+      }
+      return el;
+    });
+  },
   [updateCardsOfCart.type]: (state, action) => {
     state.shopCartCards = action.payload;
   },
