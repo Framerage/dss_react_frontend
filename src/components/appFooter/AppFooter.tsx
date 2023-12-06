@@ -29,9 +29,9 @@ const AppFooter: React.FC = () => {
   };
   return (
     <div className={classes.footerContainer}>
-      Share in:
+      <span>Share in:</span>
       {sharedContacts.map(shared => (
-        <a
+        <div
           key={shared.name}
           title={shared.name}
           rel="noopener noreferrer"
@@ -39,7 +39,7 @@ const AppFooter: React.FC = () => {
           className={classes.sharedLink}
         >
           <img src={shared.img} alt="footerLink" width={35} height={35} />
-        </a>
+        </div>
       ))}
     </div>
   );

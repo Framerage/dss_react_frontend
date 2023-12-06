@@ -9,6 +9,8 @@
   animation: scaled 1s ease-in-out;
   margin:auto;
   padding: 5px;
+  font-family: var(--decor_font);
+  letter-spacing: 2px;
 }
 @keyframes scaled {
   0% {
@@ -57,7 +59,7 @@
   border-radius: 5px;
 }
 .submitBtn {
-  width: 100px;
+  width: 120px;
   height: 30px;
   border: 3px solid black;
   border-radius: 5px;

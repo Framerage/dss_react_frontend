@@ -25,8 +25,6 @@ import {
   saveCatalogStatus,
 } from "store/modules/catalog/actions";
 import {selectUserData} from "store/modules/auth/selectors";
-import {getUpdatedShopCartCards} from "store/modules/cart/selectors";
-import {updateCardsOfCart} from "store/modules/cart/actions";
 import {editUserExtraInfoFx} from "store/modules/auth/async-actions";
 
 import {useFiltredObj} from "hooks/useFilteredObj";
@@ -54,7 +52,6 @@ const Catalog: React.FC = React.memo(() => {
   const cardsError = useSelector(catalogCardsError);
 
   const choosedFilter = useSelector(choosedCatalogFilter);
-  const shopCartCards = useSelector(getUpdatedShopCartCards);
 
   const [searchValue, setSearchValue] = useState("");
 
@@ -86,88 +83,39 @@ const Catalog: React.FC = React.memo(() => {
   );
 
   const addCardToShopCart = useCallback(
-    (card: CatalogCardNesting) => {
-      if (!userInfo || (userInfo && !userInfo.success)) {
-        if (!shopCartCards.length) {
-          dispatch(updateCardsOfCart([{...card, itemCount: 1}]));
-          return;
-        }
-        if (shopCartCards.some(el => el._id === card._id)) {
-          dispatch(
-            updateCardsOfCart(
-              shopCartCards
-                .filter(el => el._id !== card._id)
-                .map(item => {
-                  return {...item, itemCount: 1};
-                }),
-            ),
-          );
-          return;
-        }
-        dispatch(updateCardsOfCart([...shopCartCards, card]));
+    (cardId: string) => {
+      if (!userInfo || (userInfo && !userInfo.success) || !accS) {
         return;
       }
       if (!userInfo.userCart.length) {
         dispatch(
           editUserExtraInfoFx({
-            user: {...userInfo, userCart: [card]},
+            user: {...userInfo, userCart: [cardId]},
             auth: accS,
           }),
-        ).then(({payload}) => {
-          dispatch(
-            updateCardsOfCart(
-              payload.userCart
-                ? payload.userCart.map((el: CatalogCardNesting) => {
-                    return {...el, itemCount: 1};
-                  })
-                : shopCartCards,
-            ),
-          );
-        });
-
+        );
         return;
       }
-      if (userInfo.userCart.some(el => el._id === card._id)) {
+      if (userInfo.userCart.includes(cardId)) {
+        const filteredCart = userInfo.userCart.filter(el => el !== cardId);
         dispatch(
           editUserExtraInfoFx({
-            user: {
-              ...userInfo,
-              userCart: userInfo.userCart.filter(el => el._id !== card._id),
-            },
+            user: {...userInfo, userCart: filteredCart},
             auth: accS,
           }),
-        ).then(({payload}) => {
-          dispatch(
-            updateCardsOfCart(
-              payload.userCart
-                ? payload.userCart.map((el: CatalogCardNesting) => {
-                    return {...el, itemCount: 1};
-                  })
-                : shopCartCards,
-            ),
-          );
-        });
+        );
         return;
       }
       dispatch(
         editUserExtraInfoFx({
-          user: {...userInfo, userCart: [...userInfo.userCart, card]},
+          user: {...userInfo, userCart: [...userInfo.userCart, cardId]},
           auth: accS,
         }),
-      ).then(({payload}) => {
-        dispatch(
-          updateCardsOfCart(
-            payload.userCart
-              ? payload.userCart.map((el: CatalogCardNesting) => {
-                  return {...el, itemCount: 1};
-                })
-              : shopCartCards,
-          ),
-        );
-      });
+      );
     },
-    [shopCartCards, userInfo, accS],
+    [userInfo, accS],
   );
+
   const onSendLike = useCallback(
     (
       catalogCard: CatalogCardNesting,
@@ -223,8 +171,8 @@ const Catalog: React.FC = React.memo(() => {
                   key={card._id}
                   card={card}
                   isCardAdded={
-                    shopCartCards?.length > 0
-                      ? shopCartCards.some(el => el._id.includes(card._id))
+                    userInfo && userInfo.userCart?.length > 0
+                      ? userInfo.userCart.includes(card._id)
                       : false
                   }
                   onAddCardToCart={addCardToShopCart}

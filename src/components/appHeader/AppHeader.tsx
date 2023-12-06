@@ -9,7 +9,7 @@ import {
   resetRegRequest,
 } from "store/modules/auth/actions";
 import {isUserAuth, selectUserData} from "store/modules/auth/selectors";
-import {isShoppingCartUse, updateCardsOfCart} from "store/modules/cart/actions";
+import {isShoppingCartUse} from "store/modules/cart/actions";
 import {selectCatalogStatus} from "store/modules/catalog/selectors";
 
 import Arrow from "assets/icons/backArrow.svg";
@@ -30,7 +30,7 @@ const AppHeader: React.FC = () => {
   const onLogOut = () => {
     dispatch(resetUserRequest());
     dispatch(resetRegRequest());
-    dispatch(updateCardsOfCart([]));
+    // dispatch(updateCardsOfCart([]));
     Cookies.remove("perAcTkn");
     dispatch(getUserAuth(false));
   };
@@ -68,6 +68,9 @@ const AppHeader: React.FC = () => {
               onClick={onOpenShopCart}
               className={classes.userShopCart}
             />
+            <sup className={classes.cartCounter}>
+              {userInfo?.userCart?.length}
+            </sup>
             <div className={classes.imgBorder}></div>
           </div>
 

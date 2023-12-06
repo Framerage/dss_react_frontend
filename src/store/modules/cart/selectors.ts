@@ -6,10 +6,19 @@ const selectShopCartState = createSelector(
   root => root.shopCartReducer,
 );
 
-export const getUpdatedShopCartCards = createSelector(
+export const selectShopCart = createSelector(
   selectShopCartState,
-  state => state.shopCartCards,
+  state => state.shopCartCards.data,
 );
+export const selectShopCartIsLoading = createSelector(
+  selectShopCartState,
+  state => state.shopCartCards.isLoading,
+);
+export const selectShopCartError = createSelector(
+  selectShopCartState,
+  state => state.shopCartCards.error,
+);
+
 export const isShopCartUse = createSelector(
   selectShopCartState,
   state => state.isShopCartUsing,

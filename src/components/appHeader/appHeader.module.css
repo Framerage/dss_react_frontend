@@ -7,6 +7,7 @@
   position: sticky;
   top: 0;
   z-index: 10001;
+  font-family: var(--decor_font);
 }
 .headerBG{
   background: linear-gradient(var(--extra_app_color) 1%,var(--light_app_color));
@@ -22,7 +23,7 @@
   text-decoration: none;
   color: black;
   height: min-content;
-  filter:drop-shadow(0 0px 10px var(--exclusive_app_color))
+  filter:drop-shadow(0 0px 10px var(--exclusive_app_color));
 }
 
 .firstLogo {
@@ -65,24 +66,34 @@
   transform: skewY(15deg);
   color: black;
   font-size: 18px;
-  font-weight: 900;
   text-shadow:  3px 5px 3px var(--main_app_color);
   text-transform: uppercase;
 }
 .authedBlock{
-  width: 300px;
+  width: 350px;
   height: min-content;
   display: flex;
   align-items: flex-end;
   justify-content: space-around;
+  gap: 10px;
   color: white;
-  text-shadow: 0 5px 5px black;
-
+  text-shadow: 0 0 2px black,0 2px 5px black,0 5px 7px black;
+  letter-spacing: 2px;
 }
 .cartBlock{
-  width:25px;
+  width:40px;
   display: flex;
   flex-direction: column;
+  font-size: 20px;
+  font-weight: 100;
+  position: relative;
+}
+.cartCounter{
+position: absolute;
+top: -10px;
+right: -1px;
+color: black;
+text-shadow: 0 0 5px white;
 }
 .userShopCart{
   width: 25px;
@@ -100,13 +111,12 @@
 }
 .userBonuses{
   font-size: 16px;
+  font-weight: 400;
 }
 .bonusesValue{
   width: min-content;
   height: min-content;
   font-size: 30px;
-  filter:drop-shadow(0 0px 10px var(--exclusive_app_color))
-
 }
 .userLink{
   text-decoration: none;
@@ -155,12 +165,10 @@
   text-decoration: none;
   color: black;
   font-size: 16px;
-  font-weight: 700;
   cursor: pointer;
   padding: 5px;
   transition: 0.2s;
-  text-shadow:0 1px 7px var(--exclusive_app_color)
-
+  text-shadow:0 1px 7px var(--exclusive_app_color);
 }
 .headerNavItem:hover {
   text-shadow: 0 0 5px white, 0 0 10px var(--main_app_color), 0 0 15px white, 0 0 20px var(--main_app_color);

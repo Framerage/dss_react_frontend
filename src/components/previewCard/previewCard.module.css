@@ -29,7 +29,8 @@
     z-index: 10;
     padding: 30px;
     font-size: 28px;
-    font-weight: 600;
+    font-family: var(--decor_font);
+    font-weight: 400;
     font-style: italic;
     color: black;
     text-shadow: 0 0 10px aqua;

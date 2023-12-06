@@ -15,7 +15,6 @@ interface ShopCartCardProps {
 }
 const CardShopCart: React.FC<ShopCartCardProps> = React.memo(
   ({card, onRemove}) => {
-    console.log("render modal cart", card._id);
     const dispatch = useDispatch<AppDispatch>();
     const [counter, setCounter] = useState(card.itemCount || 1);
     const {debouncedValue, isValueLoading} = useDebounce<typeof counter>(

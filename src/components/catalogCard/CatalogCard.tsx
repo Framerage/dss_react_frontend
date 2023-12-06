@@ -14,7 +14,7 @@ interface CardProps {
   card?: CatalogCardNesting;
   isCardAdded: boolean;
   isAuthDone: boolean;
-  onAddCardToCart: (card: CatalogCardNesting) => void;
+  onAddCardToCart: (cardId: string) => void;
   isUserLikedCard: boolean;
   onLikeCard: (
     card: CatalogCardNesting,
@@ -43,7 +43,7 @@ const CatalogCard: React.FC<CardProps> = React.memo(
       card: CatalogCardNesting,
     ) => {
       e.stopPropagation();
-      onAddCardToCart(card);
+      onAddCardToCart(card._id);
     };
     const onClickLike = (e: React.MouseEvent<HTMLElement>) => {
       e.stopPropagation();

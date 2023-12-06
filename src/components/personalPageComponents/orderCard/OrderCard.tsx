@@ -15,11 +15,13 @@ const OrderCard: React.FC<OrderCardProps> = React.memo(
     const [selectValue, setSelectValue] = useState(order.orderStatus);
     const isOrderCanceled = order.orderStatus === OrderStatuses.canceled;
     const isOrderComplete = order.orderStatus === OrderStatuses.complete;
+    const isOrderPaided = order.orderStatus === OrderStatuses.paid;
     return (
       <div
         key={order._id}
         className={cn(classes.orderCardContainer, {
           [classes.canceledOrder]: isOrderCanceled,
+          [classes.paidedOrder]: isOrderPaided,
           [classes.completedOrder]: isOrderComplete,
         })}
       >
@@ -63,6 +65,7 @@ const OrderCard: React.FC<OrderCardProps> = React.memo(
                 className={classes.statusSlt}
               >
                 <option value={OrderStatuses.job}>{OrderStatuses.job}</option>
+                <option value={OrderStatuses.paid}>{OrderStatuses.paid}</option>
                 <option value={OrderStatuses.canceled}>
                   {OrderStatuses.canceled}
                 </option>

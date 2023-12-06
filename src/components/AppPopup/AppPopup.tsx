@@ -3,7 +3,7 @@ import {useOnClickOutside} from "hooks/useClickOutside";
 import {AppDispatch} from "store";
 import {useDispatch, useSelector} from "react-redux";
 import {
-  selectImageCoord,
+  // selectImageCoord,
   selectPopupImage,
 } from "store/modules/popup/selectors";
 import {resetPopupImage} from "store/modules/popup/actions";
@@ -14,8 +14,8 @@ const AppPopup: React.FC = React.memo(() => {
   const dispatch = useDispatch<AppDispatch>();
   const popupRef = useRef<HTMLDivElement | null>(null);
   const scaledImage = useSelector(selectPopupImage);
-  const scaledImgCoord = useSelector(selectImageCoord);
-  console.log(scaledImgCoord, "scaledImgCoord");
+  // const scaledImgCoord = useSelector(selectImageCoord);
+
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const onClosePopup = () => {
     dispatch(resetPopupImage());

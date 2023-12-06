@@ -7,106 +7,89 @@ import RemoveIcon from "assets/icons/btn-remove.svg";
 import EmptyCartImg from "assets/icons/emptyIcon.svg";
 
 import {AppDispatch} from "store";
-import {useDispatch, useSelector} from "react-redux";
+import {shallowEqual, useDispatch, useSelector} from "react-redux";
 import {
-  getUpdatedShopCartCards,
   isShopCartUse,
+  selectShopCart,
+  selectShopCartError,
+  selectShopCartIsLoading,
 } from "store/modules/cart/selectors";
 import {selectUserData} from "store/modules/auth/selectors";
-import {isShoppingCartUse, updateCardsOfCart} from "store/modules/cart/actions";
+import {isShoppingCartUse, resetUserShopCart} from "store/modules/cart/actions";
 import {editUserExtraInfoFx} from "store/modules/auth/async-actions";
-import {getCatalogCardsFx} from "store/modules/catalog/async-actions";
-import {
-  catalogCardsData,
-  catalogCardsIsLoading,
-} from "store/modules/catalog/selectors";
 
-import {CatalogCardNesting} from "typings/catalogCards";
 import Cookies from "js-cookie";
 import classes from "./modalCart.module.css";
+import {getUserShopCart} from "store/modules/cart/async-actions";
 
 const ModalCart: React.FC = React.memo(() => {
   const dispatch = useDispatch<AppDispatch>();
   const isCartOpened = useSelector(isShopCartUse);
-  const shopCartCards = useSelector(getUpdatedShopCartCards);
-  const userInfo = useSelector(selectUserData);
-  const catalogCards = useSelector(catalogCardsData);
-  const cardsIsLoading = useSelector(catalogCardsIsLoading);
-  const errorMsg = !catalogCards ? "Open catalog, please" : "Empty cart";
+  const shopCartCards = useSelector(selectShopCart, shallowEqual);
+  const shopCartIsLoading = useSelector(selectShopCartIsLoading);
+  const shopCartError = useSelector(selectShopCartError);
+  const userInfo = useSelector(selectUserData, shallowEqual);
+  const cartLength =
+    isCartOpened && userInfo
+      ? userInfo.userCart.length
+      : userInfo?.userCart.length;
+  const errorMsg = shopCartError ? shopCartError : "Empty cart";
   const accS = Cookies.get("perAcTkn");
 
   const [totalPrice, setTotalPrice] = useState(() => {
-    if (!shopCartCards.length) {
+    if (!shopCartCards?.length) {
       return 0;
     }
     return shopCartCards.reduce((sum, el) => sum + el.price * el.itemCount, 0);
   });
 
   useEffect(() => {
-    if (!shopCartCards.length) {
+    if (!shopCartCards?.length) {
       setTotalPrice(0);
       return;
     }
     setTotalPrice(() =>
-      shopCartCards.reduce((sum, el) => sum + el.price * el.itemCount, 0),
+      shopCartCards.reduce((sum, el) => sum + el.price * el.itemCount || 1, 0),
     );
   }, [shopCartCards]);
 
-  const createCartList = (
-    arr: CatalogCardNesting[],
-    userCart: CatalogCardNesting[],
-  ) => {
-    return arr
-      .map((el: CatalogCardNesting) => {
-        if (userCart.some(card => card._id === el._id)) {
-          return {...el, itemCount: 1};
-        }
-        return undefined;
-      })
-      .filter((item: CatalogCardNesting | undefined) => item !== undefined);
-  };
   useEffect(() => {
-    isCartOpened &&
-      !catalogCards &&
-      dispatch(getCatalogCardsFx()).then(({payload}) => {
-        if (userInfo && userInfo.userCart && Array.isArray(payload)) {
-          const newCartList = createCartList(payload, userInfo.userCart);
-          dispatch(updateCardsOfCart(newCartList));
-        }
-        return;
-      });
-    if (
-      isCartOpened &&
-      catalogCards &&
-      userInfo &&
-      userInfo.userCart &&
-      !shopCartCards.length
-    ) {
-      const newCartList = createCartList(catalogCards, userInfo.userCart);
-      dispatch(updateCardsOfCart(newCartList));
+    if (cartLength === 0) {
+      dispatch(resetUserShopCart());
+      return;
     }
-  }, [isCartOpened, catalogCards, userInfo]);
+    isCartOpened &&
+      accS &&
+      userInfo &&
+      shopCartCards.length !== cartLength &&
+      dispatch(
+        getUserShopCart({
+          cards: userInfo.userCart,
+          auth: accS,
+          email: userInfo.email,
+        }),
+      );
+  }, [cartLength, isCartOpened]);
 
   const onCloseCart = useCallback(() => {
     dispatch(isShoppingCartUse(false));
   }, []);
 
   const onRemoveCardFromCart = useCallback(
-    (id: string) => {
-      dispatch(updateCardsOfCart(shopCartCards.filter(el => el._id !== id)));
+    (takenId: string) => {
       if (userInfo && accS) {
         dispatch(
           editUserExtraInfoFx({
             user: {
               ...userInfo,
-              userCart: userInfo.userCart.filter(el => el._id !== id),
+              userCart: userInfo.userCart.filter(cardId => cardId !== takenId),
             },
             auth: accS,
           }),
         );
       }
     },
-    [userInfo, accS, shopCartCards],
+    [userInfo, accS],
   );
 
   return (
@@ -126,7 +109,7 @@ const ModalCart: React.FC = React.memo(() => {
           />
         </h2>
 
-        {shopCartCards && shopCartCards.length > 0 ? (
+        {shopCartCards && shopCartCards.length > 0 && !shopCartIsLoading ? (
           <div className={classes.shopCartItems}>
             <div className={classes.items}>
               {shopCartCards.map(card => (
@@ -148,7 +131,7 @@ const ModalCart: React.FC = React.memo(() => {
               Оформить заказ
             </Link>
           </div>
-        ) : !cardsIsLoading ? (
+        ) : !shopCartIsLoading ? (
           <div className={classes.emptyCart}>
             <img src={EmptyCartImg} alt="emptyCart" width={150} height={150} />
             {errorMsg}

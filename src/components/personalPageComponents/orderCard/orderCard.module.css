@@ -15,6 +15,9 @@
     opacity: 0.5;
     background:linear-gradient(30deg,black,var(--cancel_order_color),black) ;
 }
+.paidedOrder{
+    background:linear-gradient(30deg,black,#ffff62,black) ;
+}
 .completedOrder{
     background:linear-gradient(30deg,black,var(--success_order_color),black) ;
     opacity: 0.5;

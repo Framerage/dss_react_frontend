@@ -112,7 +112,7 @@ export const authReducer = createReducer<AuthInitialState>(authInitialState, {
     state.userInfo.isLoading = true;
     state.userInfo.error = null;
   },
-  [fetchUserInfo.rejected.type]: (state, action) => {
+  [fetchUserInfo.rejected.type]: state => {
     state.userInfo.error = "Error with access";
     state.userInfo.isLoading = false;
   },

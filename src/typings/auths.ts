@@ -14,7 +14,7 @@ export interface UserAuthorisation {
   message: string;
   success: boolean;
   status: number;
-  userCart: CatalogCardNesting[];
+  userCart: string[];
   userLikes: string[];
 }
 export interface userRegistration {

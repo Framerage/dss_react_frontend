@@ -20,7 +20,8 @@
   --medium_menu_color:lightgrey;
   --center_menu_color:white;
   --success_order_color:greenyellow;
-  --cancel_order_color:orangered
+  --cancel_order_color:orangered;
+  --decor_font:'Caprasimo', serif;
 }
 * {
   margin: 0;
@@ -29,9 +30,9 @@
   scroll-behavior: smooth;
   /* font-family: 'Anton', sans-serif;  */
   /* for rus */
-  font-family: 'Caprasimo', serif;
+  /* font-family: 'Caprasimo', serif; */
   /* for english */
-font-weight:600;
+  font-weight:600;
 }
 body,html {
   width: 100%;

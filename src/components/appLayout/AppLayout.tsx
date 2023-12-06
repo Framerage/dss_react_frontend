@@ -57,6 +57,7 @@ const AppLayout: React.FC = () => {
   const isCartOpened = useSelector(isShopCartUse);
   const isPopupOpen = useSelector(selectPopupImage);
 
+  //TODO: переделать считываение промокода из URL
   //TODO: popup открывать на текущем скроле
   //TODO: оптимизация главной
   //TODO: настроить счетчик заказов

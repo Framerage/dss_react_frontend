@@ -42,3 +42,23 @@ export const getAccountInfo = async (auth: string) => {
     .then(res => res.data)
     .catch(({resp}) => resp.data);
 };
+export const fetchUserShopCart = async ({
+  cards,
+  auth,
+  email,
+}: {
+  cards: string[];
+  auth: string;
+  email: string;
+}) => {
+  return instance
+    .post(
+      "/auth/me/cart",
+      {userCart: cards, email},
+      {headers: {Authorization: auth}},
+    )
+    .then(res => res.data)
+    .catch(err => {
+      return {...err.response.data, success: false};
+    });
+};

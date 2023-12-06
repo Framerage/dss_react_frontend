@@ -13,7 +13,7 @@ export interface OrderRequestResult {
   email: string;
   phoneNum: string;
   city: string;
-  userCart: ShopCartCardsForOrder[];
+  userCart: string[];
   totalPrice: number;
   success: boolean;
   message: string;
@@ -28,7 +28,8 @@ export interface Orders {
   success: boolean;
 }
 export enum OrderStatuses {
-  job = "in process",
-  complete = "complete",
-  canceled = "canceled",
+  job = "в обработке",
+  paid = "оплачено",
+  complete = "завершен",
+  canceled = "отменен",
 }

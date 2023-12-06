@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect} from "react";
-import {useDispatch, useSelector} from "react-redux";
+import {shallowEqual, useDispatch, useSelector} from "react-redux";
 
 import {useForm} from "react-hook-form";
 import {useNavigate} from "react-router-dom";
@@ -13,16 +13,16 @@ import {
   selectOrderCreatingError,
   selectOrderCreatingIsLoading,
 } from "store/modules/order/selectors";
-import {getUpdatedShopCartCards} from "store/modules/cart/selectors";
+import {selectShopCart} from "store/modules/cart/selectors";
 import {selectUserData} from "store/modules/auth/selectors";
 import {resetOrderCreatingResult} from "store/modules/order/actions";
 
-import {updateCardsOfCart} from "store/modules/cart/actions";
 import {
   editUserExtraInfoFx,
   fetchUserInfo,
 } from "store/modules/auth/async-actions";
 import classes from "./orderPage.module.css";
+import {resetUserShopCart} from "store/modules/cart/actions";
 
 interface OrderFormData {
   email: string;
@@ -47,7 +47,7 @@ const OrderPage: React.FC = () => {
   const minLengthPhoneNumberError =
     formState.errors?.phoneNum?.type === "minLength";
 
-  const cartList = useSelector(getUpdatedShopCartCards);
+  const cartList = useSelector(selectShopCart, shallowEqual);
   const curUser = useSelector(selectUserData);
   const totalPrice = cartList.reduce(
     (acc, item) => acc + item.price * item.itemCount,
@@ -79,11 +79,11 @@ const OrderPage: React.FC = () => {
           });
       setTimeout(() => {
         dispatch(resetOrderCreatingResult());
-        dispatch(updateCardsOfCart([]));
+        dispatch(resetUserShopCart());
         navigate(APP_AUTH_ROUTES.catalog.link);
       }, 5000);
     }
-  }, [orderRequest]);
+  }, [orderRequest, curUser, accS]);
 
   const onSendOrder = useCallback(
     (data: OrderFormData) => {
