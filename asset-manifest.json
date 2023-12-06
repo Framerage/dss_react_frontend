@@ -1,11 +1,11 @@
 {
   "files": {
-    "main.css": "/dss_react_frontend/static/css/main.731baa59.css",
-    "main.js": "/dss_react_frontend/static/js/main.139ab2be.js",
-    "static/css/384.7a1b1273.chunk.css": "/dss_react_frontend/static/css/384.7a1b1273.chunk.css",
+    "main.css": "/dss_react_frontend/static/css/main.24e92c03.css",
+    "main.js": "/dss_react_frontend/static/js/main.8d379b0f.js",
+    "static/css/384.0104279b.chunk.css": "/dss_react_frontend/static/css/384.0104279b.chunk.css",
     "static/js/384.90facfbb.chunk.js": "/dss_react_frontend/static/js/384.90facfbb.chunk.js",
     "static/css/775.76ad56fa.chunk.css": "/dss_react_frontend/static/css/775.76ad56fa.chunk.css",
-    "static/js/775.6884c29f.chunk.js": "/dss_react_frontend/static/js/775.6884c29f.chunk.js",
+    "static/js/775.92633d83.chunk.js": "/dss_react_frontend/static/js/775.92633d83.chunk.js",
     "static/media/bas-relief.jpg": "/dss_react_frontend/static/media/bas-relief.089ae646703c7e55fc8f.jpg",
     "static/media/furn2.jpg": "/dss_react_frontend/static/media/furn2.5e78a729e8a62bc86cde.jpg",
     "static/media/furn3.jpg": "/dss_react_frontend/static/media/furn3.2e7cd083fce424dfb027.jpg",
@@ -39,15 +39,15 @@
     "static/media/btn-remove.svg": "/dss_react_frontend/static/media/btn-remove.845f3635ea9172b44524338f95f29737.svg",
     "static/media/btn-plus.svg": "/dss_react_frontend/static/media/btn-plus.c4ad914c4a4c568589ae272f9f4b07bf.svg",
     "static/media/arrow.svg": "/dss_react_frontend/static/media/arrow.7fb3400bf0365090a3a17774aff83de2.svg",
-    "main.731baa59.css.map": "/dss_react_frontend/static/css/main.731baa59.css.map",
-    "main.139ab2be.js.map": "/dss_react_frontend/static/js/main.139ab2be.js.map",
-    "384.7a1b1273.chunk.css.map": "/dss_react_frontend/static/css/384.7a1b1273.chunk.css.map",
+    "main.24e92c03.css.map": "/dss_react_frontend/static/css/main.24e92c03.css.map",
+    "main.8d379b0f.js.map": "/dss_react_frontend/static/js/main.8d379b0f.js.map",
+    "384.0104279b.chunk.css.map": "/dss_react_frontend/static/css/384.0104279b.chunk.css.map",
     "384.90facfbb.chunk.js.map": "/dss_react_frontend/static/js/384.90facfbb.chunk.js.map",
     "775.76ad56fa.chunk.css.map": "/dss_react_frontend/static/css/775.76ad56fa.chunk.css.map",
-    "775.6884c29f.chunk.js.map": "/dss_react_frontend/static/js/775.6884c29f.chunk.js.map"
+    "775.92633d83.chunk.js.map": "/dss_react_frontend/static/js/775.92633d83.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.731baa59.css",
-    "static/js/main.139ab2be.js"
+    "static/css/main.24e92c03.css",
+    "static/js/main.8d379b0f.js"
   ]
 }
