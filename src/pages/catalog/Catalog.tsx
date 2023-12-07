@@ -33,13 +33,13 @@ import Cookies from "js-cookie";
 import classes from "./catalog.module.css";
 
 const catalogFilterItems = [
-  {title: "All", link: ""},
-  {title: "Neon decor", link: "neon"},
-  {title: "Wood cutting ", link: "plywood"},
-  {title: "Laser engraving", link: "laserEngr"},
-  {title: "Furniture", link: "furniture"},
-  {title: "3D-printer", link: "volPrinter"},
-  {title: "Relief pictures", link: "reliefPics"},
+  {title: "Все", link: ""},
+  {title: "Неоновый декор", link: "neon"},
+  {title: "Резка по дереву", link: "plywood"},
+  {title: "Лазерная гравировка", link: "laserEngr"},
+  {title: "Фурнитура/мебель", link: "furniture"},
+  {title: "3D-принтер", link: "volPrinter"},
+  {title: "Рельефные картины", link: "reliefPics"},
 ];
 const Catalog: React.FC = React.memo(() => {
   const dispatch = useDispatch<AppDispatch>();
@@ -159,7 +159,7 @@ const Catalog: React.FC = React.memo(() => {
               to={APP_AUTH_ROUTES.creatingCard.link}
               className={classes.createBtn}
             >
-              &#43;&nbsp;Create new card
+              &#43;&nbsp;Добавить карту
             </Link>
           )}
         </div>
@@ -187,7 +187,7 @@ const Catalog: React.FC = React.memo(() => {
               ))
             ) : (
               <div className={classes.warnText}>
-                {cardsError ? "Error with getting data" : "Empty list"}
+                {cardsError ? "Ошибка получения данных" : "Пусто"}
               </div>
             )
           ) : (

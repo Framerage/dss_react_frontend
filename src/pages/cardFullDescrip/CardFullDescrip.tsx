@@ -6,7 +6,6 @@ import DeleteIcon from "assets/icons/btn-remove.svg";
 import {APP_AUTH_ROUTES, APP_GENERAL_ROUTES} from "utils/routes";
 import PointLoader from "components/pointLoader/PointLoader";
 import ImageSlider from "components/imageSlider/ImageSlider";
-import {useCheckCardTheme} from "hooks/catalog/useCheckCardTheme";
 
 import {AppDispatch} from "store";
 import {useDispatch, useSelector} from "react-redux";
@@ -30,6 +29,7 @@ import {resetCardRemovingResult} from "store/modules/catalog/actions";
 import Cookies from "js-cookie";
 import cn from "classnames";
 import classes from "./cardFullDescrip.module.css";
+import {translateCardTheme} from "helpers/catalog-helpers/translateCardTheme";
 
 const CardFullDescrip: React.FC = () => {
   const dispatch = useDispatch<AppDispatch>();
@@ -46,8 +46,6 @@ const CardFullDescrip: React.FC = () => {
   const removeRequestError = useSelector(selectCardDeleteRequestError);
 
   const accS = Cookies.get("perAcTkn");
-
-  const cardTheme = useCheckCardTheme(cardDescrip);
 
   const [isCardLiked, setIsCardLiked] = useState(
     Boolean(
@@ -148,10 +146,11 @@ const CardFullDescrip: React.FC = () => {
                   {cardDescrip.title || "-"}
                 </div>
                 <div className={cn(classes.contentItem, classes.lowerSize)}>
-                  Theme:&nbsp;{cardTheme}
+                  Тематика:&nbsp;
+                  {translateCardTheme(cardDescrip.theme || "some")}
                 </div>
                 <div className={cn(classes.contentItem, classes.lowerSize)}>
-                  Descrip:&nbsp;{cardDescrip.descrip || "-"}
+                  Описание:&nbsp;{cardDescrip.descrip || "-"}
                 </div>
               </div>
               {userInfo && accS && (
@@ -167,10 +166,10 @@ const CardFullDescrip: React.FC = () => {
             </div>
             <div className={classes.cardExtraContent}>
               <div className={classes.extraContItem}>
-                Views:&nbsp;{cardDescrip.viewsCount || 0}
+                Просмотров:&nbsp;{cardDescrip.viewsCount || 0}
               </div>
               <div className={classes.extraContItem}>
-                Likes:&nbsp;{cardLikes}
+                Лайки:&nbsp;{cardLikes}
                 <img
                   src={isCardLiked ? Liked : Unliked}
                   alt="like"
@@ -181,7 +180,7 @@ const CardFullDescrip: React.FC = () => {
                 />
               </div>
               <div className={classes.extraContItem}>
-                Price:&nbsp;{cardDescrip.price || 0}&nbsp;rub
+                Цена:&nbsp;{cardDescrip.price || 0}&nbsp;руб
               </div>
             </div>
             <div className={classes.cardFullDescrip}>

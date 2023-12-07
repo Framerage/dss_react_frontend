@@ -30,23 +30,23 @@ const AppLayout: React.FC = () => {
   const appNavigation = useMemo(() => {
     return [
       {
-        title: "Catalog",
+        title: "Каталог",
         link: isAuth
           ? APP_AUTH_ROUTES.catalog.link
           : APP_GENERAL_ROUTES.catalog.link,
       },
       {
-        title: "Create own decor",
+        title: "Создать личный заказ",
         link: APP_AUTH_ROUTES.customOrder.link,
       },
       {
-        title: "About",
+        title: "О нас",
         link: isAuth
           ? APP_AUTH_ROUTES.about.link
           : APP_GENERAL_ROUTES.about.link,
       },
       {
-        title: "Contacts",
+        title: "Контакты",
         link: isAuth
           ? APP_AUTH_ROUTES.contacts.link
           : APP_GENERAL_ROUTES.contacts.link,
@@ -57,20 +57,15 @@ const AppLayout: React.FC = () => {
   const isCartOpened = useSelector(isShopCartUse);
   const isPopupOpen = useSelector(selectPopupImage);
 
-  //TODO: переделать считываение промокода из URL
-  //TODO: popup открывать на текущем скроле
-  //TODO: оптимизация главной
   //TODO: настроить счетчик заказов
   //TODO: добавить сохранение БД в файлы на серве (резервн сохранение данных)
   //TODO: админская секция/страница со статистикой просмотров/лайков
-  //TODO: хелпер для русского оформления названия темы
-  //TODO: страница заказа, добавить оплату
   //TODO: страница создания собственного заказа
-  //TODO: подумать об использовании промокода при регистрации для акций и бонусов(проверку делать на бэке и возвращать текущее/расчитанное кол-во бонусов)
-  //TODO: дополнить футер навигацией?
   //TODO: адаптив для всех страниц
-  //TODO:  добавить ли рефреш токен?
+  //TODO: подумать об использовании промокода при регистрации для акций и бонусов(проверку делать на бэке и возвращать текущее/расчитанное кол-во бонусов)
   //TODO:  придумать текст about
+  //TODO: страница заказа, добавить оплату надо ли???
+  //TODO:  добавить ли рефреш токен?
 
   useEffect(() => {
     if (!isAuth) {

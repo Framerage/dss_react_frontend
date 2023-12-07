@@ -7,8 +7,8 @@ import PlusIcon from "assets/icons/btn-plus.svg";
 import AddedIcon from "assets/icons/btn-checked.svg";
 import Unliked from "assets/icons/heart.svg";
 import Liked from "assets/icons/fillHeart.svg";
-import {useCheckCardTheme} from "hooks/catalog/useCheckCardTheme";
 import classes from "./catalogCard.module.css";
+import {translateCardTheme} from "helpers/catalog-helpers/translateCardTheme";
 
 interface CardProps {
   card?: CatalogCardNesting;
@@ -32,7 +32,6 @@ const CatalogCard: React.FC<CardProps> = React.memo(
     onLikeCard,
   }) => {
     const [isCardLiked, setIsCardLiked] = useState(isUserLikedCard);
-    const cardTheme = useCheckCardTheme(card || null);
     const [cardLikes, setCardlikes] = useState(
       card && card.likes ? card.likes : 0,
     );
@@ -66,10 +65,10 @@ const CatalogCard: React.FC<CardProps> = React.memo(
           <ImageSlider images={cardImages} />
           <div className={classes.extraCardInfo}>
             <div className={classes.extraInfoText}>
-              Views:&nbsp;{card && card.viewsCount ? card.viewsCount : 0}
+              Просмотров:&nbsp;{card && card.viewsCount ? card.viewsCount : 0}
             </div>
             <div className={classes.extraInfoText}>
-              Likes:&nbsp;{cardLikes}
+              Лайки:&nbsp;{cardLikes}
               <img
                 src={isCardLiked ? Liked : Unliked}
                 alt="like"
@@ -89,16 +88,16 @@ const CatalogCard: React.FC<CardProps> = React.memo(
             {card?.title}
           </Link>
           <div className={classes.infoCardTheme}>
-            Theme:&nbsp;
+            Тематика:&nbsp;
             <br />
-            {cardTheme}
+            {translateCardTheme(card?.theme || "")}
           </div>
           <div className={classes.infoCardDescrip}>
-            Description:&nbsp;
+            Описание:&nbsp;
             <br />
             <span className={classes.descripText}>{card?.descrip || ""}</span>
           </div>
-          <div>Price:&nbsp;{card?.price || 0}&nbsp;rub</div>
+          <div>Цена:&nbsp;{card?.price || 0}&nbsp;руб</div>
           {isAuthDone && (
             <div className={classes.addBtnContainer}>
               <img

@@ -20,7 +20,7 @@ export interface OrderRequestResult {
   _id: string;
   createdAt: string;
   updatedAt: string;
-  orderStatus: string;
+  orderStatus: OrderStatuses;
   promo: string;
 }
 export interface Orders {

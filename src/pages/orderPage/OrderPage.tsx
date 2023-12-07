@@ -59,9 +59,8 @@ const OrderPage: React.FC = () => {
     if (!orderRequest) {
       return;
     }
-    if (orderRequest.success) {
+    if (orderRequest.success && curUser && curUser.userCart.length) {
       accS &&
-        curUser &&
         dispatch(
           editUserExtraInfoFx({
             user: {
@@ -170,20 +169,20 @@ const OrderPage: React.FC = () => {
           <div key={item._id} className={classes.listItem}>
             <span className={classes.textName}>{item.title}</span>
             <span>{item.itemCount}&nbsp;шт.</span>
-            <span>{item.price * item.itemCount}&nbsp;rub</span>
+            <span>{item.price * item.itemCount}&nbsp;руб</span>
           </div>
         ))}
       </div>
 
       <div className={classes.completeItems}>
         <div className={classes.completePrice}>
-          Total:&nbsp;{totalPrice}&nbsp;rub
+          Всего:&nbsp;{totalPrice}&nbsp;руб
         </div>
         <button
           className={classes.completeBtn}
           disabled={orderRequestIsLoading || !!orderRequest?.success}
         >
-          {orderRequestIsLoading ? "Loading ..." : "Complete"}
+          {orderRequestIsLoading ? "Loading ..." : "Отправить"}
         </button>
       </div>
     </form>

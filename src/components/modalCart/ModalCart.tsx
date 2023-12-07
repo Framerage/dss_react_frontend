@@ -33,7 +33,7 @@ const ModalCart: React.FC = React.memo(() => {
     isCartOpened && userInfo
       ? userInfo.userCart.length
       : userInfo?.userCart.length;
-  const errorMsg = shopCartError ? shopCartError : "Empty cart";
+  const errorMsg = shopCartError ? shopCartError : "Корзина пуста";
   const accS = Cookies.get("perAcTkn");
 
   const [totalPrice, setTotalPrice] = useState(() => {
@@ -100,7 +100,7 @@ const ModalCart: React.FC = React.memo(() => {
     >
       <div className={classes.shopCart}>
         <h2 className={classes.shopCartTitle}>
-          Package
+          Корзина
           <img
             onClick={onCloseCart}
             className={classes.shopCartCloseBtn}
@@ -121,7 +121,7 @@ const ModalCart: React.FC = React.memo(() => {
               ))}
             </div>
             <div className={classes.totalPrice}>
-              Total:&nbsp;{totalPrice}&nbsp;rub
+              Всего:&nbsp;{totalPrice}&nbsp;руб
             </div>
             <Link
               to={APP_AUTH_ROUTES.order.link}

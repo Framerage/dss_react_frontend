@@ -30,7 +30,7 @@ const AppSearcher: React.FC<AppSearcherProps> = React.memo(
             <input
               {...register("searchValue")}
               type="text"
-              placeholder="search"
+              placeholder="Поиск"
               name="searchValue"
               className={classes.searcherInput}
             />
@@ -47,7 +47,7 @@ const AppSearcher: React.FC<AppSearcherProps> = React.memo(
             onClick={onActiveSearcher}
             className={classes.searcherBtn}
           >
-            Search
+            Поиск
           </button>
         )}
       </form>

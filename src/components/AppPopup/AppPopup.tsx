@@ -3,7 +3,7 @@ import {useOnClickOutside} from "hooks/useClickOutside";
 import {AppDispatch} from "store";
 import {useDispatch, useSelector} from "react-redux";
 import {
-  // selectImageCoord,
+  selectImageCoord,
   selectPopupImage,
 } from "store/modules/popup/selectors";
 import {resetPopupImage} from "store/modules/popup/actions";
@@ -14,14 +14,17 @@ const AppPopup: React.FC = React.memo(() => {
   const dispatch = useDispatch<AppDispatch>();
   const popupRef = useRef<HTMLDivElement | null>(null);
   const scaledImage = useSelector(selectPopupImage);
-  // const scaledImgCoord = useSelector(selectImageCoord);
+  const scaledImgCoord = useSelector(selectImageCoord);
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
   const onClosePopup = () => {
-    dispatch(resetPopupImage());
-    setIsPopupOpen(false);
-    //TODO: доделать попачик
-    // window.(scaledImgCoord);
+    if (isPopupOpen) {
+      dispatch(resetPopupImage());
+      setIsPopupOpen(false);
+      setTimeout(() => {
+        window.scrollTo(0, scaledImgCoord - 200);
+      }, 500);
+    }
   };
   useOnClickOutside(popupRef, onClosePopup);
 
@@ -38,7 +41,7 @@ const AppPopup: React.FC = React.memo(() => {
       <div className={classes.popupWindow} ref={popupRef}>
         <img src={scaledImage} alt="scaledImg" className={classes.popupImg} />
         <div className={classes.closeBtn} onClick={onClosePopup}>
-          Close
+          Закрыть
         </div>
       </div>
     </div>

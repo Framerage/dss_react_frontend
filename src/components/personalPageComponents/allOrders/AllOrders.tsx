@@ -1,4 +1,4 @@
-import React, {useCallback, useEffect} from "react";
+import React, {useCallback, useEffect, useMemo, useState} from "react";
 import classes from "./allOrders.module.css";
 import {useDispatch, useSelector} from "react-redux";
 import {
@@ -22,6 +22,8 @@ import OrderCard from "../orderCard";
 import {OrderRequestResult, OrderStatuses} from "typings/orders";
 import {useSortedObj} from "hooks/useSortedObj";
 import {SortTypes} from "typings/generalTypes";
+import AppSearcher from "components/appSearcher";
+import {useFiltredObj} from "hooks/useFilteredObj";
 interface OrdersProps {
   markRole: string;
 }
@@ -37,6 +39,7 @@ const AllOrders: React.FC<OrdersProps> = ({markRole}) => {
 
   const curUser = useSelector(selectUserData);
   const accS = Cookies.get("perAcTkn");
+  const [searchValue, setSearchValue] = useState("");
 
   const sortedOrders = useSortedObj<OrderRequestResult>(
     allOrders && allOrders.orders.length ? allOrders.orders : [],
@@ -44,9 +47,18 @@ const AllOrders: React.FC<OrdersProps> = ({markRole}) => {
     sortCondition ? SortTypes.ABC : SortTypes.CBA,
   );
 
+  const filteredOrders = useFiltredObj<OrderRequestResult>(
+    sortedOrders,
+    "name",
+    searchValue,
+  );
+  const roleAccess = useMemo(() => {
+    return curUser && curUser.role === "admin" && markRole === curUser.role;
+  }, [curUser, markRole]);
+
   useEffect(() => {
     if (curUser && curUser.success && accS) {
-      curUser.role === "admin" && markRole === curUser.role
+      roleAccess
         ? dispatch(fetchAllOrders({auth: accS, email: curUser.email}))
         : dispatch(fetchUserOrders({auth: accS, email: curUser.email}));
     }
@@ -101,10 +113,15 @@ const AllOrders: React.FC<OrdersProps> = ({markRole}) => {
   );
   return (
     <div className={classes.ordersContainer}>
+      {roleAccess && <AppSearcher onCreateSearchValue={setSearchValue} />}
+
       {!ordersIsLoading ? (
         <div className={classes.ordersList}>
-          {allOrders && allOrders.success && sortedOrders.length ? (
-            sortedOrders.map(order => (
+          {allOrders &&
+          allOrders.success &&
+          filteredOrders &&
+          filteredOrders.length ? (
+            filteredOrders.map(order => (
               <OrderCard
                 key={order._id}
                 order={order}

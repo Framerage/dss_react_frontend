@@ -85,6 +85,15 @@
     position: absolute;
     z-index: 10;
   }
+  .isOrderDisabled{
+    height: max-content;
+    padding: 40px 5px;
+    font-size: 24px;
+    font-weight: 400;
+    color: darkred;
+    background-color: white;
+    opacity: 0.8;
+  }
   .itemImg{
     border: 6px groove var(--main_app_color);
     border-radius: 10px;
@@ -92,5 +101,8 @@
   }
   .menuItem:hover>.itemImg {
     border-color: aquamarine;
+  }
+  .disabledItem{
+    pointer-events: none;
   }
   

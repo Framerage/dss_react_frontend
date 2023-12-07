@@ -4,7 +4,12 @@ import menuLogo from "assets/images/decor-logo.png";
 import cn from "classnames";
 import classes from "./orderMenu.module.css";
 interface OrderMenuProps {
-  menuItems: {name: string; image: string; link: string}[];
+  menuItems: {
+    name: string;
+    image: string;
+    link: string;
+    isDisabled?: boolean;
+  }[];
 }
 const hintBrowserStyle = {
   willChange: "transform, translate, transform-origin,opacity",
@@ -65,16 +70,24 @@ const OrderMenu: React.FC<OrderMenuProps> = ({menuItems}) => {
       </div>
       {itemsContant.map((item, index) => (
         <Link
-          to={item.link}
+          to={item.isDisabled ? "" : item.link}
           key={item.name + ":" + index}
           className={cn(classes.menuItem, {
             [classes.activeMenu]: isMenuOpen,
+            [classes.disabledItem]: item.isDisabled,
           })}
           style={iconStyle(index)}
         >
-          <span style={imageStyle(index)} className={classes.itemText}>
+          <div
+            style={imageStyle(index)}
+            className={cn(classes.itemText, {
+              [classes.isOrderDisabled]: item.isDisabled,
+            })}
+          >
             {item.name}
-          </span>
+            <br />
+            {item.isDisabled && "\rВременно недоступно"}
+          </div>
           <img
             src={item.image}
             alt="menuItem"

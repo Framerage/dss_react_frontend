@@ -17,7 +17,7 @@ export interface CreatingCatalogCard extends CatalogCardNesting {
   message: string;
   status: number;
 }
-export enum cardThemes {
+export enum CardThemes {
   neon = "Neon decor",
   plywood = "Wood cutting",
   laserEngr = "Laser engraving",

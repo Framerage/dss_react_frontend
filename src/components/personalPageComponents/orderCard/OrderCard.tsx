@@ -16,6 +16,7 @@ const OrderCard: React.FC<OrderCardProps> = React.memo(
     const isOrderCanceled = order.orderStatus === OrderStatuses.canceled;
     const isOrderComplete = order.orderStatus === OrderStatuses.complete;
     const isOrderPaided = order.orderStatus === OrderStatuses.paid;
+    const orderStatus: OrderStatuses = order.orderStatus;
     return (
       <div
         key={order._id}
@@ -61,7 +62,7 @@ const OrderCard: React.FC<OrderCardProps> = React.memo(
               <span className={classes.itemText}>Статус заказа:&nbsp;</span>
               <select
                 value={selectValue}
-                onChange={e => setSelectValue(e.target.value)}
+                onChange={e => setSelectValue(e.target.value as OrderStatuses)}
                 className={classes.statusSlt}
               >
                 <option value={OrderStatuses.job}>{OrderStatuses.job}</option>
@@ -86,7 +87,8 @@ const OrderCard: React.FC<OrderCardProps> = React.memo(
             </>
           ) : (
             <span className={classes.itemText}>
-              Статус заказа:&nbsp;{order.orderStatus}
+              Статус заказа:&nbsp;
+              {orderStatus}
             </span>
           )}
         </div>

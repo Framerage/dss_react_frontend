@@ -1,5 +1,5 @@
 import React, {useCallback, useEffect, useState} from "react";
-import {CatalogCardNesting, cardThemes} from "typings/catalogCards";
+import {CatalogCardNesting, CardThemes} from "typings/catalogCards";
 import {useForm} from "react-hook-form";
 import {generateFileData, setBase64Image} from "helpers/appHelpers";
 import {useDispatch, useSelector} from "react-redux";
@@ -36,7 +36,7 @@ const CreatingCard: React.FC = () => {
     reValidateMode: "onSubmit",
     shouldFocusError: false,
   });
-  const themes = Object.keys(cardThemes);
+  const themes = Object.keys(CardThemes);
   const accS = Cookies.get("perAcTkn") || "";
 
   const onCreateCard = useCallback(

@@ -14,7 +14,11 @@ export const useFiltredObj = <T>(
 ) => {
   return useMemo(() => {
     if (obj && criterion) {
-      return obj.filter(el => String(el[objKey]).includes(criterion));
+      return obj.filter(el =>
+        String(el[objKey])
+          .toLocaleLowerCase()
+          .includes(criterion.toLocaleLowerCase()),
+      );
     }
     return obj;
   }, [obj, objKey, criterion]);

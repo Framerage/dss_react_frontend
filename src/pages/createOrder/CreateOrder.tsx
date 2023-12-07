@@ -9,28 +9,33 @@ import NeonDecor from "assets/images/neon-decor.jpeg";
 import {APP_AUTH_ROUTES, ORDERS_ROUTES} from "utils/routes";
 
 import classes from "./createOrder.module.css";
-const CreateOrder = () => {
+
+const CreateOrder: React.FC = () => {
   const orderMenuItems = [
     {
       name: "3D-printer",
       image: VolumePrint,
       link: APP_AUTH_ROUTES.order.link + ORDERS_ROUTES.printVol,
+      isDisabled: true,
     },
     {
       name: "Laser engraving",
       image: LaserEngr,
       link: APP_AUTH_ROUTES.order.link + ORDERS_ROUTES.laserEngr,
+      isDisabled: true,
     },
 
     {
       name: "Relief pictures",
       image: BasRelief,
       link: APP_AUTH_ROUTES.order.link + ORDERS_ROUTES.reliefPic,
+      isDisabled: true,
     },
     {
       name: "Wood cutting",
       image: Plywood,
       link: APP_AUTH_ROUTES.order.link + ORDERS_ROUTES.plywood,
+      isDisabled: true,
     },
 
     {
@@ -42,6 +47,7 @@ const CreateOrder = () => {
       name: "Neon decor",
       image: NeonDecor,
       link: APP_AUTH_ROUTES.order.link + ORDERS_ROUTES.neon,
+      isDisabled: true,
     },
   ];
   return (

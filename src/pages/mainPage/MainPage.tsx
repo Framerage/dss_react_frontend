@@ -25,19 +25,19 @@ import classes from "./mainPage.module.css";
 const previewCards = [
   {
     img: SvgFrame,
-    text: "Home comfort, usefull and interesting furniture ",
+    text: "Домашний комфорт, полезная и необычная фурнитура/мебель",
     link: "art-furniture",
   },
 
   {
     img: SvgFrame,
-    text: "Creative neon decors, DIY, neon lamps",
+    text: "Креативный неоновый декор, DIY, неоновые лампы",
     link: "art-neon",
     isCircle: true,
   },
   {
     img: SvgFrame,
-    text: "Creative 3D models",
+    text: "Креативные 3D модели",
     link: "art-printers",
   },
 ];
@@ -90,7 +90,7 @@ const MainPage: React.FC = () => {
           onClick={() => window.scrollTo(0, 0)}
           className={classes.scrollBtn}
         >
-          Up&nbsp;&#8593;
+          Вверх&nbsp;&#8593;
         </div>
       </div>
     </div>

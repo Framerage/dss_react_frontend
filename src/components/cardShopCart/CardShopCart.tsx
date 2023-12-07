@@ -8,6 +8,7 @@ import classes from "./cardShopCart.module.css";
 import {useDispatch} from "react-redux";
 import {AppDispatch} from "store";
 import {updateCardCountOfCart} from "store/modules/cart/actions";
+import {translateCardTheme} from "helpers/catalog-helpers/translateCardTheme";
 
 interface ShopCartCardProps {
   card: ShopCartCardsForOrder;
@@ -25,21 +26,6 @@ const CardShopCart: React.FC<ShopCartCardProps> = React.memo(
       setCounter(count);
     };
 
-    // const onChangeOrdersCount = useCallback(
-    //   (id: string, count: number) => {
-    //     dispatch(
-    //       updateCardsOfCart(
-    //         shopCartCards.map(el => {
-    //           if (el._id === id) {
-    //             return {...el, itemCount: count};
-    //           }
-    //           return el;
-    //         }),
-    //       ),
-    //     );
-    //   },
-    //   [shopCartCards],
-    // );
     useEffect(() => {
       dispatch(
         updateCardCountOfCart({cardId: card._id, count: debouncedValue}),
@@ -51,13 +37,15 @@ const CardShopCart: React.FC<ShopCartCardProps> = React.memo(
         <div className={classes.cardPreview}>
           <ImageSlider images={card.imgUrl} />
           <span className={classes.descripItem}>
-            Price:&nbsp;{card.price * counter}&nbsp;rub
+            Цена:&nbsp;{card.price * counter}&nbsp;руб
             {isValueLoading && " ..."}
           </span>
         </div>
         <div className={classes.cardDescrip}>
           <span className={classes.descripItem}>{card.title}</span>
-          <span className={classes.descripItem}>Theme: {card.theme}</span>
+          <span className={classes.descripItem}>
+            Тематика: {translateCardTheme(card.theme || "some")}
+          </span>
           <div className={classes.extraItem}>
             <div className={classes.orderCounter}>
               <input

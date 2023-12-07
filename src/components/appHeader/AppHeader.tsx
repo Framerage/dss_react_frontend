@@ -9,7 +9,7 @@ import {
   resetRegRequest,
 } from "store/modules/auth/actions";
 import {isUserAuth, selectUserData} from "store/modules/auth/selectors";
-import {isShoppingCartUse} from "store/modules/cart/actions";
+import {isShoppingCartUse, resetUserShopCart} from "store/modules/cart/actions";
 import {selectCatalogStatus} from "store/modules/catalog/selectors";
 
 import Arrow from "assets/icons/backArrow.svg";
@@ -30,7 +30,7 @@ const AppHeader: React.FC = () => {
   const onLogOut = () => {
     dispatch(resetUserRequest());
     dispatch(resetRegRequest());
-    // dispatch(updateCardsOfCart([]));
+    dispatch(resetUserShopCart());
     Cookies.remove("perAcTkn");
     dispatch(getUserAuth(false));
   };
@@ -57,7 +57,7 @@ const AppHeader: React.FC = () => {
           height={30}
           style={{transform: "rotate(-130deg)", position: "relative"}}
         />
-        <span className={classes.arrowText}>Back</span>
+        <span className={classes.arrowText}>Назад</span>
       </div>
       {isAuth ? (
         <div className={classes.authedBlock}>
